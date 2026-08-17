@@ -1,0 +1,1598 @@
+const express = require("express");
+const sql = require("mssql/msnodesqlv8");
+const cors = require("cors");
+const path = require("path");
+
+const app = express();
+
+app.use(cors());
+app.use(express.json({ limit: "10mb" }));
+
+/* =========================================================
+   إعدادات النظام
+========================================================= */
+
+const PORT = 3000;
+const FRONTEND_PATH = "D:\\Raheeb Soft";
+const HTML_FILE = path.join(FRONTEND_PATH, "raheeb-soft.html");
+
+/* =========================================================
+   إعداد قاعدة البيانات
+========================================================= */
+
+const config = {
+    server: "localhost",
+    database: "RaheebSoftDB",
+    driver: "msnodesqlv8",
+    options: {
+        trustedConnection: true,
+        trustServerCertificate: true
+    }
+};
+
+/* =========================================================
+   ملفات الواجهة
+========================================================= */
+
+app.use(express.static(FRONTEND_PATH));
+
+app.get("/", (req, res) => {
+    res.sendFile(HTML_FILE);
+});
+
+/* =========================================================
+   الاتصال بقاعدة البيانات
+========================================================= */
+
+async function connectDB() {
+    try {
+
+        await sql.connect(config);
+
+        console.log("=================================");
+        console.log("تم الاتصال بقاعدة البيانات بنجاح");
+        console.log("قاعدة البيانات: RaheebSoftDB");
+        console.log("=================================");
+
+        return true;
+
+    } catch (error) {
+
+        console.error("=================================");
+        console.error("فشل الاتصال بقاعدة البيانات");
+        console.error(error.message);
+        console.error("=================================");
+
+        return false;
+    }
+}
+
+/* =========================================================
+   اختبار قاعدة البيانات
+========================================================= */
+
+app.get("/api/test", async (req, res) => {
+
+    try {
+
+        const result = await sql.query(`
+            SELECT
+                DB_NAME() AS DatabaseName
+        `);
+
+        res.json({
+            success: true,
+            database: result.recordset[0].DatabaseName
+        });
+
+    } catch (error) {
+
+        console.error("API TEST ERROR:", error);
+
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+/* =========================================================
+   الأصناف
+========================================================= */
+
+/* جلب الأصناف */
+
+app.get("/api/products", async (req, res) => {
+
+    try {
+
+        const result = await sql.query(`
+            SELECT
+                ProductId,
+                ProductName,
+                Barcode,
+                PurchasePrice,
+                SalePrice,
+                Quantity,
+                CreatedAt
+            FROM Products
+            ORDER BY ProductId DESC
+        `);
+
+        res.json({
+            success: true,
+            products: result.recordset
+        });
+
+    } catch (error) {
+
+        console.error("GET PRODUCTS ERROR:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "فشل جلب الأصناف",
+            error: error.message
+        });
+    }
+});
+
+
+/* حفظ صنف جديد */
+
+app.post("/api/products", async (req, res) => {
+
+    try {
+
+        const productName =
+            req.body.productName ??
+            req.body.ProductName ??
+            req.body.name ??
+            "";
+
+        const barcode =
+            req.body.barcode ??
+            req.body.Barcode ??
+            "";
+
+        const purchasePrice =
+            req.body.purchasePrice ??
+            req.body.PurchasePrice ??
+            0;
+
+        const salePrice =
+            req.body.salePrice ??
+            req.body.SalePrice ??
+            req.body.price ??
+            0;
+
+        const quantity =
+            req.body.quantity ??
+            req.body.Quantity ??
+            0;
+
+
+        if (!String(productName).trim()) {
+
+            return res.status(400).json({
+                success: false,
+                message: "اسم الصنف مطلوب"
+            });
+        }
+
+
+        const request = new sql.Request();
+
+        request.input(
+            "ProductName",
+            sql.NVarChar(200),
+            String(productName).trim()
+        );
+
+        request.input(
+            "Barcode",
+            sql.NVarChar(100),
+            barcode
+                ? String(barcode).trim()
+                : null
+        );
+
+        request.input(
+            "PurchasePrice",
+            sql.Decimal(18, 2),
+            Number(purchasePrice) || 0
+        );
+
+        request.input(
+            "SalePrice",
+            sql.Decimal(18, 2),
+            Number(salePrice) || 0
+        );
+
+        request.input(
+            "Quantity",
+            sql.Decimal(18, 3),
+            Number(quantity) || 0
+        );
+
+
+        const result = await request.query(`
+
+            INSERT INTO Products
+            (
+                ProductName,
+                Barcode,
+                PurchasePrice,
+                SalePrice,
+                Quantity,
+                CreatedAt
+            )
+
+            OUTPUT
+                INSERTED.ProductId,
+                INSERTED.ProductName,
+                INSERTED.Barcode,
+                INSERTED.PurchasePrice,
+                INSERTED.SalePrice,
+                INSERTED.Quantity,
+                INSERTED.CreatedAt
+
+            VALUES
+            (
+                @ProductName,
+                @Barcode,
+                @PurchasePrice,
+                @SalePrice,
+                @Quantity,
+                GETDATE()
+            )
+
+        `);
+
+
+        res.json({
+            success: true,
+            message: "تم حفظ الصنف بنجاح",
+            product: result.recordset[0]
+        });
+
+    } catch (error) {
+
+        console.error("SAVE PRODUCT ERROR:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "فشل حفظ الصنف",
+            error: error.message
+        });
+    }
+});
+
+
+/* تعديل صنف */
+
+app.put("/api/products/:id", async (req, res) => {
+
+    try {
+
+        const productId =
+            Number(req.params.id);
+
+        if (!productId) {
+
+            return res.status(400).json({
+                success: false,
+                message: "رقم الصنف غير صحيح"
+            });
+        }
+
+
+        const productName =
+            req.body.productName ??
+            req.body.ProductName ??
+            req.body.name ??
+            "";
+
+        const barcode =
+            req.body.barcode ??
+            req.body.Barcode ??
+            "";
+
+        const purchasePrice =
+            req.body.purchasePrice ??
+            req.body.PurchasePrice ??
+            0;
+
+        const salePrice =
+            req.body.salePrice ??
+            req.body.SalePrice ??
+            0;
+
+        const quantity =
+            req.body.quantity ??
+            req.body.Quantity ??
+            0;
+
+
+        if (!String(productName).trim()) {
+
+            return res.status(400).json({
+                success: false,
+                message: "اسم الصنف مطلوب"
+            });
+        }
+
+
+        const request = new sql.Request();
+
+        request.input(
+            "ProductId",
+            sql.Int,
+            productId
+        );
+
+        request.input(
+            "ProductName",
+            sql.NVarChar(200),
+            String(productName).trim()
+        );
+
+        request.input(
+            "Barcode",
+            sql.NVarChar(100),
+            barcode
+                ? String(barcode).trim()
+                : null
+        );
+
+        request.input(
+            "PurchasePrice",
+            sql.Decimal(18, 2),
+            Number(purchasePrice) || 0
+        );
+
+        request.input(
+            "SalePrice",
+            sql.Decimal(18, 2),
+            Number(salePrice) || 0
+        );
+
+        request.input(
+            "Quantity",
+            sql.Decimal(18, 3),
+            Number(quantity) || 0
+        );
+
+
+        const result = await request.query(`
+
+            UPDATE Products
+
+            SET
+                ProductName = @ProductName,
+                Barcode = @Barcode,
+                PurchasePrice = @PurchasePrice,
+                SalePrice = @SalePrice,
+                Quantity = @Quantity
+
+            OUTPUT
+                INSERTED.ProductId,
+                INSERTED.ProductName,
+                INSERTED.Barcode,
+                INSERTED.PurchasePrice,
+                INSERTED.SalePrice,
+                INSERTED.Quantity,
+                INSERTED.CreatedAt
+
+            WHERE
+                ProductId = @ProductId
+
+        `);
+
+
+        if (result.recordset.length === 0) {
+
+            return res.status(404).json({
+                success: false,
+                message: "الصنف غير موجود"
+            });
+        }
+
+
+        res.json({
+            success: true,
+            message: "تم تعديل الصنف بنجاح",
+            product: result.recordset[0]
+        });
+
+    } catch (error) {
+
+        console.error("UPDATE PRODUCT ERROR:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "فشل تعديل الصنف",
+            error: error.message
+        });
+    }
+});
+
+
+/* حذف صنف */
+
+app.delete("/api/products/:id", async (req, res) => {
+
+    try {
+
+        const productId =
+            Number(req.params.id);
+
+        if (!productId) {
+
+            return res.status(400).json({
+                success: false,
+                message: "رقم الصنف غير صحيح"
+            });
+        }
+
+
+        const request = new sql.Request();
+
+        request.input(
+            "ProductId",
+            sql.Int,
+            productId
+        );
+
+
+        const result = await request.query(`
+
+            DELETE FROM Products
+
+            OUTPUT
+                DELETED.ProductId
+
+            WHERE
+                ProductId = @ProductId
+
+        `);
+
+
+        if (result.recordset.length === 0) {
+
+            return res.status(404).json({
+                success: false,
+                message: "الصنف غير موجود"
+            });
+        }
+
+
+        res.json({
+            success: true,
+            message: "تم حذف الصنف بنجاح"
+        });
+
+    } catch (error) {
+
+        console.error("DELETE PRODUCT ERROR:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "فشل حذف الصنف",
+            error: error.message
+        });
+    }
+});
+
+
+/* البحث بالباركود */
+
+app.get("/api/products/barcode/:barcode", async (req, res) => {
+
+    try {
+
+        const request = new sql.Request();
+
+        request.input(
+            "Barcode",
+            sql.NVarChar(100),
+            String(req.params.barcode)
+        );
+
+
+        const result = await request.query(`
+
+            SELECT
+                ProductId,
+                ProductName,
+                Barcode,
+                PurchasePrice,
+                SalePrice,
+                Quantity
+
+            FROM Products
+
+            WHERE
+                Barcode = @Barcode
+
+        `);
+
+
+        if (result.recordset.length === 0) {
+
+            return res.status(404).json({
+                success: false,
+                message: "الصنف غير موجود"
+            });
+        }
+
+
+        res.json({
+            success: true,
+            product: result.recordset[0]
+        });
+
+    } catch (error) {
+
+        console.error("BARCODE ERROR:", error);
+
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+
+/* =========================================================
+   العملاء
+========================================================= */
+
+app.get("/api/customers", async (req, res) => {
+
+    try {
+
+        const result = await sql.query(`
+
+            SELECT
+                CustomerId,
+                CustomerName,
+                Phone,
+                Address,
+                CreatedAt
+
+            FROM Customers
+
+            ORDER BY CustomerId DESC
+
+        `);
+
+        res.json({
+            success: true,
+            customers: result.recordset
+        });
+
+    } catch (error) {
+
+        console.error("GET CUSTOMERS ERROR:", error);
+
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+
+/* إضافة عميل */
+
+app.post("/api/customers", async (req, res) => {
+
+    try {
+
+        const customerName =
+            req.body.customerName ??
+            req.body.CustomerName ??
+            "";
+
+        const phone =
+            req.body.phone ??
+            req.body.Phone ??
+            "";
+
+        const address =
+            req.body.address ??
+            req.body.Address ??
+            "";
+
+
+        if (!String(customerName).trim()) {
+
+            return res.status(400).json({
+                success: false,
+                message: "اسم العميل مطلوب"
+            });
+        }
+
+
+        const request = new sql.Request();
+
+        request.input(
+            "CustomerName",
+            sql.NVarChar(200),
+            String(customerName).trim()
+        );
+
+        request.input(
+            "Phone",
+            sql.NVarChar(50),
+            phone || null
+        );
+
+        request.input(
+            "Address",
+            sql.NVarChar(300),
+            address || null
+        );
+
+
+        const result = await request.query(`
+
+            INSERT INTO Customers
+            (
+                CustomerName,
+                Phone,
+                Address,
+                CreatedAt
+            )
+
+            OUTPUT INSERTED.CustomerId
+
+            VALUES
+            (
+                @CustomerName,
+                @Phone,
+                @Address,
+                GETDATE()
+            )
+
+        `);
+
+
+        res.json({
+            success: true,
+            message: "تم حفظ العميل بنجاح",
+            customerId:
+                result.recordset[0].CustomerId
+        });
+
+    } catch (error) {
+
+        console.error("SAVE CUSTOMER ERROR:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "فشل حفظ العميل",
+            error: error.message
+        });
+    }
+});
+
+
+/* =========================================================
+   الموردون
+========================================================= */
+
+app.get("/api/suppliers", async (req, res) => {
+
+    try {
+
+        const result = await sql.query(`
+
+            SELECT
+                SupplierId,
+                SupplierName,
+                Phone,
+                Address,
+                CreatedAt
+
+            FROM Suppliers
+
+            ORDER BY SupplierId DESC
+
+        `);
+
+        res.json({
+            success: true,
+            suppliers: result.recordset
+        });
+
+    } catch (error) {
+
+        console.error("GET SUPPLIERS ERROR:", error);
+
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+
+/* إضافة مورد */
+
+app.post("/api/suppliers", async (req, res) => {
+
+    try {
+
+        const supplierName =
+            req.body.supplierName ??
+            req.body.SupplierName ??
+            "";
+
+        const phone =
+            req.body.phone ??
+            req.body.Phone ??
+            "";
+
+        const address =
+            req.body.address ??
+            req.body.Address ??
+            "";
+
+
+        if (!String(supplierName).trim()) {
+
+            return res.status(400).json({
+                success: false,
+                message: "اسم المورد مطلوب"
+            });
+        }
+
+
+        const request = new sql.Request();
+
+        request.input(
+            "SupplierName",
+            sql.NVarChar(200),
+            String(supplierName).trim()
+        );
+
+        request.input(
+            "Phone",
+            sql.NVarChar(50),
+            phone || null
+        );
+
+        request.input(
+            "Address",
+            sql.NVarChar(300),
+            address || null
+        );
+
+
+        const result = await request.query(`
+
+            INSERT INTO Suppliers
+            (
+                SupplierName,
+                Phone,
+                Address,
+                CreatedAt
+            )
+
+            OUTPUT INSERTED.SupplierId
+
+            VALUES
+            (
+                @SupplierName,
+                @Phone,
+                @Address,
+                GETDATE()
+            )
+
+        `);
+
+
+        res.json({
+            success: true,
+            message: "تم حفظ المورد بنجاح",
+            supplierId:
+                result.recordset[0].SupplierId
+        });
+
+    } catch (error) {
+
+        console.error("SAVE SUPPLIER ERROR:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "فشل حفظ المورد",
+            error: error.message
+        });
+    }
+});
+
+
+/* =========================================================
+   رقم فاتورة البيع
+========================================================= */
+
+app.get("/api/sales/next-number", async (req, res) => {
+
+    try {
+
+        const result = await sql.query(`
+
+            SELECT
+                MAX(
+                    TRY_CONVERT(INT, InvoiceNumber)
+                ) AS LastNumber
+
+            FROM SalesInvoices
+
+        `);
+
+
+        const last =
+            Number(
+                result.recordset[0].LastNumber
+            ) || 1000;
+
+
+        res.json({
+            success: true,
+            invoiceNumber: last + 1
+        });
+
+    } catch (error) {
+
+        console.error("NEXT INVOICE ERROR:", error);
+
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+
+/* =========================================================
+   حفظ فاتورة البيع
+========================================================= */
+
+app.post("/api/sales", async (req, res) => {
+
+    const transaction =
+        new sql.Transaction();
+
+    try {
+
+        const {
+            invoiceNumber,
+            customerId,
+            invoiceDate,
+            subtotal,
+            discount,
+            tax,
+            total,
+            paid,
+            remaining,
+            items
+        } = req.body;
+
+
+        if (!items || !Array.isArray(items) || items.length === 0) {
+
+            return res.status(400).json({
+                success: false,
+                message: "الفاتورة فارغة"
+            });
+        }
+
+
+        await transaction.begin();
+
+
+        const request =
+            new sql.Request(transaction);
+
+
+        request.input(
+            "InvoiceNumber",
+            sql.NVarChar(100),
+            String(invoiceNumber || "")
+        );
+
+        request.input(
+            "CustomerId",
+            sql.Int,
+            customerId
+                ? Number(customerId)
+                : null
+        );
+
+        request.input(
+            "InvoiceDate",
+            sql.DateTime2,
+            invoiceDate
+                ? new Date(invoiceDate)
+                : new Date()
+        );
+
+        request.input(
+            "SubTotal",
+            sql.Decimal(18, 2),
+            Number(subtotal) || 0
+        );
+
+        request.input(
+            "Discount",
+            sql.Decimal(18, 2),
+            Number(discount) || 0
+        );
+
+        request.input(
+            "Tax",
+            sql.Decimal(18, 2),
+            Number(tax) || 0
+        );
+
+        request.input(
+            "Total",
+            sql.Decimal(18, 2),
+            Number(total) || 0
+        );
+
+        request.input(
+            "Paid",
+            sql.Decimal(18, 2),
+            Number(paid) || 0
+        );
+
+        request.input(
+            "Remaining",
+            sql.Decimal(18, 2),
+            Number(remaining) || 0
+        );
+
+
+        const invoiceResult =
+            await request.query(`
+
+                INSERT INTO SalesInvoices
+                (
+                    InvoiceNumber,
+                    CustomerId,
+                    InvoiceDate,
+                    SubTotal,
+                    Discount,
+                    Tax,
+                    Total,
+                    Paid,
+                    Remaining
+                )
+
+                OUTPUT
+                    INSERTED.SalesInvoiceId
+
+                VALUES
+                (
+                    @InvoiceNumber,
+                    @CustomerId,
+                    @InvoiceDate,
+                    @SubTotal,
+                    @Discount,
+                    @Tax,
+                    @Total,
+                    @Paid,
+                    @Remaining
+                )
+
+            `);
+
+
+        const salesInvoiceId =
+            invoiceResult.recordset[0]
+                .SalesInvoiceId;
+
+
+        for (const item of items) {
+
+            const productId =
+                Number(
+                    item.productId ??
+                    item.ProductId
+                );
+
+            const quantity =
+                Number(
+                    item.quantity ??
+                    item.qty ??
+                    item.Quantity
+                ) || 0;
+
+            const unitPrice =
+                Number(
+                    item.unitPrice ??
+                    item.price ??
+                    item.UnitPrice
+                ) || 0;
+
+            const itemDiscount =
+                Number(
+                    item.discount ??
+                    item.Discount
+                ) || 0;
+
+            const itemTax =
+                Number(
+                    item.tax ??
+                    item.Tax
+                ) || 0;
+
+            const itemTotal =
+                Number(
+                    item.total ??
+                    item.Total
+                ) || 0;
+
+
+            if (!productId) {
+                throw new Error(
+                    "يوجد صنف في الفاتورة بدون ProductId"
+                );
+            }
+
+
+            if (quantity <= 0) {
+                throw new Error(
+                    "كمية الصنف يجب أن تكون أكبر من صفر"
+                );
+            }
+
+
+            const itemRequest =
+                new sql.Request(transaction);
+
+
+            itemRequest.input(
+                "SalesInvoiceId",
+                sql.Int,
+                salesInvoiceId
+            );
+
+            itemRequest.input(
+                "ProductId",
+                sql.Int,
+                productId
+            );
+
+            itemRequest.input(
+                "Quantity",
+                sql.Decimal(18, 3),
+                quantity
+            );
+
+            itemRequest.input(
+                "UnitPrice",
+                sql.Decimal(18, 2),
+                unitPrice
+            );
+
+            itemRequest.input(
+                "Discount",
+                sql.Decimal(18, 2),
+                itemDiscount
+            );
+
+            itemRequest.input(
+                "Tax",
+                sql.Decimal(18, 2),
+                itemTax
+            );
+
+            itemRequest.input(
+                "Total",
+                sql.Decimal(18, 2),
+                itemTotal
+            );
+
+
+            await itemRequest.query(`
+
+                INSERT INTO SalesItems
+                (
+                    SalesInvoiceId,
+                    ProductId,
+                    Quantity,
+                    UnitPrice,
+                    Discount,
+                    Tax,
+                    Total
+                )
+
+                VALUES
+                (
+                    @SalesInvoiceId,
+                    @ProductId,
+                    @Quantity,
+                    @UnitPrice,
+                    @Discount,
+                    @Tax,
+                    @Total
+                )
+
+            `);
+
+
+            /* تحديث المخزون */
+
+            const stockRequest =
+                new sql.Request(transaction);
+
+
+            stockRequest.input(
+                "ProductId",
+                sql.Int,
+                productId
+            );
+
+            stockRequest.input(
+                "Quantity",
+                sql.Decimal(18, 3),
+                quantity
+            );
+
+
+            await stockRequest.query(`
+
+                UPDATE Products
+
+                SET
+                    Quantity =
+                        ISNULL(Quantity, 0)
+                        - @Quantity
+
+                WHERE
+                    ProductId = @ProductId
+
+            `);
+        }
+
+
+        await transaction.commit();
+
+
+        res.json({
+            success: true,
+            message: "تم حفظ فاتورة البيع بنجاح",
+            salesInvoiceId
+        });
+
+    } catch (error) {
+
+        try {
+            await transaction.rollback();
+        } catch (rollbackError) {
+            console.error(
+                "ROLLBACK ERROR:",
+                rollbackError.message
+            );
+        }
+
+
+        console.error(
+            "SAVE SALE ERROR:",
+            error
+        );
+
+
+        res.status(500).json({
+            success: false,
+            message: "فشل حفظ الفاتورة",
+            error: error.message
+        });
+    }
+});
+
+
+/* =========================================================
+   البحث في الفواتير
+========================================================= */
+
+app.get("/api/sales", async (req, res) => {
+
+    try {
+
+        const search =
+            String(
+                req.query.search || ""
+            ).trim();
+
+        const date =
+            String(
+                req.query.date || ""
+            ).trim();
+
+
+        const request =
+            new sql.Request();
+
+
+        request.input(
+            "Search",
+            sql.NVarChar(200),
+            `%${search}%`
+        );
+
+
+        let dateCondition = "";
+
+
+        if (date) {
+
+            request.input(
+                "InvoiceDate",
+                sql.Date,
+                date
+            );
+
+
+            dateCondition =
+                `
+                AND CAST(
+                    s.InvoiceDate
+                    AS DATE
+                ) = @InvoiceDate
+                `;
+        }
+
+
+        const result =
+            await request.query(`
+
+                SELECT TOP 200
+
+                    s.SalesInvoiceId,
+                    s.InvoiceNumber,
+                    s.InvoiceDate,
+                    s.SubTotal,
+                    s.Discount,
+                    s.Tax,
+                    s.Total,
+                    s.Paid,
+                    s.Remaining,
+                    c.CustomerName
+
+                FROM SalesInvoices s
+
+                LEFT JOIN Customers c
+                    ON c.CustomerId =
+                       s.CustomerId
+
+                WHERE
+                    (
+                        @Search = '%%'
+                        OR s.InvoiceNumber LIKE @Search
+                        OR c.CustomerName LIKE @Search
+                    )
+
+                    ${dateCondition}
+
+                ORDER BY
+                    s.SalesInvoiceId DESC
+
+            `);
+
+
+        res.json({
+            success: true,
+            invoices: result.recordset
+        });
+
+    } catch (error) {
+
+        console.error(
+            "GET SALES ERROR:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+
+/* =========================================================
+   تفاصيل الفاتورة
+========================================================= */
+
+app.get("/api/sales/:id", async (req, res) => {
+
+    try {
+
+        const id =
+            Number(req.params.id);
+
+
+        if (!id) {
+
+            return res.status(400).json({
+                success: false,
+                message: "رقم الفاتورة غير صحيح"
+            });
+        }
+
+
+        const request =
+            new sql.Request();
+
+
+        request.input(
+            "SalesInvoiceId",
+            sql.Int,
+            id
+        );
+
+
+        const invoice =
+            await request.query(`
+
+                SELECT
+                    s.*,
+                    c.CustomerName,
+                    c.Phone AS CustomerPhone
+
+                FROM SalesInvoices s
+
+                LEFT JOIN Customers c
+                    ON c.CustomerId =
+                       s.CustomerId
+
+                WHERE
+                    s.SalesInvoiceId =
+                    @SalesInvoiceId
+
+            `);
+
+
+        const items =
+            await request.query(`
+
+                SELECT
+                    si.*,
+                    p.ProductName
+
+                FROM SalesItems si
+
+                LEFT JOIN Products p
+                    ON p.ProductId =
+                       si.ProductId
+
+                WHERE
+                    si.SalesInvoiceId =
+                    @SalesInvoiceId
+
+            `);
+
+
+        res.json({
+            success: true,
+            invoice:
+                invoice.recordset[0] || null,
+            items:
+                items.recordset
+        });
+
+    } catch (error) {
+
+        console.error(
+            "GET SALE DETAILS ERROR:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+
+/* =========================================================
+   الحركة اليومية
+========================================================= */
+
+app.get("/api/daily-movement", async (req, res) => {
+
+    try {
+
+        const date =
+            req.query.date ||
+            new Date()
+                .toISOString()
+                .slice(0, 10);
+
+
+        const request =
+            new sql.Request();
+
+
+        request.input(
+            "Date",
+            sql.Date,
+            date
+        );
+
+
+        const sales =
+            await request.query(`
+
+                SELECT
+
+                    COUNT(*) AS InvoiceCount,
+
+                    ISNULL(
+                        SUM(Total),
+                        0
+                    ) AS TotalSales,
+
+                    ISNULL(
+                        SUM(Paid),
+                        0
+                    ) AS PaidSales,
+
+                    ISNULL(
+                        SUM(Remaining),
+                        0
+                    ) AS RemainingSales
+
+                FROM SalesInvoices
+
+                WHERE
+                    CAST(
+                        InvoiceDate AS DATE
+                    ) = @Date
+
+            `);
+
+
+        const purchases =
+            await request.query(`
+
+                SELECT
+
+                    COUNT(*) AS InvoiceCount,
+
+                    ISNULL(
+                        SUM(Total),
+                        0
+                    ) AS TotalPurchases,
+
+                    ISNULL(
+                        SUM(Paid),
+                        0
+                    ) AS PaidPurchases,
+
+                    ISNULL(
+                        SUM(Remaining),
+                        0
+                    ) AS RemainingPurchases
+
+                FROM PurchaseInvoices
+
+                WHERE
+                    CAST(
+                        InvoiceDate AS DATE
+                    ) = @Date
+
+            `);
+
+
+        const movements =
+            await request.query(`
+
+                SELECT
+
+                    SalesInvoiceId AS InvoiceId,
+
+                    InvoiceNumber,
+
+                    InvoiceDate,
+
+                    Total,
+
+                    Paid,
+
+                    Remaining,
+
+                    'مبيعات' AS MovementType
+
+                FROM SalesInvoices
+
+                WHERE
+                    CAST(
+                        InvoiceDate AS DATE
+                    ) = @Date
+
+                ORDER BY
+                    InvoiceDate DESC
+
+            `);
+
+
+        res.json({
+            success: true,
+            date,
+            sales:
+                sales.recordset[0],
+            purchases:
+                purchases.recordset[0],
+            movements:
+                movements.recordset
+        });
+
+    } catch (error) {
+
+        console.error(
+            "DAILY MOVEMENT ERROR:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+
+/* =========================================================
+   تشغيل السيرفر
+========================================================= */
+
+async function startServer() {
+
+    console.log("");
+    console.log("=================================");
+    console.log("        الرهيب سوفت");
+    console.log("=================================");
+    console.log("جاري الاتصال بقاعدة البيانات...");
+    console.log("");
+
+
+    const connected =
+        await connectDB();
+
+
+    if (!connected) {
+
+        console.error("");
+        console.error(
+            "لم يتم تشغيل النظام لأن الاتصال بقاعدة البيانات فشل."
+        );
+        console.error("");
+
+        process.exit(1);
+    }
+
+
+    app.listen(PORT, () => {
+
+        console.log("");
+        console.log("=================================");
+        console.log("الرهيب سوفت يعمل بنجاح");
+        console.log("=================================");
+        console.log(
+            `http://localhost:${PORT}`
+        );
+        console.log("=================================");
+        console.log("");
+
+    });
+}
+
+
+startServer();
