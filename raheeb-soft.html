@@ -2,79 +2,1196 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الرهيب سوفت</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>الرهيب سوفت | نظام الإدارة المتكامل</title>
 
 <style>
 *{box-sizing:border-box}
 
+:root{
+ --primary:#1769aa;
+ --primary2:#0d47a1;
+ --dark:#101828;
+ --bg:#f4f7fb;
+ --card:#fff;
+ --text:#172033;
+ --muted:#667085;
+ --border:#e4e7ec;
+ --green:#12b76a;
+ --red:#f04438;
+ --orange:#f79009;
+ --purple:#7f56d9;
+}
+
 body{
-    margin:0;
-    font-family:Arial,Tahoma,sans-serif;
-    background:#f3f6fa;
-    color:#172033;
+ margin:0;
+ font-family:Tajawal,Arial,Tahoma,sans-serif;
+ background:var(--bg);
+ color:var(--text);
 }
 
-.header{
-    background:#1261a0;
-    color:white;
-    padding:20px;
-    text-align:center;
-    font-size:28px;
-    font-weight:bold;
+button,input,select{
+ font-family:inherit;
 }
 
-.container{
-    max-width:1100px;
-    margin:30px auto;
-    padding:20px;
+.app{
+ display:flex;
+ min-height:100vh;
 }
 
+/* SIDEBAR */
+.sidebar{
+ width:270px;
+ background:linear-gradient(180deg,#101828,#172b4d);
+ color:#fff;
+ position:fixed;
+ right:0;
+ top:0;
+ bottom:0;
+ z-index:1000;
+ overflow-y:auto;
+ transition:.3s;
+}
+
+.brand{
+ padding:25px 20px;
+ border-bottom:1px solid #ffffff18;
+ text-align:center;
+}
+
+.brand-icon{
+ width:58px;
+ height:58px;
+ margin:auto;
+ border-radius:18px;
+ background:linear-gradient(135deg,#2196f3,#00bcd4);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:28px;
+ box-shadow:0 10px 30px #0005;
+}
+
+.brand h1{
+ margin:12px 0 3px;
+ font-size:22px;
+}
+
+.brand small{
+ color:#aab7ca;
+}
+
+.menu{
+ padding:15px 12px;
+}
+
+.menu-title{
+ color:#8190a5;
+ font-size:12px;
+ margin:18px 12px 8px;
+}
+
+.menu button{
+ width:100%;
+ border:0;
+ background:transparent;
+ color:#dce5f2;
+ padding:13px 15px;
+ border-radius:10px;
+ text-align:right;
+ cursor:pointer;
+ font-size:15px;
+ display:flex;
+ align-items:center;
+ gap:12px;
+ margin-bottom:4px;
+ transition:.2s;
+}
+
+.menu button:hover,
+.menu button.active{
+ background:#ffffff18;
+ color:#fff;
+}
+
+.menu-icon{
+ width:25px;
+ text-align:center;
+ font-size:19px;
+}
+
+/* MAIN */
+.main{
+ width:calc(100% - 270px);
+ margin-right:270px;
+}
+
+.topbar{
+ height:75px;
+ background:#fff;
+ border-bottom:1px solid var(--border);
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 28px;
+ position:sticky;
+ top:0;
+ z-index:500;
+}
+
+.top-title{
+ font-size:21px;
+ font-weight:800;
+}
+
+.top-actions{
+ display:flex;
+ align-items:center;
+ gap:10px;
+}
+
+.top-btn{
+ width:42px;
+ height:42px;
+ border:1px solid var(--border);
+ background:#fff;
+ border-radius:10px;
+ cursor:pointer;
+ font-size:18px;
+}
+
+.user{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ padding-right:12px;
+}
+
+.avatar{
+ width:40px;
+ height:40px;
+ border-radius:50%;
+ background:linear-gradient(135deg,#1769aa,#7f56d9);
+ color:white;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-weight:bold;
+}
+
+/* CONTENT */
+.content{
+ padding:28px;
+}
+
+.page{
+ display:none;
+ animation:fade .25s ease;
+}
+
+.page.active{
+ display:block;
+}
+
+@keyframes fade{
+ from{opacity:0;transform:translateY(5px)}
+ to{opacity:1;transform:translateY(0)}
+}
+
+.welcome{
+ background:linear-gradient(135deg,#0d47a1,#1976d2,#00acc1);
+ color:#fff;
+ border-radius:20px;
+ padding:28px;
+ margin-bottom:25px;
+ box-shadow:0 15px 35px #1769aa33;
+}
+
+.welcome h2{
+ margin:0 0 8px;
+ font-size:28px;
+}
+
+.welcome p{
+ margin:0;
+ color:#e5f3ff;
+}
+
+.stats{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:18px;
+ margin-bottom:25px;
+}
+
+.stat{
+ background:#fff;
+ border:1px solid var(--border);
+ border-radius:16px;
+ padding:20px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ box-shadow:0 4px 15px #10182808;
+}
+
+.stat-icon{
+ width:52px;
+ height:52px;
+ border-radius:14px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:23px;
+ background:#eef6ff;
+}
+
+.stat h3{
+ margin:0 0 7px;
+ color:var(--muted);
+ font-size:13px;
+}
+
+.stat strong{
+ font-size:22px;
+}
+
+/* QUICK */
+.section-head{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin:25px 0 15px;
+}
+
+.section-head h2{
+ margin:0;
+ font-size:19px;
+}
+
+.quick-grid{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:16px;
+}
+
+.quick{
+ background:#fff;
+ border:1px solid var(--border);
+ border-radius:16px;
+ padding:22px;
+ cursor:pointer;
+ transition:.2s;
+ text-align:center;
+}
+
+.quick:hover{
+ transform:translateY(-4px);
+ box-shadow:0 12px 25px #10182812;
+}
+
+.quick .qicon{
+ font-size:35px;
+ margin-bottom:10px;
+}
+
+.quick strong{
+ display:block;
+ font-size:16px;
+}
+
+.quick span{
+ color:var(--muted);
+ font-size:12px;
+}
+
+/* CARDS */
 .card{
-    background:white;
-    border-radius:12px;
-    padding:25px;
-    box-shadow:0 3px 15px #0001;
-    margin-bottom:20px;
+ background:#fff;
+ border:1px solid var(--border);
+ border-radius:16px;
+ padding:22px;
+ box-shadow:0 4px 15px #10182808;
 }
 
-button{
-    background:#1261a0;
-    color:white;
-    border:0;
-    padding:12px 25px;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:16px;
+.grid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:18px;
 }
 
-button:hover{
-    opacity:.9;
+.module{
+ cursor:pointer;
+ transition:.2s;
 }
 
-h2{
-    margin-top:0;
+.module:hover{
+ transform:translateY(-3px);
+}
+
+.module-icon{
+ width:55px;
+ height:55px;
+ border-radius:15px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:25px;
+ margin-bottom:13px;
+ background:#eef6ff;
+}
+
+.module h3{
+ margin:0 0 7px;
+}
+
+.module p{
+ color:var(--muted);
+ margin:0;
+ font-size:13px;
+}
+
+/* TABLE */
+.table-card{
+ margin-top:20px;
+ overflow:auto;
+}
+
+table{
+ width:100%;
+ border-collapse:collapse;
+ min-width:650px;
+}
+
+th,td{
+ padding:14px;
+ border-bottom:1px solid var(--border);
+ text-align:right;
+}
+
+th{
+ color:var(--muted);
+ font-size:13px;
+ background:#fafafa;
+}
+
+.badge{
+ display:inline-block;
+ padding:5px 10px;
+ border-radius:20px;
+ font-size:12px;
+}
+
+.badge.green{background:#e7f8ef;color:#087443}
+.badge.red{background:#feeceb;color:#b42318}
+.badge.orange{background:#fff4e5;color:#b54708}
+
+/* FORM */
+.form-grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:16px;
+}
+
+.field label{
+ display:block;
+ margin-bottom:7px;
+ font-size:13px;
+ font-weight:bold;
+}
+
+.field input,
+.field select,
+.field textarea{
+ width:100%;
+ border:1px solid var(--border);
+ border-radius:10px;
+ padding:12px;
+ outline:none;
+ background:#fff;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+ border-color:var(--primary);
+ box-shadow:0 0 0 3px #1769aa15;
+}
+
+.btn{
+ border:0;
+ border-radius:10px;
+ padding:11px 18px;
+ cursor:pointer;
+ font-weight:bold;
+}
+
+.btn-primary{
+ background:var(--primary);
+ color:white;
+}
+
+.btn-success{
+ background:var(--green);
+ color:white;
+}
+
+.btn-danger{
+ background:var(--red);
+ color:white;
+}
+
+.btn-light{
+ background:#f2f4f7;
+ color:var(--text);
+}
+
+/* MOBILE */
+.mobile-menu{
+ display:none;
+}
+
+@media(max-width:1000px){
+ .sidebar{
+  transform:translateX(100%);
+ }
+ .sidebar.open{
+  transform:translateX(0);
+ }
+ .main{
+  width:100%;
+  margin-right:0;
+ }
+ .mobile-menu{
+  display:block;
+ }
+ .stats{
+  grid-template-columns:repeat(2,1fr);
+ }
+ .quick-grid{
+  grid-template-columns:repeat(2,1fr);
+ }
+ .grid{
+  grid-template-columns:repeat(2,1fr);
+ }
+}
+
+@media(max-width:600px){
+ .topbar{
+  padding:0 15px;
+ }
+ .content{
+  padding:15px;
+ }
+ .stats,
+ .quick-grid,
+ .grid,
+ .form-grid{
+  grid-template-columns:1fr;
+ }
+ .top-title{
+  font-size:17px;
+ }
+ .user span{
+  display:none;
+ }
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-    الرهيب سوفت
+<div class="app">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+
+<div class="brand">
+ <div class="brand-icon">⚡</div>
+ <h1>الرهيب سوفت</h1>
+ <small>نظام الإدارة المتكامل</small>
 </div>
 
-<div class="container">
+<div class="menu">
 
-    <div class="card">
-        <h2>مرحبًا بك في الرهيب سوفت</h2>
-        <p>نظام إدارة المبيعات والمخزون والحسابات.</p>
-        <button onclick="alert('الرهيب سوفت يعمل بنجاح')">
-            اختبار النظام
-        </button>
-    </div>
+<div class="menu-title">الرئيسية</div>
+
+<button class="active" onclick="showPage('dashboard',this)">
+ <span class="menu-icon">🏠</span> لوحة التحكم
+</button>
+
+<div class="menu-title">العمليات</div>
+
+<button onclick="showPage('sales',this)">
+ <span class="menu-icon">🧾</span> المبيعات
+</button>
+
+<button onclick="showPage('purchases',this)">
+ <span class="menu-icon">🛒</span> المشتريات
+</button>
+
+<div class="menu-title">العملاء والموردون</div>
+
+<button onclick="showPage('customers',this)">
+ <span class="menu-icon">👥</span> العملاء
+</button>
+
+<button onclick="showPage('suppliers',this)">
+ <span class="menu-icon">🚚</span> الموردون
+</button>
+
+<div class="menu-title">الحسابات</div>
+
+<button onclick="showPage('accounts',this)">
+ <span class="menu-icon">💰</span> الحسابات
+</button>
+
+<div class="menu-title">البيانات</div>
+
+<button onclick="showPage('master',this)">
+ <span class="menu-icon">📦</span> البيانات الأساسية
+</button>
+
+<button onclick="showPage('company',this)">
+ <span class="menu-icon">🏢</span> بيانات المؤسسة
+</button>
+
+<div class="menu-title">النظام</div>
+
+<button onclick="showPage('settings',this)">
+ <span class="menu-icon">⚙️</span> الإعدادات
+</button>
 
 </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+<header class="topbar">
+
+<div class="top-title" id="pageTitle">لوحة التحكم</div>
+
+<div class="top-actions">
+
+<button class="top-btn mobile-menu" onclick="toggleMenu()">☰</button>
+
+<button class="top-btn" onclick="toggleTheme()">🌙</button>
+
+<button class="top-btn" onclick="alert('لا توجد إشعارات جديدة')">🔔</button>
+
+<div class="user">
+ <div class="avatar">ر</div>
+ <span>مدير النظام</span>
+</div>
+
+</div>
+</header>
+
+<div class="content">
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="page active">
+
+<div class="welcome">
+ <h2>مرحبًا بك في الرهيب سوفت 👋</h2>
+ <p>نظام الإدارة والمبيعات والمشتريات والحسابات المتكامل</p>
+</div>
+
+<div class="stats">
+
+<div class="stat">
+ <div>
+  <h3>مبيعات اليوم</h3>
+  <strong>0.00 ر.س</strong>
+ </div>
+ <div class="stat-icon">🧾</div>
+</div>
+
+<div class="stat">
+ <div>
+  <h3>مشتريات اليوم</h3>
+  <strong>0.00 ر.س</strong>
+ </div>
+ <div class="stat-icon">🛒</div>
+</div>
+
+<div class="stat">
+ <div>
+  <h3>العملاء</h3>
+  <strong>0</strong>
+ </div>
+ <div class="stat-icon">👥</div>
+</div>
+
+<div class="stat">
+ <div>
+  <h3>الأصناف</h3>
+  <strong>0</strong>
+ </div>
+ <div class="stat-icon">📦</div>
+</div>
+
+</div>
+
+<div class="section-head">
+ <h2>الوصول السريع</h2>
+</div>
+
+<div class="quick-grid">
+
+<div class="quick" onclick="showPage('sales')">
+ <div class="qicon">🧾</div>
+ <strong>فاتورة بيع</strong>
+ <span>إنشاء فاتورة جديدة</span>
+</div>
+
+<div class="quick" onclick="showPage('purchases')">
+ <div class="qicon">🛒</div>
+ <strong>فاتورة شراء</strong>
+ <span>تسجيل عملية شراء</span>
+</div>
+
+<div class="quick" onclick="showPage('customers')">
+ <div class="qicon">👥</div>
+ <strong>العملاء</strong>
+ <span>إدارة العملاء</span>
+</div>
+
+<div class="quick" onclick="showPage('master')">
+ <div class="qicon">📦</div>
+ <strong>الأصناف</strong>
+ <span>إدارة المخزون</span>
+</div>
+
+</div>
+
+<div class="section-head">
+ <h2>آخر العمليات</h2>
+</div>
+
+<div class="card table-card">
+
+<table>
+<thead>
+<tr>
+<th>العملية</th>
+<th>الرقم</th>
+<th>التاريخ</th>
+<th>المبلغ</th>
+<th>الحالة</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>لا توجد عمليات</td>
+<td>-</td>
+<td>-</td>
+<td>0.00</td>
+<td><span class="badge orange">فارغ</span></td>
+</tr>
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- SALES -->
+<section id="sales" class="page">
+
+<div class="section-head">
+ <h2>🧾 المبيعات</h2>
+ <button class="btn btn-primary" onclick="alert('سيتم فتح شاشة فاتورة البيع')">+ فاتورة بيع</button>
+</div>
+
+<div class="grid">
+
+<div class="card module" onclick="alert('فاتورة بيع')">
+ <div class="module-icon">🧾</div>
+ <h3>فاتورة بيع</h3>
+ <p>إنشاء وإدارة فواتير المبيعات</p>
+</div>
+
+<div class="card module" onclick="alert('مرتجع مبيعات')">
+ <div class="module-icon">↩️</div>
+ <h3>مرتجع مبيعات</h3>
+ <p>إرجاع الأصناف المباعة</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">💵</div>
+ <h3>سند قبض</h3>
+ <p>تسجيل المبالغ المستلمة</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">📋</div>
+ <h3>فواتير المبيعات</h3>
+ <p>عرض والبحث في الفواتير</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">🏷️</div>
+ <h3>عروض الأسعار</h3>
+ <p>إنشاء عروض الأسعار للعملاء</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">📊</div>
+ <h3>تقارير المبيعات</h3>
+ <p>تقارير وتحليلات المبيعات</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PURCHASES -->
+<section id="purchases" class="page">
+
+<div class="section-head">
+ <h2>🛒 المشتريات</h2>
+ <button class="btn btn-primary">+ فاتورة شراء</button>
+</div>
+
+<div class="grid">
+
+<div class="card module">
+ <div class="module-icon">🛒</div>
+ <h3>فاتورة شراء</h3>
+ <p>تسجيل فواتير المشتريات</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">↩️</div>
+ <h3>مرتجع مشتريات</h3>
+ <p>إرجاع المشتريات للموردين</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">💸</div>
+ <h3>سند صرف</h3>
+ <p>تسجيل المبالغ المدفوعة</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">📋</div>
+ <h3>فواتير المشتريات</h3>
+ <p>عرض وإدارة الفواتير</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">📦</div>
+ <h3>طلبات الشراء</h3>
+ <p>إدارة طلبات التوريد</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">📊</div>
+ <h3>تقارير المشتريات</h3>
+ <p>تقارير وتحليلات الشراء</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CUSTOMERS -->
+<section id="customers" class="page">
+
+<div class="section-head">
+ <h2>👥 العملاء</h2>
+ <button class="btn btn-primary">+ إضافة عميل</button>
+</div>
+
+<div class="card">
+
+<div class="form-grid">
+
+<div class="field">
+<label>بحث عن عميل</label>
+<input placeholder="اسم العميل أو رقم الهاتف">
+</div>
+
+<div class="field">
+<label>نوع العميل</label>
+<select>
+<option>كل العملاء</option>
+<option>نقدي</option>
+<option>آجل</option>
+</select>
+</div>
+
+</div>
+
+</div>
+
+<div class="card table-card">
+
+<table>
+<thead>
+<tr>
+<th>الاسم</th>
+<th>الهاتف</th>
+<th>الرصيد</th>
+<th>الحالة</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>لا يوجد عملاء</td>
+<td>-</td>
+<td>0.00</td>
+<td><span class="badge orange">فارغ</span></td>
+</tr>
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- SUPPLIERS -->
+<section id="suppliers" class="page">
+
+<div class="section-head">
+ <h2>🚚 الموردون</h2>
+ <button class="btn btn-primary">+ إضافة مورد</button>
+</div>
+
+<div class="card">
+
+<div class="form-grid">
+
+<div class="field">
+<label>بحث عن مورد</label>
+<input placeholder="اسم المورد أو الهاتف">
+</div>
+
+<div class="field">
+<label>الحالة</label>
+<select>
+<option>كل الموردين</option>
+<option>نشط</option>
+<option>غير نشط</option>
+</select>
+</div>
+
+</div>
+
+</div>
+
+<div class="card table-card">
+
+<table>
+<thead>
+<tr>
+<th>المورد</th>
+<th>الهاتف</th>
+<th>الرصيد</th>
+<th>الحالة</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>لا يوجد موردون</td>
+<td>-</td>
+<td>0.00</td>
+<td><span class="badge orange">فارغ</span></td>
+</tr>
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- ACCOUNTS -->
+<section id="accounts" class="page">
+
+<div class="section-head">
+ <h2>💰 الحسابات</h2>
+</div>
+
+<div class="grid">
+
+<div class="card module">
+ <div class="module-icon">💵</div>
+ <h3>الصندوق</h3>
+ <p>إدارة النقدية وحركة الصندوق</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">🏦</div>
+ <h3>البنوك</h3>
+ <p>الحسابات والحركات البنكية</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">📒</div>
+ <h3>القيود اليومية</h3>
+ <p>إدارة القيود المحاسبية</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">💸</div>
+ <h3>المصروفات</h3>
+ <p>تسجيل المصروفات</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">💰</div>
+ <h3>الإيرادات</h3>
+ <p>تسجيل الإيرادات</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">📊</div>
+ <h3>التقارير المالية</h3>
+ <p>عرض التقارير والحسابات</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- MASTER -->
+<section id="master" class="page">
+
+<div class="section-head">
+ <h2>📦 البيانات الأساسية</h2>
+</div>
+
+<div class="grid">
+
+<div class="card module">
+ <div class="module-icon">📦</div>
+ <h3>الأصناف</h3>
+ <p>إضافة وتعديل وحذف الأصناف</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">🗂️</div>
+ <h3>التصنيفات</h3>
+ <p>إدارة تصنيفات الأصناف</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">📏</div>
+ <h3>الوحدات</h3>
+ <p>كرتون، حبة، كيلو وغيرها</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">🏪</div>
+ <h3>المخازن</h3>
+ <p>إدارة المستودعات والمخازن</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">🏷️</div>
+ <h3>الأسعار</h3>
+ <p>أسعار البيع والشراء</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">▦</div>
+ <h3>الباركود</h3>
+ <p>إدارة وطباعة الباركود</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- COMPANY -->
+<section id="company" class="page">
+
+<div class="section-head">
+ <h2>🏢 بيانات المؤسسة</h2>
+ <button class="btn btn-success" onclick="saveCompany()">حفظ البيانات</button>
+</div>
+
+<div class="card">
+
+<div class="form-grid">
+
+<div class="field">
+<label>اسم المؤسسة</label>
+<input id="companyName" placeholder="اسم المؤسسة">
+</div>
+
+<div class="field">
+<label>رقم الهاتف</label>
+<input id="companyPhone" placeholder="05xxxxxxxx">
+</div>
+
+<div class="field">
+<label>العنوان</label>
+<input id="companyAddress" placeholder="عنوان المؤسسة">
+</div>
+
+<div class="field">
+<label>الرقم الضريبي</label>
+<input id="taxNumber" placeholder="الرقم الضريبي">
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SETTINGS -->
+<section id="settings" class="page">
+
+<div class="section-head">
+ <h2>⚙️ الإعدادات</h2>
+</div>
+
+<div class="grid">
+
+<div class="card module">
+ <div class="module-icon">👤</div>
+ <h3>المستخدمون</h3>
+ <p>إدارة مستخدمي النظام</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">🔐</div>
+ <h3>الصلاحيات</h3>
+ <p>تحديد صلاحيات المستخدمين</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">🧾</div>
+ <h3>إعدادات الفواتير</h3>
+ <p>تخصيص الفواتير والطباعة</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">💾</div>
+ <h3>النسخ الاحتياطي</h3>
+ <p>حفظ واستعادة بيانات النظام</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">🖨️</div>
+ <h3>الطابعات</h3>
+ <p>إعدادات الطباعة والفواتير</p>
+</div>
+
+<div class="card module">
+ <div class="module-icon">🎨</div>
+ <h3>مظهر النظام</h3>
+ <p>الألوان والوضع الليلي</p>
+</div>
+
+</div>
+
+</section>
+
+</div>
+</main>
+
+</div>
+
+<script>
+
+function showPage(id,btn){
+
+ document.querySelectorAll(".page").forEach(p=>{
+  p.classList.remove("active");
+ });
+
+ const page=document.getElementById(id);
+
+ if(page){
+  page.classList.add("active");
+ }
+
+ document.querySelectorAll(".menu button").forEach(b=>{
+  b.classList.remove("active");
+ });
+
+ if(btn){
+  btn.classList.add("active");
+ }
+
+ const titles={
+  dashboard:"لوحة التحكم",
+  sales:"المبيعات",
+  purchases:"المشتريات",
+  customers:"العملاء",
+  suppliers:"الموردون",
+  accounts:"الحسابات",
+  master:"البيانات الأساسية",
+  company:"بيانات المؤسسة",
+  settings:"الإعدادات"
+ };
+
+ document.getElementById("pageTitle").textContent=titles[id]||"الرهيب سوفت";
+
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function toggleMenu(){
+ document.getElementById("sidebar").classList.toggle("open");
+}
+
+function toggleTheme(){
+
+ document.body.classList.toggle("dark");
+
+ if(document.body.classList.contains("dark")){
+  document.body.style.background="#0b1220";
+ }else{
+  document.body.style.background="var(--bg)";
+ }
+
+}
+
+function saveCompany(){
+
+ const data={
+  name:document.getElementById("companyName").value,
+  phone:document.getElementById("companyPhone").value,
+  address:document.getElementById("companyAddress").value,
+  tax:document.getElementById("taxNumber").value
+ };
+
+ localStorage.setItem("raheeb_company",JSON.stringify(data));
+
+ alert("تم حفظ بيانات المؤسسة بنجاح ✅");
+}
+
+window.onload=function(){
+
+ const data=JSON.parse(localStorage.getItem("raheeb_company")||"{}");
+
+ if(data.name)document.getElementById("companyName").value=data.name;
+ if(data.phone)document.getElementById("companyPhone").value=data.phone;
+ if(data.address)document.getElementById("companyAddress").value=data.address;
+ if(data.tax)document.getElementById("taxNumber").value=data.tax;
+
+};
+
+</script>
 
 </body>
 </html>
