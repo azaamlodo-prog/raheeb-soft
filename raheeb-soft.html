@@ -3,855 +3,775 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>الرهيب سوفت | نظام الإدارة المتكامل</title>
+<title>الرهيب سوفت</title>
 
 <style>
-*{box-sizing:border-box}
-
-:root{
- --primary:#1769aa;
- --primary2:#0d47a1;
- --dark:#101828;
- --bg:#f4f7fb;
- --card:#fff;
- --text:#172033;
- --muted:#667085;
- --border:#e4e7ec;
- --green:#12b76a;
- --red:#f04438;
- --orange:#f79009;
- --purple:#7f56d9;
+*{
+    box-sizing:border-box;
 }
 
 body{
- margin:0;
- font-family:Tajawal,Arial,Tahoma,sans-serif;
- background:var(--bg);
- color:var(--text);
+    margin:0;
+    font-family:Arial,Tahoma,sans-serif;
+    background:#f3f6fa;
+    color:#172033;
 }
 
-button,input,select{
- font-family:inherit;
+.header{
+    height:70px;
+    background:linear-gradient(135deg,#075985,#0ea5e9);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+    position:sticky;
+    top:0;
+    z-index:10;
 }
 
-.app{
- display:flex;
- min-height:100vh;
-}
-
-/* SIDEBAR */
-.sidebar{
- width:270px;
- background:linear-gradient(180deg,#101828,#172b4d);
- color:#fff;
- position:fixed;
- right:0;
- top:0;
- bottom:0;
- z-index:1000;
- overflow-y:auto;
- transition:.3s;
-}
-
-.brand{
- padding:25px 20px;
- border-bottom:1px solid #ffffff18;
- text-align:center;
-}
-
-.brand-icon{
- width:58px;
- height:58px;
- margin:auto;
- border-radius:18px;
- background:linear-gradient(135deg,#2196f3,#00bcd4);
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:28px;
- box-shadow:0 10px 30px #0005;
-}
-
-.brand h1{
- margin:12px 0 3px;
- font-size:22px;
-}
-
-.brand small{
- color:#aab7ca;
-}
-
-.menu{
- padding:15px 12px;
-}
-
-.menu-title{
- color:#8190a5;
- font-size:12px;
- margin:18px 12px 8px;
-}
-
-.menu button{
- width:100%;
- border:0;
- background:transparent;
- color:#dce5f2;
- padding:13px 15px;
- border-radius:10px;
- text-align:right;
- cursor:pointer;
- font-size:15px;
- display:flex;
- align-items:center;
- gap:12px;
- margin-bottom:4px;
- transition:.2s;
-}
-
-.menu button:hover,
-.menu button.active{
- background:#ffffff18;
- color:#fff;
-}
-
-.menu-icon{
- width:25px;
- text-align:center;
- font-size:19px;
-}
-
-/* MAIN */
-.main{
- width:calc(100% - 270px);
- margin-right:270px;
-}
-
-.topbar{
- height:75px;
- background:#fff;
- border-bottom:1px solid var(--border);
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:0 28px;
- position:sticky;
- top:0;
- z-index:500;
-}
-
-.top-title{
- font-size:21px;
- font-weight:800;
-}
-
-.top-actions{
- display:flex;
- align-items:center;
- gap:10px;
-}
-
-.top-btn{
- width:42px;
- height:42px;
- border:1px solid var(--border);
- background:#fff;
- border-radius:10px;
- cursor:pointer;
- font-size:18px;
+.logo{
+    font-size:24px;
+    font-weight:bold;
 }
 
 .user{
- display:flex;
- align-items:center;
- gap:10px;
- padding-right:12px;
+    background:#ffffff22;
+    padding:10px 18px;
+    border-radius:10px;
 }
 
-.avatar{
- width:40px;
- height:40px;
- border-radius:50%;
- background:linear-gradient(135deg,#1769aa,#7f56d9);
- color:white;
- display:flex;
- align-items:center;
- justify-content:center;
- font-weight:bold;
+.layout{
+    display:flex;
+    min-height:calc(100vh - 70px);
 }
 
-/* CONTENT */
+.sidebar{
+    width:270px;
+    background:#111827;
+    color:white;
+    padding:15px;
+}
+
+.sidebar h3{
+    color:#94a3b8;
+    font-size:13px;
+    margin:20px 10px 8px;
+}
+
+.menu{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:#e5e7eb;
+    padding:13px;
+    text-align:right;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+    margin-bottom:3px;
+}
+
+.menu:hover,
+.menu.active{
+    background:#0ea5e9;
+    color:white;
+}
+
 .content{
- padding:28px;
+    flex:1;
+    padding:25px;
 }
 
 .page{
- display:none;
- animation:fade .25s ease;
+    display:none;
 }
 
 .page.active{
- display:block;
+    display:block;
 }
 
-@keyframes fade{
- from{opacity:0;transform:translateY(5px)}
- to{opacity:1;transform:translateY(0)}
+.title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
 }
 
-.welcome{
- background:linear-gradient(135deg,#0d47a1,#1976d2,#00acc1);
- color:#fff;
- border-radius:20px;
- padding:28px;
- margin-bottom:25px;
- box-shadow:0 15px 35px #1769aa33;
+.title h1{
+    margin:0;
 }
 
-.welcome h2{
- margin:0 0 8px;
- font-size:28px;
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
 }
 
-.welcome p{
- margin:0;
- color:#e5f3ff;
-}
-
-.stats{
- display:grid;
- grid-template-columns:repeat(4,1fr);
- gap:18px;
- margin-bottom:25px;
-}
-
-.stat{
- background:#fff;
- border:1px solid var(--border);
- border-radius:16px;
- padding:20px;
- display:flex;
- justify-content:space-between;
- align-items:center;
- box-shadow:0 4px 15px #10182808;
-}
-
-.stat-icon{
- width:52px;
- height:52px;
- border-radius:14px;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:23px;
- background:#eef6ff;
-}
-
-.stat h3{
- margin:0 0 7px;
- color:var(--muted);
- font-size:13px;
-}
-
-.stat strong{
- font-size:22px;
-}
-
-/* QUICK */
-.section-head{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin:25px 0 15px;
-}
-
-.section-head h2{
- margin:0;
- font-size:19px;
-}
-
-.quick-grid{
- display:grid;
- grid-template-columns:repeat(4,1fr);
- gap:16px;
-}
-
-.quick{
- background:#fff;
- border:1px solid var(--border);
- border-radius:16px;
- padding:22px;
- cursor:pointer;
- transition:.2s;
- text-align:center;
-}
-
-.quick:hover{
- transform:translateY(-4px);
- box-shadow:0 12px 25px #10182812;
-}
-
-.quick .qicon{
- font-size:35px;
- margin-bottom:10px;
-}
-
-.quick strong{
- display:block;
- font-size:16px;
-}
-
-.quick span{
- color:var(--muted);
- font-size:12px;
-}
-
-/* CARDS */
 .card{
- background:#fff;
- border:1px solid var(--border);
- border-radius:16px;
- padding:22px;
- box-shadow:0 4px 15px #10182808;
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 3px 15px #0000000b;
+    border:1px solid #e5e7eb;
 }
 
-.grid{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:18px;
+.card-icon{
+    font-size:30px;
+}
+
+.card small{
+    color:#64748b;
+}
+
+.card strong{
+    display:block;
+    font-size:25px;
+    margin-top:10px;
+}
+
+.modules{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-top:20px;
 }
 
 .module{
- cursor:pointer;
- transition:.2s;
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    cursor:pointer;
+    border:1px solid #e5e7eb;
+    transition:.2s;
 }
 
 .module:hover{
- transform:translateY(-3px);
+    transform:translateY(-3px);
+    box-shadow:0 8px 25px #00000015;
 }
 
 .module-icon{
- width:55px;
- height:55px;
- border-radius:15px;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:25px;
- margin-bottom:13px;
- background:#eef6ff;
+    font-size:40px;
 }
 
-.module h3{
- margin:0 0 7px;
+.module h2{
+    margin:10px 0;
 }
 
 .module p{
- color:var(--muted);
- margin:0;
- font-size:13px;
+    color:#64748b;
 }
 
-/* TABLE */
-.table-card{
- margin-top:20px;
- overflow:auto;
+.form-box{
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    margin-bottom:20px;
 }
 
-table{
- width:100%;
- border-collapse:collapse;
- min-width:650px;
-}
-
-th,td{
- padding:14px;
- border-bottom:1px solid var(--border);
- text-align:right;
-}
-
-th{
- color:var(--muted);
- font-size:13px;
- background:#fafafa;
-}
-
-.badge{
- display:inline-block;
- padding:5px 10px;
- border-radius:20px;
- font-size:12px;
-}
-
-.badge.green{background:#e7f8ef;color:#087443}
-.badge.red{background:#feeceb;color:#b42318}
-.badge.orange{background:#fff4e5;color:#b54708}
-
-/* FORM */
 .form-grid{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:16px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
 }
 
-.field label{
- display:block;
- margin-bottom:7px;
- font-size:13px;
- font-weight:bold;
+label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
 }
 
-.field input,
-.field select,
-.field textarea{
- width:100%;
- border:1px solid var(--border);
- border-radius:10px;
- padding:12px;
- outline:none;
- background:#fff;
+input,
+select{
+    width:100%;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    outline:none;
 }
 
-.field input:focus,
-.field select:focus,
-.field textarea:focus{
- border-color:var(--primary);
- box-shadow:0 0 0 3px #1769aa15;
+input:focus,
+select:focus{
+    border-color:#0ea5e9;
+}
+
+button{
+    font-family:inherit;
 }
 
 .btn{
- border:0;
- border-radius:10px;
- padding:11px 18px;
- cursor:pointer;
- font-weight:bold;
+    border:0;
+    padding:11px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-top:15px;
 }
 
 .btn-primary{
- background:var(--primary);
- color:white;
+    background:#0284c7;
+    color:white;
 }
 
 .btn-success{
- background:var(--green);
- color:white;
+    background:#16a34a;
+    color:white;
 }
 
 .btn-danger{
- background:var(--red);
- color:white;
+    background:#dc2626;
+    color:white;
 }
 
-.btn-light{
- background:#f2f4f7;
- color:var(--text);
+.table-box{
+    background:white;
+    border-radius:15px;
+    overflow:auto;
 }
 
-/* MOBILE */
-.mobile-menu{
- display:none;
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:700px;
+}
+
+th,
+td{
+    padding:13px;
+    border-bottom:1px solid #e5e7eb;
+    text-align:right;
+}
+
+th{
+    background:#f8fafc;
+}
+
+.empty{
+    text-align:center;
+    padding:40px;
+    color:#64748b;
+}
+
+.total{
+    margin-top:15px;
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    text-align:left;
+    font-size:22px;
+    font-weight:bold;
 }
 
 @media(max-width:1000px){
- .sidebar{
-  transform:translateX(100%);
- }
- .sidebar.open{
-  transform:translateX(0);
- }
- .main{
-  width:100%;
-  margin-right:0;
- }
- .mobile-menu{
-  display:block;
- }
- .stats{
-  grid-template-columns:repeat(2,1fr);
- }
- .quick-grid{
-  grid-template-columns:repeat(2,1fr);
- }
- .grid{
-  grid-template-columns:repeat(2,1fr);
- }
+
+    .sidebar{
+        width:220px;
+    }
+
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .modules{
+        grid-template-columns:repeat(2,1fr);
+    }
 }
 
-@media(max-width:600px){
- .topbar{
-  padding:0 15px;
- }
- .content{
-  padding:15px;
- }
- .stats,
- .quick-grid,
- .grid,
- .form-grid{
-  grid-template-columns:1fr;
- }
- .top-title{
-  font-size:17px;
- }
- .user span{
-  display:none;
- }
+@media(max-width:700px){
+
+    .layout{
+        display:block;
+    }
+
+    .sidebar{
+        width:100%;
+    }
+
+    .cards,
+    .modules,
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .content{
+        padding:15px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<header class="header">
 
-<!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
-
-<div class="brand">
- <div class="brand-icon">⚡</div>
- <h1>الرهيب سوفت</h1>
- <small>نظام الإدارة المتكامل</small>
+<div class="logo">
+⚡ الرهيب سوفت
 </div>
-
-<div class="menu">
-
-<div class="menu-title">الرئيسية</div>
-
-<button class="active" onclick="showPage('dashboard',this)">
- <span class="menu-icon">🏠</span> لوحة التحكم
-</button>
-
-<div class="menu-title">العمليات</div>
-
-<button onclick="showPage('sales',this)">
- <span class="menu-icon">🧾</span> المبيعات
-</button>
-
-<button onclick="showPage('purchases',this)">
- <span class="menu-icon">🛒</span> المشتريات
-</button>
-
-<div class="menu-title">العملاء والموردون</div>
-
-<button onclick="showPage('customers',this)">
- <span class="menu-icon">👥</span> العملاء
-</button>
-
-<button onclick="showPage('suppliers',this)">
- <span class="menu-icon">🚚</span> الموردون
-</button>
-
-<div class="menu-title">الحسابات</div>
-
-<button onclick="showPage('accounts',this)">
- <span class="menu-icon">💰</span> الحسابات
-</button>
-
-<div class="menu-title">البيانات</div>
-
-<button onclick="showPage('master',this)">
- <span class="menu-icon">📦</span> البيانات الأساسية
-</button>
-
-<button onclick="showPage('company',this)">
- <span class="menu-icon">🏢</span> بيانات المؤسسة
-</button>
-
-<div class="menu-title">النظام</div>
-
-<button onclick="showPage('settings',this)">
- <span class="menu-icon">⚙️</span> الإعدادات
-</button>
-
-</div>
-</aside>
-
-<!-- MAIN -->
-<main class="main">
-
-<header class="topbar">
-
-<div class="top-title" id="pageTitle">لوحة التحكم</div>
-
-<div class="top-actions">
-
-<button class="top-btn mobile-menu" onclick="toggleMenu()">☰</button>
-
-<button class="top-btn" onclick="toggleTheme()">🌙</button>
-
-<button class="top-btn" onclick="alert('لا توجد إشعارات جديدة')">🔔</button>
 
 <div class="user">
- <div class="avatar">ر</div>
- <span>مدير النظام</span>
+👤 مدير النظام
 </div>
 
-</div>
 </header>
 
-<div class="content">
+<div class="layout">
 
-<!-- DASHBOARD -->
+<aside class="sidebar">
+
+<h3>الرئيسية</h3>
+
+<button class="menu active" onclick="showPage('dashboard',this)">
+🏠 لوحة التحكم
+</button>
+
+
+<h3>العمليات</h3>
+
+<button class="menu" onclick="showPage('sales',this)">
+🧾 المبيعات
+</button>
+
+<button class="menu" onclick="showPage('purchases',this)">
+🛒 المشتريات
+</button>
+
+
+<h3>البيانات الأساسية</h3>
+
+<button class="menu" onclick="showPage('items',this)">
+📦 الأصناف والمخزون
+</button>
+
+<button class="menu" onclick="showPage('customers',this)">
+👥 العملاء
+</button>
+
+<button class="menu" onclick="showPage('suppliers',this)">
+🚚 الموردون
+</button>
+
+
+<h3>الحسابات</h3>
+
+<button class="menu" onclick="showPage('accounts',this)">
+💰 الحسابات
+</button>
+
+<button class="menu" onclick="showPage('expenses',this)">
+💸 المصروفات
+</button>
+
+<button class="menu" onclick="showPage('income',this)">
+💵 الإيرادات
+</button>
+
+
+<h3>الإدارة</h3>
+
+<button class="menu" onclick="showPage('reports',this)">
+📊 التقارير
+</button>
+
+<button class="menu" onclick="showPage('company',this)">
+🏢 بيانات المؤسسة
+</button>
+
+<button class="menu" onclick="showPage('settings',this)">
+⚙️ الإعدادات
+</button>
+
+</aside>
+
+
+<main class="content">
+
+
+<!-- لوحة التحكم -->
+
 <section id="dashboard" class="page active">
 
-<div class="welcome">
- <h2>مرحبًا بك في الرهيب سوفت 👋</h2>
- <p>نظام الإدارة والمبيعات والمشتريات والحسابات المتكامل</p>
+<div class="title">
+<h1>لوحة التحكم</h1>
 </div>
 
-<div class="stats">
+<div class="cards">
 
-<div class="stat">
- <div>
-  <h3>مبيعات اليوم</h3>
-  <strong>0.00 ر.س</strong>
- </div>
- <div class="stat-icon">🧾</div>
+<div class="card">
+<div class="card-icon">🧾</div>
+<small>إجمالي المبيعات</small>
+<strong id="salesTotal">0 ر.س</strong>
 </div>
 
-<div class="stat">
- <div>
-  <h3>مشتريات اليوم</h3>
-  <strong>0.00 ر.س</strong>
- </div>
- <div class="stat-icon">🛒</div>
+<div class="card">
+<div class="card-icon">🛒</div>
+<small>إجمالي المشتريات</small>
+<strong id="purchaseTotal">0 ر.س</strong>
 </div>
 
-<div class="stat">
- <div>
-  <h3>العملاء</h3>
-  <strong>0</strong>
- </div>
- <div class="stat-icon">👥</div>
+<div class="card">
+<div class="card-icon">📦</div>
+<small>قيمة المخزون</small>
+<strong id="stockTotal">0 ر.س</strong>
 </div>
 
-<div class="stat">
- <div>
-  <h3>الأصناف</h3>
-  <strong>0</strong>
- </div>
- <div class="stat-icon">📦</div>
+<div class="card">
+<div class="card-icon">💰</div>
+<small>رصيد الصندوق</small>
+<strong id="cashTotal">0 ر.س</strong>
 </div>
 
 </div>
 
-<div class="section-head">
- <h2>الوصول السريع</h2>
+
+<div class="modules">
+
+<div class="module" onclick="showPage('sales')">
+<div class="module-icon">🧾</div>
+<h2>المبيعات</h2>
+<p>الفواتير والمرتجعات وعروض الأسعار وسندات القبض والتقارير.</p>
 </div>
 
-<div class="quick-grid">
-
-<div class="quick" onclick="showPage('sales')">
- <div class="qicon">🧾</div>
- <strong>فاتورة بيع</strong>
- <span>إنشاء فاتورة جديدة</span>
+<div class="module" onclick="showPage('purchases')">
+<div class="module-icon">🛒</div>
+<h2>المشتريات</h2>
+<p>فواتير الشراء والمرتجعات وطلبات الشراء وسندات الصرف.</p>
 </div>
 
-<div class="quick" onclick="showPage('purchases')">
- <div class="qicon">🛒</div>
- <strong>فاتورة شراء</strong>
- <span>تسجيل عملية شراء</span>
+<div class="module" onclick="showPage('items')">
+<div class="module-icon">📦</div>
+<h2>المخزون</h2>
+<p>الأصناف والمخازن والجرد والتحويلات والباركود.</p>
 </div>
 
-<div class="quick" onclick="showPage('customers')">
- <div class="qicon">👥</div>
- <strong>العملاء</strong>
- <span>إدارة العملاء</span>
+<div class="module" onclick="showPage('customers')">
+<div class="module-icon">👥</div>
+<h2>العملاء</h2>
+<p>إدارة العملاء والأرصدة والحسابات.</p>
 </div>
 
-<div class="quick" onclick="showPage('master')">
- <div class="qicon">📦</div>
- <strong>الأصناف</strong>
- <span>إدارة المخزون</span>
+<div class="module" onclick="showPage('suppliers')">
+<div class="module-icon">🚚</div>
+<h2>الموردون</h2>
+<p>إدارة الموردين وأرصدة الموردين.</p>
 </div>
 
+<div class="module" onclick="showPage('accounts')">
+<div class="module-icon">💰</div>
+<h2>الحسابات</h2>
+<p>الصندوق والبنوك والقيود والحسابات والتقارير المالية.</p>
 </div>
-
-<div class="section-head">
- <h2>آخر العمليات</h2>
-</div>
-
-<div class="card table-card">
-
-<table>
-<thead>
-<tr>
-<th>العملية</th>
-<th>الرقم</th>
-<th>التاريخ</th>
-<th>المبلغ</th>
-<th>الحالة</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>لا توجد عمليات</td>
-<td>-</td>
-<td>-</td>
-<td>0.00</td>
-<td><span class="badge orange">فارغ</span></td>
-</tr>
-</tbody>
-
-</table>
 
 </div>
 
 </section>
 
 
-<!-- SALES -->
+<!-- المبيعات -->
+
 <section id="sales" class="page">
 
-<div class="section-head">
- <h2>🧾 المبيعات</h2>
- <button class="btn btn-primary" onclick="alert('سيتم فتح شاشة فاتورة البيع')">+ فاتورة بيع</button>
+<div class="title">
+<h1>🧾 المبيعات</h1>
+<button class="btn btn-primary" onclick="newSale()">
++ فاتورة مبيعات
+</button>
 </div>
 
-<div class="grid">
+<div class="form-box">
 
-<div class="card module" onclick="alert('فاتورة بيع')">
- <div class="module-icon">🧾</div>
- <h3>فاتورة بيع</h3>
- <p>إنشاء وإدارة فواتير المبيعات</p>
+<div class="form-grid">
+
+<div>
+<label>العميل</label>
+<select id="saleCustomer">
+<option>عميل نقدي</option>
+</select>
 </div>
 
-<div class="card module" onclick="alert('مرتجع مبيعات')">
- <div class="module-icon">↩️</div>
- <h3>مرتجع مبيعات</h3>
- <p>إرجاع الأصناف المباعة</p>
+<div>
+<label>الصنف</label>
+<select id="saleItem">
+</select>
 </div>
 
-<div class="card module">
- <div class="module-icon">💵</div>
- <h3>سند قبض</h3>
- <p>تسجيل المبالغ المستلمة</p>
-</div>
-
-<div class="card module">
- <div class="module-icon">📋</div>
- <h3>فواتير المبيعات</h3>
- <p>عرض والبحث في الفواتير</p>
-</div>
-
-<div class="card module">
- <div class="module-icon">🏷️</div>
- <h3>عروض الأسعار</h3>
- <p>إنشاء عروض الأسعار للعملاء</p>
-</div>
-
-<div class="card module">
- <div class="module-icon">📊</div>
- <h3>تقارير المبيعات</h3>
- <p>تقارير وتحليلات المبيعات</p>
+<div>
+<label>الكمية</label>
+<input id="saleQty" type="number" value="1">
 </div>
 
 </div>
+
+<button class="btn btn-primary" onclick="addSaleItem()">
+إضافة للفاتورة
+</button>
+
+</div>
+
+<div class="table-box">
+
+<table>
+
+<thead>
+
+<tr>
+<th>الصنف</th>
+<th>الكمية</th>
+<th>السعر</th>
+<th>الإجمالي</th>
+</tr>
+
+</thead>
+
+<tbody id="saleTable">
+
+<tr>
+<td colspan="4" class="empty">
+لا توجد أصناف في الفاتورة
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="total">
+الإجمالي:
+<span id="invoiceTotal">0</span> ر.س
+</div>
+
+<button class="btn btn-success" onclick="saveSale()">
+💾 حفظ الفاتورة
+</button>
 
 </section>
 
 
-<!-- PURCHASES -->
+<!-- المشتريات -->
+
 <section id="purchases" class="page">
 
-<div class="section-head">
- <h2>🛒 المشتريات</h2>
- <button class="btn btn-primary">+ فاتورة شراء</button>
+<div class="title">
+<h1>🛒 المشتريات</h1>
+<button class="btn btn-primary">
++ فاتورة مشتريات
+</button>
 </div>
 
-<div class="grid">
+<div class="form-box">
 
-<div class="card module">
- <div class="module-icon">🛒</div>
- <h3>فاتورة شراء</h3>
- <p>تسجيل فواتير المشتريات</p>
+<div class="form-grid">
+
+<div>
+<label>المورد</label>
+<select id="purchaseSupplier">
+<option>مورد عام</option>
+</select>
 </div>
 
-<div class="card module">
- <div class="module-icon">↩️</div>
- <h3>مرتجع مشتريات</h3>
- <p>إرجاع المشتريات للموردين</p>
+<div>
+<label>الصنف</label>
+<select id="purchaseItem">
+</select>
 </div>
 
-<div class="card module">
- <div class="module-icon">💸</div>
- <h3>سند صرف</h3>
- <p>تسجيل المبالغ المدفوعة</p>
+<div>
+<label>الكمية</label>
+<input id="purchaseQty" type="number" value="1">
 </div>
 
-<div class="card module">
- <div class="module-icon">📋</div>
- <h3>فواتير المشتريات</h3>
- <p>عرض وإدارة الفواتير</p>
+<div>
+<label>سعر الشراء</label>
+<input id="purchasePrice" type="number" value="0">
 </div>
 
-<div class="card module">
- <div class="module-icon">📦</div>
- <h3>طلبات الشراء</h3>
- <p>إدارة طلبات التوريد</p>
 </div>
 
-<div class="card module">
- <div class="module-icon">📊</div>
- <h3>تقارير المشتريات</h3>
- <p>تقارير وتحليلات الشراء</p>
+<button class="btn btn-primary" onclick="addPurchaseItem()">
+إضافة للفاتورة
+</button>
+
 </div>
+
+<div class="table-box">
+
+<table>
+
+<thead>
+
+<tr>
+<th>الصنف</th>
+<th>الكمية</th>
+<th>السعر</th>
+<th>الإجمالي</th>
+</tr>
+
+</thead>
+
+<tbody id="purchaseTable">
+
+<tr>
+<td colspan="4" class="empty">
+لا توجد أصناف
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="total">
+الإجمالي:
+<span id="purchaseGrandTotal">0</span> ر.س
+</div>
+
+<button class="btn btn-success" onclick="savePurchase()">
+💾 حفظ فاتورة المشتريات
+</button>
+
+</section>
+
+
+<!-- الأصناف -->
+
+<section id="items" class="page">
+
+<div class="title">
+<h1>📦 الأصناف والمخزون</h1>
+</div>
+
+<div class="form-box">
+
+<div class="form-grid">
+
+<div>
+<label>اسم الصنف</label>
+<input id="itemName">
+</div>
+
+<div>
+<label>الباركود</label>
+<input id="itemBarcode">
+</div>
+
+<div>
+<label>التصنيف</label>
+<input id="itemCategory" value="عام">
+</div>
+
+<div>
+<label>الوحدة</label>
+<select id="itemUnit">
+<option>حبة</option>
+<option>كرتون</option>
+<option>كيلو</option>
+<option>متر</option>
+</select>
+</div>
+
+<div>
+<label>سعر الشراء</label>
+<input id="itemPurchase" type="number">
+</div>
+
+<div>
+<label>سعر البيع</label>
+<input id="itemSale" type="number">
+</div>
+
+<div>
+<label>الكمية</label>
+<input id="itemQuantity" type="number">
+</div>
+
+</div>
+
+<button class="btn btn-primary" onclick="addItem()">
++ إضافة الصنف
+</button>
+
+</div>
+
+<div class="table-box">
+
+<table>
+
+<thead>
+
+<tr>
+<th>#</th>
+<th>الصنف</th>
+<th>الباركود</th>
+<th>شراء</th>
+<th>بيع</th>
+<th>الكمية</th>
+</tr>
+
+</thead>
+
+<tbody id="itemsTable"></tbody>
+
+</table>
 
 </div>
 
 </section>
 
 
-<!-- CUSTOMERS -->
+<!-- العملاء -->
+
 <section id="customers" class="page">
 
-<div class="section-head">
- <h2>👥 العملاء</h2>
- <button class="btn btn-primary">+ إضافة عميل</button>
+<div class="title">
+<h1>👥 العملاء</h1>
 </div>
 
-<div class="card">
+<div class="form-box">
 
 <div class="form-grid">
 
-<div class="field">
-<label>بحث عن عميل</label>
-<input placeholder="اسم العميل أو رقم الهاتف">
+<div>
+<label>اسم العميل</label>
+<input id="customerName">
 </div>
 
-<div class="field">
-<label>نوع العميل</label>
-<select>
-<option>كل العملاء</option>
-<option>نقدي</option>
-<option>آجل</option>
-</select>
+<div>
+<label>الهاتف</label>
+<input id="customerPhone">
+</div>
+
+<div>
+<label>العنوان</label>
+<input id="customerAddress">
 </div>
 
 </div>
 
+<button class="btn btn-primary" onclick="addCustomer()">
++ إضافة عميل
+</button>
+
 </div>
 
-<div class="card table-card">
+<div class="table-box">
 
 <table>
+
 <thead>
+
 <tr>
+<th>#</th>
 <th>الاسم</th>
 <th>الهاتف</th>
-<th>الرصيد</th>
-<th>الحالة</th>
+<th>العنوان</th>
 </tr>
+
 </thead>
 
-<tbody>
-<tr>
-<td>لا يوجد عملاء</td>
-<td>-</td>
-<td>0.00</td>
-<td><span class="badge orange">فارغ</span></td>
-</tr>
-</tbody>
+<tbody id="customersTable"></tbody>
 
 </table>
 
@@ -860,56 +780,57 @@ th{
 </section>
 
 
-<!-- SUPPLIERS -->
+<!-- الموردون -->
+
 <section id="suppliers" class="page">
 
-<div class="section-head">
- <h2>🚚 الموردون</h2>
- <button class="btn btn-primary">+ إضافة مورد</button>
+<div class="title">
+<h1>🚚 الموردون</h1>
 </div>
 
-<div class="card">
+<div class="form-box">
 
 <div class="form-grid">
 
-<div class="field">
-<label>بحث عن مورد</label>
-<input placeholder="اسم المورد أو الهاتف">
+<div>
+<label>اسم المورد</label>
+<input id="supplierName">
 </div>
 
-<div class="field">
-<label>الحالة</label>
-<select>
-<option>كل الموردين</option>
-<option>نشط</option>
-<option>غير نشط</option>
-</select>
+<div>
+<label>الهاتف</label>
+<input id="supplierPhone">
+</div>
+
+<div>
+<label>العنوان</label>
+<input id="supplierAddress">
 </div>
 
 </div>
 
+<button class="btn btn-primary" onclick="addSupplier()">
++ إضافة مورد
+</button>
+
 </div>
 
-<div class="card table-card">
+<div class="table-box">
 
 <table>
+
 <thead>
+
 <tr>
+<th>#</th>
 <th>المورد</th>
 <th>الهاتف</th>
-<th>الرصيد</th>
-<th>الحالة</th>
+<th>العنوان</th>
 </tr>
+
 </thead>
 
-<tbody>
-<tr>
-<td>لا يوجد موردون</td>
-<td>-</td>
-<td>0.00</td>
-<td><span class="badge orange">فارغ</span></td>
-</tr>
-</tbody>
+<tbody id="suppliersTable"></tbody>
 
 </table>
 
@@ -918,49 +839,32 @@ th{
 </section>
 
 
-<!-- ACCOUNTS -->
+<!-- الحسابات -->
+
 <section id="accounts" class="page">
 
-<div class="section-head">
- <h2>💰 الحسابات</h2>
+<div class="title">
+<h1>💰 الحسابات</h1>
 </div>
 
-<div class="grid">
+<div class="cards">
 
-<div class="card module">
- <div class="module-icon">💵</div>
- <h3>الصندوق</h3>
- <p>إدارة النقدية وحركة الصندوق</p>
+<div class="card">
+<div class="card-icon">💵</div>
+<small>الصندوق</small>
+<strong id="accountCash">0 ر.س</strong>
 </div>
 
-<div class="card module">
- <div class="module-icon">🏦</div>
- <h3>البنوك</h3>
- <p>الحسابات والحركات البنكية</p>
+<div class="card">
+<div class="card-icon">🏦</div>
+<small>البنوك</small>
+<strong>0 ر.س</strong>
 </div>
 
-<div class="card module">
- <div class="module-icon">📒</div>
- <h3>القيود اليومية</h3>
- <p>إدارة القيود المحاسبية</p>
-</div>
-
-<div class="card module">
- <div class="module-icon">💸</div>
- <h3>المصروفات</h3>
- <p>تسجيل المصروفات</p>
-</div>
-
-<div class="card module">
- <div class="module-icon">💰</div>
- <h3>الإيرادات</h3>
- <p>تسجيل الإيرادات</p>
-</div>
-
-<div class="card module">
- <div class="module-icon">📊</div>
- <h3>التقارير المالية</h3>
- <p>عرض التقارير والحسابات</p>
+<div class="card">
+<div class="card-icon">📒</div>
+<small>القيود اليومية</small>
+<strong>0</strong>
 </div>
 
 </div>
@@ -968,49 +872,108 @@ th{
 </section>
 
 
-<!-- MASTER -->
-<section id="master" class="page">
+<!-- المصروفات -->
 
-<div class="section-head">
- <h2>📦 البيانات الأساسية</h2>
+<section id="expenses" class="page">
+
+<div class="title">
+<h1>💸 المصروفات</h1>
 </div>
 
-<div class="grid">
+<div class="form-box">
 
-<div class="card module">
- <div class="module-icon">📦</div>
- <h3>الأصناف</h3>
- <p>إضافة وتعديل وحذف الأصناف</p>
+<div class="form-grid">
+
+<div>
+<label>اسم المصروف</label>
+<input id="expenseName">
 </div>
 
-<div class="card module">
- <div class="module-icon">🗂️</div>
- <h3>التصنيفات</h3>
- <p>إدارة تصنيفات الأصناف</p>
+<div>
+<label>المبلغ</label>
+<input id="expenseAmount" type="number">
 </div>
 
-<div class="card module">
- <div class="module-icon">📏</div>
- <h3>الوحدات</h3>
- <p>كرتون، حبة، كيلو وغيرها</p>
+<div>
+<label>البيان</label>
+<input id="expenseNote">
 </div>
 
-<div class="card module">
- <div class="module-icon">🏪</div>
- <h3>المخازن</h3>
- <p>إدارة المستودعات والمخازن</p>
 </div>
 
-<div class="card module">
- <div class="module-icon">🏷️</div>
- <h3>الأسعار</h3>
- <p>أسعار البيع والشراء</p>
+<button class="btn btn-danger" onclick="addExpense()">
+تسجيل المصروف
+</button>
+
 </div>
 
-<div class="card module">
- <div class="module-icon">▦</div>
- <h3>الباركود</h3>
- <p>إدارة وطباعة الباركود</p>
+</section>
+
+
+<!-- الإيرادات -->
+
+<section id="income" class="page">
+
+<div class="title">
+<h1>💵 الإيرادات</h1>
+</div>
+
+<div class="form-box">
+
+<div class="form-grid">
+
+<div>
+<label>اسم الإيراد</label>
+<input id="incomeName">
+</div>
+
+<div>
+<label>المبلغ</label>
+<input id="incomeAmount" type="number">
+</div>
+
+<div>
+<label>البيان</label>
+<input id="incomeNote">
+</div>
+
+</div>
+
+<button class="btn btn-success" onclick="addIncome()">
+تسجيل الإيراد
+</button>
+
+</div>
+
+</section>
+
+
+<!-- التقارير -->
+
+<section id="reports" class="page">
+
+<div class="title">
+<h1>📊 التقارير</h1>
+</div>
+
+<div class="cards">
+
+<div class="card">
+<div class="card-icon">📈</div>
+<small>المبيعات</small>
+<strong id="reportSales">0</strong>
+</div>
+
+<div class="card">
+<div class="card-icon">📉</div>
+<small>المشتريات</small>
+<strong id="reportPurchases">0</strong>
+</div>
+
+<div class="card">
+<div class="card-icon">📦</div>
+<small>المخزون</small>
+<strong id="reportStock">0</strong>
 </div>
 
 </div>
@@ -1018,178 +981,917 @@ th{
 </section>
 
 
-<!-- COMPANY -->
+<!-- المؤسسة -->
+
 <section id="company" class="page">
 
-<div class="section-head">
- <h2>🏢 بيانات المؤسسة</h2>
- <button class="btn btn-success" onclick="saveCompany()">حفظ البيانات</button>
+<div class="title">
+<h1>🏢 بيانات المؤسسة</h1>
+</div>
+
+<div class="form-box">
+
+<div class="form-grid">
+
+<div>
+<label>اسم المؤسسة</label>
+<input id="companyName" value="الرهيب سوفت">
+</div>
+
+<div>
+<label>رقم الهاتف</label>
+<input id="companyPhone">
+</div>
+
+<div>
+<label>العنوان</label>
+<input id="companyAddress">
+</div>
+
+<div>
+<label>الرقم الضريبي</label>
+<input id="companyTax">
+</div>
+
+</div>
+
+<button class="btn btn-success" onclick="saveCompany()">
+💾 حفظ البيانات
+</button>
+
+</div>
+
+</section>
+
+
+<!-- الإعدادات -->
+
+<section id="settings" class="page">
+
+<div class="title">
+<h1>⚙️ الإعدادات</h1>
 </div>
 
 <div class="card">
 
-<div class="form-grid">
+<h2>إعدادات النظام</h2>
 
-<div class="field">
-<label>اسم المؤسسة</label>
-<input id="companyName" placeholder="اسم المؤسسة">
-</div>
+<p>
+الرهيب سوفت - نظام إدارة ومحاسبة متكامل
+</p>
 
-<div class="field">
-<label>رقم الهاتف</label>
-<input id="companyPhone" placeholder="05xxxxxxxx">
-</div>
-
-<div class="field">
-<label>العنوان</label>
-<input id="companyAddress" placeholder="عنوان المؤسسة">
-</div>
-
-<div class="field">
-<label>الرقم الضريبي</label>
-<input id="taxNumber" placeholder="الرقم الضريبي">
-</div>
-
-</div>
+<button class="btn btn-primary" onclick="backup()">
+💾 نسخة احتياطية
+</button>
 
 </div>
 
 </section>
 
-
-<!-- SETTINGS -->
-<section id="settings" class="page">
-
-<div class="section-head">
- <h2>⚙️ الإعدادات</h2>
-</div>
-
-<div class="grid">
-
-<div class="card module">
- <div class="module-icon">👤</div>
- <h3>المستخدمون</h3>
- <p>إدارة مستخدمي النظام</p>
-</div>
-
-<div class="card module">
- <div class="module-icon">🔐</div>
- <h3>الصلاحيات</h3>
- <p>تحديد صلاحيات المستخدمين</p>
-</div>
-
-<div class="card module">
- <div class="module-icon">🧾</div>
- <h3>إعدادات الفواتير</h3>
- <p>تخصيص الفواتير والطباعة</p>
-</div>
-
-<div class="card module">
- <div class="module-icon">💾</div>
- <h3>النسخ الاحتياطي</h3>
- <p>حفظ واستعادة بيانات النظام</p>
-</div>
-
-<div class="card module">
- <div class="module-icon">🖨️</div>
- <h3>الطابعات</h3>
- <p>إعدادات الطباعة والفواتير</p>
-</div>
-
-<div class="card module">
- <div class="module-icon">🎨</div>
- <h3>مظهر النظام</h3>
- <p>الألوان والوضع الليلي</p>
-</div>
-
-</div>
-
-</section>
-
-</div>
 </main>
 
 </div>
 
+
 <script>
 
-function showPage(id,btn){
+let items=[];
+let customers=[];
+let suppliers=[];
+let sales=[];
+let purchases=[];
+let saleCart=[];
+let purchaseCart=[];
 
- document.querySelectorAll(".page").forEach(p=>{
-  p.classList.remove("active");
- });
 
- const page=document.getElementById(id);
+function showPage(id,button){
 
- if(page){
-  page.classList.add("active");
- }
+    document
+    .querySelectorAll(".page")
+    .forEach(page=>{
+        page.classList.remove("active");
+    });
 
- document.querySelectorAll(".menu button").forEach(b=>{
-  b.classList.remove("active");
- });
+    document
+    .getElementById(id)
+    .classList.add("active");
 
- if(btn){
-  btn.classList.add("active");
- }
+    document
+    .querySelectorAll(".menu")
+    .forEach(btn=>{
+        btn.classList.remove("active");
+    });
 
- const titles={
-  dashboard:"لوحة التحكم",
-  sales:"المبيعات",
-  purchases:"المشتريات",
-  customers:"العملاء",
-  suppliers:"الموردون",
-  accounts:"الحسابات",
-  master:"البيانات الأساسية",
-  company:"بيانات المؤسسة",
-  settings:"الإعدادات"
- };
+    if(button){
+        button.classList.add("active");
+    }
 
- document.getElementById("pageTitle").textContent=titles[id]||"الرهيب سوفت";
-
- window.scrollTo({top:0,behavior:"smooth"});
+    loadData();
 }
 
-function toggleMenu(){
- document.getElementById("sidebar").classList.toggle("open");
+
+async function loadData(){
+
+    try{
+
+        const response=
+        await fetch("/api/database");
+
+        if(!response.ok) return;
+
+        const db=
+        await response.json();
+
+        items=db.items||[];
+        customers=db.customers||[];
+        suppliers=db.suppliers||[];
+        sales=db.sales||[];
+        purchases=db.purchases||[];
+
+        renderAll();
+
+    }catch(error){
+
+        console.log(error);
+
+    }
+
 }
 
-function toggleTheme(){
 
- document.body.classList.toggle("dark");
+function renderAll(){
 
- if(document.body.classList.contains("dark")){
-  document.body.style.background="#0b1220";
- }else{
-  document.body.style.background="var(--bg)";
- }
+    renderItems();
+    renderCustomers();
+    renderSuppliers();
+    renderSaleItems();
+    renderPurchaseItems();
+    updateDashboard();
 
 }
+
+
+function updateDashboard(){
+
+    let salesTotal=
+    sales.reduce(
+        (sum,x)=>sum+Number(x.total||0),
+        0
+    );
+
+    let purchaseTotal=
+    purchases.reduce(
+        (sum,x)=>sum+Number(x.total||0),
+        0
+    );
+
+    let stockTotal=
+    items.reduce(
+        (sum,x)=>
+        sum+
+        Number(x.quantity||0)*
+        Number(x.salePrice||0),
+        0
+    );
+
+    document.getElementById("salesTotal")
+    .textContent=
+    salesTotal.toLocaleString()+" ر.س";
+
+    document.getElementById("purchaseTotal")
+    .textContent=
+    purchaseTotal.toLocaleString()+" ر.س";
+
+    document.getElementById("stockTotal")
+    .textContent=
+    stockTotal.toLocaleString()+" ر.س";
+
+    document.getElementById("reportSales")
+    .textContent=
+    salesTotal.toLocaleString()+" ر.س";
+
+    document.getElementById("reportPurchases")
+    .textContent=
+    purchaseTotal.toLocaleString()+" ر.س";
+
+    document.getElementById("reportStock")
+    .textContent=
+    stockTotal.toLocaleString()+" ر.س";
+
+}
+
+
+function renderItems(){
+
+    let table=
+    document.getElementById("itemsTable");
+
+    table.innerHTML="";
+
+    items.forEach(item=>{
+
+        table.innerHTML+=`
+
+        <tr>
+
+        <td>${item.id}</td>
+
+        <td>${item.name}</td>
+
+        <td>${item.barcode||""}</td>
+
+        <td>${item.purchasePrice||0}</td>
+
+        <td>${item.salePrice||0}</td>
+
+        <td>${item.quantity||0}</td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+
+function renderCustomers(){
+
+    let table=
+    document.getElementById("customersTable");
+
+    table.innerHTML="";
+
+    customers.forEach(customer=>{
+
+        table.innerHTML+=`
+
+        <tr>
+
+        <td>${customer.id}</td>
+
+        <td>${customer.name}</td>
+
+        <td>${customer.phone}</td>
+
+        <td>${customer.address}</td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+
+function renderSuppliers(){
+
+    let table=
+    document.getElementById("suppliersTable");
+
+    table.innerHTML="";
+
+    suppliers.forEach(supplier=>{
+
+        table.innerHTML+=`
+
+        <tr>
+
+        <td>${supplier.id}</td>
+
+        <td>${supplier.name}</td>
+
+        <td>${supplier.phone}</td>
+
+        <td>${supplier.address}</td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+
+function renderSaleItems(){
+
+    let select=
+    document.getElementById("saleItem");
+
+    select.innerHTML="";
+
+    items.forEach(item=>{
+
+        select.innerHTML+=`
+
+        <option value="${item.id}">
+        ${item.name} - ${item.salePrice} ر.س
+        </option>
+
+        `;
+
+    });
+
+}
+
+
+function renderPurchaseItems(){
+
+    let select=
+    document.getElementById("purchaseItem");
+
+    select.innerHTML="";
+
+    items.forEach(item=>{
+
+        select.innerHTML+=`
+
+        <option value="${item.id}">
+        ${item.name}
+        </option>
+
+        `;
+
+    });
+
+}
+
+
+function addItem(){
+
+    fetch("/api/items",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":
+            "application/json"
+        },
+
+        body:JSON.stringify({
+
+            name:
+            document
+            .getElementById("itemName")
+            .value,
+
+            barcode:
+            document
+            .getElementById("itemBarcode")
+            .value,
+
+            category:
+            document
+            .getElementById("itemCategory")
+            .value,
+
+            unit:
+            document
+            .getElementById("itemUnit")
+            .value,
+
+            purchasePrice:
+            document
+            .getElementById("itemPurchase")
+            .value,
+
+            salePrice:
+            document
+            .getElementById("itemSale")
+            .value,
+
+            quantity:
+            document
+            .getElementById("itemQuantity")
+            .value
+
+        })
+
+    })
+    .then(()=>{
+
+        alert("تم إضافة الصنف");
+
+        loadData();
+
+    });
+
+}
+
+
+function addCustomer(){
+
+    fetch("/api/customers",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":
+            "application/json"
+        },
+
+        body:JSON.stringify({
+
+            name:
+            document
+            .getElementById("customerName")
+            .value,
+
+            phone:
+            document
+            .getElementById("customerPhone")
+            .value,
+
+            address:
+            document
+            .getElementById("customerAddress")
+            .value
+
+        })
+
+    })
+    .then(()=>{
+
+        alert("تم إضافة العميل");
+
+        loadData();
+
+    });
+
+}
+
+
+function addSupplier(){
+
+    fetch("/api/suppliers",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":
+            "application/json"
+        },
+
+        body:JSON.stringify({
+
+            name:
+            document
+            .getElementById("supplierName")
+            .value,
+
+            phone:
+            document
+            .getElementById("supplierPhone")
+            .value,
+
+            address:
+            document
+            .getElementById("supplierAddress")
+            .value
+
+        })
+
+    })
+    .then(()=>{
+
+        alert("تم إضافة المورد");
+
+        loadData();
+
+    });
+
+}
+
+
+function addSaleItem(){
+
+    let id=
+    Number(
+        document
+        .getElementById("saleItem")
+        .value
+    );
+
+    let quantity=
+    Number(
+        document
+        .getElementById("saleQty")
+        .value
+    );
+
+    let item=
+    items.find(x=>x.id===id);
+
+    if(!item){
+
+        alert("اختر الصنف");
+
+        return;
+    }
+
+    saleCart.push({
+
+        itemId:item.id,
+
+        name:item.name,
+
+        quantity,
+
+        price:item.salePrice
+
+    });
+
+    renderSaleCart();
+
+}
+
+
+function renderSaleCart(){
+
+    let table=
+    document
+    .getElementById("saleTable");
+
+    table.innerHTML="";
+
+    let total=0;
+
+    saleCart.forEach(x=>{
+
+        let line=
+        x.quantity*x.price;
+
+        total+=line;
+
+        table.innerHTML+=`
+
+        <tr>
+
+        <td>${x.name}</td>
+
+        <td>${x.quantity}</td>
+
+        <td>${x.price}</td>
+
+        <td>${line}</td>
+
+        </tr>
+
+        `;
+
+    });
+
+    document
+    .getElementById("invoiceTotal")
+    .textContent=
+    total.toLocaleString();
+
+}
+
+
+function saveSale(){
+
+    if(!saleCart.length){
+
+        alert("الفاتورة فارغة");
+
+        return;
+    }
+
+    fetch("/api/sales",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":
+            "application/json"
+        },
+
+        body:JSON.stringify({
+
+            items:saleCart,
+
+            payment:"نقدي"
+
+        })
+
+    })
+    .then(async response=>{
+
+        let data=
+        await response.json();
+
+        if(!response.ok){
+
+            alert(data.error);
+
+            return;
+        }
+
+        alert("تم حفظ فاتورة المبيعات");
+
+        saleCart=[];
+
+        renderSaleCart();
+
+        loadData();
+
+    });
+
+}
+
+
+function addPurchaseItem(){
+
+    let id=
+    Number(
+        document
+        .getElementById("purchaseItem")
+        .value
+    );
+
+    let quantity=
+    Number(
+        document
+        .getElementById("purchaseQty")
+        .value
+    );
+
+    let price=
+    Number(
+        document
+        .getElementById("purchasePrice")
+        .value
+    );
+
+    let item=
+    items.find(x=>x.id===id);
+
+    if(!item){
+
+        alert("اختر الصنف");
+
+        return;
+    }
+
+    purchaseCart.push({
+
+        itemId:item.id,
+
+        name:item.name,
+
+        quantity,
+
+        price
+
+    });
+
+    renderPurchaseCart();
+
+}
+
+
+function renderPurchaseCart(){
+
+    let table=
+    document
+    .getElementById("purchaseTable");
+
+    table.innerHTML="";
+
+    let total=0;
+
+    purchaseCart.forEach(x=>{
+
+        let line=
+        x.quantity*x.price;
+
+        total+=line;
+
+        table.innerHTML+=`
+
+        <tr>
+
+        <td>${x.name}</td>
+
+        <td>${x.quantity}</td>
+
+        <td>${x.price}</td>
+
+        <td>${line}</td>
+
+        </tr>
+
+        `;
+
+    });
+
+    document
+    .getElementById("purchaseGrandTotal")
+    .textContent=
+    total.toLocaleString();
+
+}
+
+
+function savePurchase(){
+
+    if(!purchaseCart.length){
+
+        alert("الفاتورة فارغة");
+
+        return;
+    }
+
+    fetch("/api/purchases",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":
+            "application/json"
+        },
+
+        body:JSON.stringify({
+
+            items:purchaseCart,
+
+            payment:"نقدي"
+
+        })
+
+    })
+    .then(async response=>{
+
+        let data=
+        await response.json();
+
+        if(!response.ok){
+
+            alert(data.error);
+
+            return;
+        }
+
+        alert("تم حفظ فاتورة المشتريات");
+
+        purchaseCart=[];
+
+        renderPurchaseCart();
+
+        loadData();
+
+    });
+
+}
+
+
+function addExpense(){
+
+    fetch("/api/expenses",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":
+            "application/json"
+        },
+
+        body:JSON.stringify({
+
+            name:
+            document
+            .getElementById("expenseName")
+            .value,
+
+            amount:
+            document
+            .getElementById("expenseAmount")
+            .value,
+
+            note:
+            document
+            .getElementById("expenseNote")
+            .value
+
+        })
+
+    })
+    .then(()=>{
+
+        alert("تم تسجيل المصروف");
+
+        loadData();
+
+    });
+
+}
+
+
+function addIncome(){
+
+    fetch("/api/incomes",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":
+            "application/json"
+        },
+
+        body:JSON.stringify({
+
+            name:
+            document
+            .getElementById("incomeName")
+            .value,
+
+            amount:
+            document
+            .getElementById("incomeAmount")
+            .value,
+
+            note:
+            document
+            .getElementById("incomeNote")
+            .value
+
+        })
+
+    })
+    .then(()=>{
+
+        alert("تم تسجيل الإيراد");
+
+        loadData();
+
+    });
+
+}
+
 
 function saveCompany(){
 
- const data={
-  name:document.getElementById("companyName").value,
-  phone:document.getElementById("companyPhone").value,
-  address:document.getElementById("companyAddress").value,
-  tax:document.getElementById("taxNumber").value
- };
+    fetch("/api/company",{
 
- localStorage.setItem("raheeb_company",JSON.stringify(data));
+        method:"PUT",
 
- alert("تم حفظ بيانات المؤسسة بنجاح ✅");
+        headers:{
+            "Content-Type":
+            "application/json"
+        },
+
+        body:JSON.stringify({
+
+            name:
+            document
+            .getElementById("companyName")
+            .value,
+
+            phone:
+            document
+            .getElementById("companyPhone")
+            .value,
+
+            address:
+            document
+            .getElementById("companyAddress")
+            .value,
+
+            taxNumber:
+            document
+            .getElementById("companyTax")
+            .value
+
+        })
+
+    })
+    .then(()=>{
+
+        alert("تم حفظ بيانات المؤسسة");
+
+    });
+
 }
 
-window.onload=function(){
 
- const data=JSON.parse(localStorage.getItem("raheeb_company")||"{}");
+function backup(){
 
- if(data.name)document.getElementById("companyName").value=data.name;
- if(data.phone)document.getElementById("companyPhone").value=data.phone;
- if(data.address)document.getElementById("companyAddress").value=data.address;
- if(data.tax)document.getElementById("taxNumber").value=data.tax;
+    window.location.href="/api/backup";
 
-};
+}
+
+
+function newSale(){
+
+    showPage("sales");
+
+}
+
+
+loadData();
 
 </script>
 
