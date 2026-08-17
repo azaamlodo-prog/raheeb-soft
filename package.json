@@ -1,8 +1,6 @@
 {
   "dependencies": {
-    "cors": "^2.8.6",
     "express": "^5.2.1",
-    "msnodesqlv8": "^5.2.3",
-    "mssql": "^12.7.0"
+    "cors": "^2.8.6"
   }
 }
