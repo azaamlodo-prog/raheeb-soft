@@ -17,7 +17,10 @@ app.get('/', (req, res) => {
 app.get('/api/database', (req, res) => {
   try {
     const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-    res.json({ success: true, data });
+    res.json({
+      success: true,
+      data: data
+    });
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -27,5 +30,5 @@ app.get('/api/database', (req, res) => {
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`الرهيب سوفت يعمل على المنفذ ${PORT}`);
+  console.log('الرهيب سوفت يعمل على المنفذ ' + PORT);
 });
