@@ -1,7 +1,7 @@
 {
   "name": "raheeb-soft",
-  "version": "2.0.0",
-  "description": "نظام الرهيب سوفت المحاسبي والكاشير",
+  "version": "3.0.0",
+  "description": "الرهيب سوفت - نظام محاسبي وكاشير",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
