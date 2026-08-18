@@ -8,59 +8,64 @@ const PORT = process.env.PORT || 3000;
 const DB_FILE = path.join(__dirname, "database.json");
 const HTML_FILE = path.join(__dirname, "raheeb-soft.html");
 
-app.use(express.json({ limit: "5mb" }));
+app.use(express.json({ limit: "10mb" }));
 
-function emptyDB() {
-  return {
-    company: {
-      name: "الرهيب سوفت",
-      currency: "ريال"
-    },
-    products: [],
-    customers: [],
-    suppliers: [],
-    sales: [],
-    purchases: [],
-    expenses: [],
-    cash: []
-  };
-}
-
-function readDB() {
-  try {
-    if (!fs.existsSync(DB_FILE)) {
-      const db = emptyDB();
-      fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2));
-      return db;
-    }
-
-    const raw = fs.readFileSync(DB_FILE, "utf8").trim();
-
-    if (!raw) return emptyDB();
-
-    const db = JSON.parse(raw);
-    const base = emptyDB();
-
-    return {
-      ...base,
-      ...db,
-      company: { ...base.company, ...(db.company || {}) },
-      products: Array.isArray(db.products) ? db.products : [],
-      customers: Array.isArray(db.customers) ? db.customers : [],
-      suppliers: Array.isArray(db.suppliers) ? db.suppliers : [],
-      sales: Array.isArray(db.sales) ? db.sales : [],
-      purchases: Array.isArray(db.purchases) ? db.purchases : [],
-      expenses: Array.isArray(db.expenses) ? db.expenses : [],
-      cash: Array.isArray(db.cash) ? db.cash : []
+function getDatabase() {
+  if (!fs.existsSync(DB_FILE)) {
+    const database = {
+      company: {
+        name: "الرهيب سوفت",
+        taxNumber: "",
+        phone: "",
+        address: "",
+        currency: "ريال"
+      },
+      products: [],
+      customers: [],
+      suppliers: [],
+      invoices: [],
+      purchases: [],
+      expenses: [],
+      cashTransactions: []
     };
+
+    fs.writeFileSync(
+      DB_FILE,
+      JSON.stringify(database, null, 2),
+      "utf8"
+    );
+
+    return database;
+  }
+
+  try {
+    return JSON.parse(fs.readFileSync(DB_FILE, "utf8"));
   } catch (error) {
-    console.error(error);
-    return emptyDB();
+    return {
+      company: {
+        name: "الرهيب سوفت",
+        taxNumber: "",
+        phone: "",
+        address: "",
+        currency: "ريال"
+      },
+      products: [],
+      customers: [],
+      suppliers: [],
+      invoices: [],
+      purchases: [],
+      expenses: [],
+      cashTransactions: []
+    };
   }
 }
 
-function saveDB(db) {
-  fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), "utf8");
+function saveDatabase(database) {
+  fs.writeFileSync(
+    DB_FILE,
+    JSON.stringify(database, null, 2),
+    "utf8"
+  );
 }
 
 app.get("/", (req, res) => {
@@ -68,19 +73,16 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/database", (req, res) => {
-  res.json({
-    success: true,
-    data: readDB()
-  });
+  res.json(getDatabase());
 });
 
 app.post("/api/database", (req, res) => {
   try {
-    saveDB(req.body);
+    saveDatabase(req.body);
 
     res.json({
       success: true,
-      message: "تم حفظ البيانات"
+      message: "تم حفظ البيانات بنجاح"
     });
   } catch (error) {
     res.status(500).json({
@@ -88,6 +90,14 @@ app.post("/api/database", (req, res) => {
       error: error.message
     });
   }
+});
+
+app.get("/api/health", (req, res) => {
+  res.json({
+    success: true,
+    message: "الرهيب سوفت يعمل",
+    port: PORT
+  });
 });
 
 app.listen(PORT, "0.0.0.0", () => {
