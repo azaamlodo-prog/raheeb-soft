@@ -3,29 +3,793 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>الرهيب سوفت</title>
+
 <style>
-*{box-sizing:border-box} body{margin:0;font-family:Arial,Tahoma,sans-serif;background:#f3f6fa;color:#172033}.header{background:#172033;color:#fff;padding:24px;text-align:center}.header h1{margin:0}.container{max-width:1000px;margin:30px auto;padding:20px}.card{background:#fff;border-radius:14px;padding:25px;box-shadow:0 5px 20px #0001}button{padding:12px 20px;border:0;border-radius:8px;background:#1769e0;color:#fff;cursor:pointer}#result{margin-top:15px;padding:12px;background:#f0f3f7;border-radius:8px}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Tahoma, sans-serif;
+  background: #f1f5f9;
+  color: #172033;
+}
+
+.header {
+  background: #172033;
+  color: white;
+  padding: 25px;
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0 0 8px;
+  font-size: 32px;
+}
+
+.header p {
+  margin: 0;
+  opacity: .85;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 25px;
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.menu button {
+  border: 0;
+  padding: 16px;
+  border-radius: 12px;
+  background: white;
+  color: #172033;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 3px 12px #0001;
+}
+
+.menu button:hover {
+  background: #1769e0;
+  color: white;
+}
+
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 18px #0001;
+}
+
+.card h2 {
+  margin-top: 0;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.stat {
+  background: white;
+  padding: 22px;
+  border-radius: 15px;
+  box-shadow: 0 3px 15px #0001;
+}
+
+.stat h3 {
+  margin: 0 0 10px;
+  color: #64748b;
+}
+
+.stat strong {
+  font-size: 28px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  margin: 6px 0 12px;
+  font-size: 15px;
+}
+
+button.primary {
+  background: #1769e0;
+  color: white;
+  border: 0;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+button.danger {
+  background: #dc2626;
+  color: white;
+  border: 0;
+  padding: 8px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th,
+td {
+  padding: 12px;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: right;
+}
+
+th {
+  background: #f8fafc;
+}
+
+.message {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #eef2ff;
+}
+
+.empty {
+  text-align: center;
+  padding: 30px;
+  color: #64748b;
+}
 </style>
 </head>
+
 <body>
-<header class="header"><h1>الرهيب سوفت</h1><p>النظام المحاسبي والإداري</p></header>
-<main class="container"><section class="card">
-<h2>مرحباً بك في الرهيب سوفت</h2>
-<p>واجهة المشروع جاهزة للعمل.</p>
-<button onclick="testDatabase()">اختبار قاعدة البيانات</button>
-<div id="result">لم يتم الاختبار بعد.</div>
-</section></main>
+
+<header class="header">
+  <h1>الرهيب سوفت</h1>
+  <p>النظام المحاسبي والإداري</p>
+</header>
+
+<main class="container">
+
+  <nav class="menu">
+    <button onclick="showSection('dashboard')">الرئيسية</button>
+    <button onclick="showSection('products')">الأصناف</button>
+    <button onclick="showSection('customers')">العملاء</button>
+    <button onclick="showSection('invoices')">الفواتير</button>
+    <button onclick="testDatabase()">اختبار قاعدة البيانات</button>
+  </nav>
+
+  <section id="dashboard" class="section active">
+
+    <div class="stats">
+
+      <div class="stat">
+        <h3>عدد الأصناف</h3>
+        <strong id="productCount">0</strong>
+      </div>
+
+      <div class="stat">
+        <h3>عدد العملاء</h3>
+        <strong id="customerCount">0</strong>
+      </div>
+
+      <div class="stat">
+        <h3>عدد الفواتير</h3>
+        <strong id="invoiceCount">0</strong>
+      </div>
+
+      <div class="stat">
+        <h3>إجمالي المبيعات</h3>
+        <strong id="salesTotal">0.00</strong>
+      </div>
+
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <h2>مرحباً بك في الرهيب سوفت</h2>
+      <p>
+        نظام محاسبي وإداري لإدارة الأصناف والعملاء والفواتير.
+      </p>
+
+      <div id="databaseMessage" class="message">
+        جاري الاتصال بقاعدة البيانات...
+      </div>
+    </div>
+
+  </section>
+
+
+  <section id="products" class="section">
+
+    <div class="card">
+      <h2>إضافة صنف</h2>
+
+      <label>اسم الصنف</label>
+      <input id="productName" placeholder="مثال: حليب">
+
+      <label>السعر</label>
+      <input id="productPrice" type="number" step="0.01" placeholder="0">
+
+      <label>الكمية</label>
+      <input id="productQty" type="number" step="1" placeholder="0">
+
+      <button class="primary" onclick="addProduct()">
+        إضافة الصنف
+      </button>
+    </div>
+
+    <div class="card">
+      <h2>الأصناف</h2>
+
+      <div id="productsTable"></div>
+    </div>
+
+  </section>
+
+
+  <section id="customers" class="section">
+
+    <div class="card">
+      <h2>إضافة عميل</h2>
+
+      <label>اسم العميل</label>
+      <input id="customerName" placeholder="اسم العميل">
+
+      <label>رقم الجوال</label>
+      <input id="customerPhone" placeholder="رقم الجوال">
+
+      <button class="primary" onclick="addCustomer()">
+        إضافة العميل
+      </button>
+    </div>
+
+    <div class="card">
+      <h2>العملاء</h2>
+
+      <div id="customersTable"></div>
+    </div>
+
+  </section>
+
+
+  <section id="invoices" class="section">
+
+    <div class="card">
+
+      <h2>إضافة فاتورة</h2>
+
+      <label>الصنف</label>
+      <select id="invoiceProduct"></select>
+
+      <label>الكمية</label>
+      <input id="invoiceQty" type="number" value="1" min="1">
+
+      <button class="primary" onclick="addInvoice()">
+        حفظ الفاتورة
+      </button>
+
+    </div>
+
+    <div class="card">
+      <h2>الفواتير</h2>
+
+      <div id="invoicesTable"></div>
+    </div>
+
+  </section>
+
+</main>
+
+
 <script>
-async function testDatabase(){
- const result=document.getElementById('result');
- result.textContent='جاري الاختبار...';
- try{
-  const response=await fetch('/api/database');
-  const data=await response.json();
-  result.textContent=data.success?'تم الاتصال بملف قاعدة البيانات بنجاح.':'حدث خطأ: '+data.error;
- }catch(e){result.textContent='تعذر الاتصال بالسيرفر.';}
+
+let database = {
+  products: [],
+  customers: [],
+  invoices: []
+};
+
+
+async function loadDatabase() {
+
+  try {
+
+    const response = await fetch("/api/database");
+
+    const result = await response.json();
+
+    if (result.success) {
+
+      database = result.data;
+
+      database.products = database.products || [];
+      database.customers = database.customers || [];
+      database.invoices = database.invoices || [];
+
+      refreshScreen();
+
+      document.getElementById("databaseMessage").textContent =
+        "تم الاتصال بقاعدة البيانات بنجاح.";
+
+    }
+
+  } catch (error) {
+
+    document.getElementById("databaseMessage").textContent =
+      "تعذر الاتصال بالسيرفر.";
+
+  }
+
 }
+
+
+async function saveDatabase() {
+
+  const response = await fetch("/api/database", {
+
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json"
+    },
+
+    body: JSON.stringify(database)
+
+  });
+
+  const result = await response.json();
+
+  if (!result.success) {
+    throw new Error(result.error || "فشل الحفظ");
+  }
+
+}
+
+
+function showSection(id) {
+
+  document.querySelectorAll(".section").forEach(section => {
+    section.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+
+}
+
+
+async function addProduct() {
+
+  const name = document.getElementById("productName").value.trim();
+
+  const price = Number(
+    document.getElementById("productPrice").value
+  );
+
+  const qty = Number(
+    document.getElementById("productQty").value
+  );
+
+  if (!name) {
+    alert("اكتب اسم الصنف");
+    return;
+  }
+
+  database.products.push({
+
+    id: Date.now(),
+
+    name: name,
+
+    price: price,
+
+    qty: qty
+
+  });
+
+  try {
+
+    await saveDatabase();
+
+    document.getElementById("productName").value = "";
+    document.getElementById("productPrice").value = "";
+    document.getElementById("productQty").value = "";
+
+    refreshScreen();
+
+    alert("تمت إضافة الصنف بنجاح");
+
+  } catch (error) {
+
+    alert("حدث خطأ أثناء الحفظ");
+
+  }
+
+}
+
+
+async function deleteProduct(id) {
+
+  database.products =
+    database.products.filter(product => product.id !== id);
+
+  await saveDatabase();
+
+  refreshScreen();
+
+}
+
+
+async function addCustomer() {
+
+  const name =
+    document.getElementById("customerName").value.trim();
+
+  const phone =
+    document.getElementById("customerPhone").value.trim();
+
+  if (!name) {
+    alert("اكتب اسم العميل");
+    return;
+  }
+
+  database.customers.push({
+
+    id: Date.now(),
+
+    name: name,
+
+    phone: phone
+
+  });
+
+  try {
+
+    await saveDatabase();
+
+    document.getElementById("customerName").value = "";
+    document.getElementById("customerPhone").value = "";
+
+    refreshScreen();
+
+    alert("تمت إضافة العميل بنجاح");
+
+  } catch (error) {
+
+    alert("حدث خطأ أثناء الحفظ");
+
+  }
+
+}
+
+
+async function deleteCustomer(id) {
+
+  database.customers =
+    database.customers.filter(customer => customer.id !== id);
+
+  await saveDatabase();
+
+  refreshScreen();
+
+}
+
+
+async function addInvoice() {
+
+  const productId =
+    Number(document.getElementById("invoiceProduct").value);
+
+  const qty =
+    Number(document.getElementById("invoiceQty").value);
+
+  const product =
+    database.products.find(p => p.id === productId);
+
+  if (!product) {
+    alert("أضف صنفًا أولاً");
+    return;
+  }
+
+  if (qty <= 0) {
+    alert("الكمية غير صحيحة");
+    return;
+  }
+
+  const total = product.price * qty;
+
+  database.invoices.push({
+
+    id: Date.now(),
+
+    productId: product.id,
+
+    productName: product.name,
+
+    qty: qty,
+
+    price: product.price,
+
+    total: total,
+
+    date: new Date().toLocaleString("ar-SA")
+
+  });
+
+  product.qty = Number(product.qty) - qty;
+
+  try {
+
+    await saveDatabase();
+
+    refreshScreen();
+
+    alert("تم حفظ الفاتورة بنجاح");
+
+  } catch (error) {
+
+    alert("حدث خطأ أثناء حفظ الفاتورة");
+
+  }
+
+}
+
+
+function renderProducts() {
+
+  const container =
+    document.getElementById("productsTable");
+
+  if (database.products.length === 0) {
+
+    container.innerHTML =
+      '<div class="empty">لا توجد أصناف حتى الآن</div>';
+
+    return;
+
+  }
+
+  let html = `
+    <table>
+      <tr>
+        <th>الصنف</th>
+        <th>السعر</th>
+        <th>الكمية</th>
+        <th>إجراء</th>
+      </tr>
+  `;
+
+  database.products.forEach(product => {
+
+    html += `
+      <tr>
+        <td>${escapeHtml(product.name)}</td>
+        <td>${Number(product.price).toFixed(2)}</td>
+        <td>${product.qty}</td>
+        <td>
+          <button class="danger"
+            onclick="deleteProduct(${product.id})">
+            حذف
+          </button>
+        </td>
+      </tr>
+    `;
+
+  });
+
+  html += "</table>";
+
+  container.innerHTML = html;
+
+}
+
+
+function renderCustomers() {
+
+  const container =
+    document.getElementById("customersTable");
+
+  if (database.customers.length === 0) {
+
+    container.innerHTML =
+      '<div class="empty">لا يوجد عملاء حتى الآن</div>';
+
+    return;
+
+  }
+
+  let html = `
+    <table>
+      <tr>
+        <th>الاسم</th>
+        <th>الجوال</th>
+        <th>إجراء</th>
+      </tr>
+  `;
+
+  database.customers.forEach(customer => {
+
+    html += `
+      <tr>
+        <td>${escapeHtml(customer.name)}</td>
+        <td>${escapeHtml(customer.phone || "")}</td>
+        <td>
+          <button class="danger"
+            onclick="deleteCustomer(${customer.id})">
+            حذف
+          </button>
+        </td>
+      </tr>
+    `;
+
+  });
+
+  html += "</table>";
+
+  container.innerHTML = html;
+
+}
+
+
+function renderInvoices() {
+
+  const container =
+    document.getElementById("invoicesTable");
+
+  if (database.invoices.length === 0) {
+
+    container.innerHTML =
+      '<div class="empty">لا توجد فواتير حتى الآن</div>';
+
+    return;
+
+  }
+
+  let html = `
+    <table>
+      <tr>
+        <th>التاريخ</th>
+        <th>الصنف</th>
+        <th>الكمية</th>
+        <th>السعر</th>
+        <th>الإجمالي</th>
+      </tr>
+  `;
+
+  database.invoices.forEach(invoice => {
+
+    html += `
+      <tr>
+        <td>${escapeHtml(invoice.date)}</td>
+        <td>${escapeHtml(invoice.productName)}</td>
+        <td>${invoice.qty}</td>
+        <td>${Number(invoice.price).toFixed(2)}</td>
+        <td>${Number(invoice.total).toFixed(2)}</td>
+      </tr>
+    `;
+
+  });
+
+  html += "</table>";
+
+  container.innerHTML = html;
+
+}
+
+
+function updateInvoiceProducts() {
+
+  const select =
+    document.getElementById("invoiceProduct");
+
+  if (database.products.length === 0) {
+
+    select.innerHTML =
+      '<option value="">لا توجد أصناف</option>';
+
+    return;
+
+  }
+
+  select.innerHTML = database.products.map(product => {
+
+    return `
+      <option value="${product.id}">
+        ${escapeHtml(product.name)}
+        - ${Number(product.price).toFixed(2)}
+      </option>
+    `;
+
+  }).join("");
+
+}
+
+
+function updateStats() {
+
+  document.getElementById("productCount").textContent =
+    database.products.length;
+
+  document.getElementById("customerCount").textContent =
+    database.customers.length;
+
+  document.getElementById("invoiceCount").textContent =
+    database.invoices.length;
+
+  const total =
+    database.invoices.reduce(
+      (sum, invoice) => sum + Number(invoice.total || 0),
+      0
+    );
+
+  document.getElementById("salesTotal").textContent =
+    total.toFixed(2);
+
+}
+
+
+function refreshScreen() {
+
+  renderProducts();
+
+  renderCustomers();
+
+  renderInvoices();
+
+  updateInvoiceProducts();
+
+  updateStats();
+
+}
+
+
+function testDatabase() {
+
+  loadDatabase();
+
+}
+
+
+function escapeHtml(value) {
+
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+}
+
+
+loadDatabase();
+
 </script>
+
 </body>
 </html>
