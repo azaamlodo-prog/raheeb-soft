@@ -1,5 +1,13 @@
 {
+  "company": {
+    "name": "الرهيب سوفت",
+    "currency": "ريال"
+  },
   "products": [],
   "customers": [],
-  "invoices": []
+  "suppliers": [],
+  "sales": [],
+  "purchases": [],
+  "expenses": [],
+  "cash": []
 }
