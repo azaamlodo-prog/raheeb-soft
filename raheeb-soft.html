@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الرهيب سوفت</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Tahoma,sans-serif;background:#f3f6fa;color:#172033}.header{background:#172033;color:#fff;padding:24px;text-align:center}.header h1{margin:0}.container{max-width:1000px;margin:30px auto;padding:20px}.card{background:#fff;border-radius:14px;padding:25px;box-shadow:0 5px 20px #0001}button{padding:12px 20px;border:0;border-radius:8px;background:#1769e0;color:#fff;cursor:pointer}#result{margin-top:15px;padding:12px;background:#f0f3f7;border-radius:8px}
+</style>
+</head>
+<body>
+<header class="header"><h1>الرهيب سوفت</h1><p>النظام المحاسبي والإداري</p></header>
+<main class="container"><section class="card">
+<h2>مرحباً بك في الرهيب سوفت</h2>
+<p>واجهة المشروع جاهزة للعمل.</p>
+<button onclick="testDatabase()">اختبار قاعدة البيانات</button>
+<div id="result">لم يتم الاختبار بعد.</div>
+</section></main>
+<script>
+async function testDatabase(){
+ const result=document.getElementById('result');
+ result.textContent='جاري الاختبار...';
+ try{
+  const response=await fetch('/api/database');
+  const data=await response.json();
+  result.textContent=data.success?'تم الاتصال بملف قاعدة البيانات بنجاح.':'حدث خطأ: '+data.error;
+ }catch(e){result.textContent='تعذر الاتصال بالسيرفر.';}
+}
+</script>
+</body>
+</html>
