@@ -2,168 +2,163 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>الرهيب سوفت</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Tahoma,Arial,sans-serif;
+background:#f4f6f9;
+color:#172033;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, Tahoma, sans-serif;
-  background: #f1f5f9;
-  color: #172033;
+.header{
+background:#172033;
+color:white;
+padding:22px 30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
-.header {
-  background: #172033;
-  color: white;
-  padding: 25px;
-  text-align: center;
+.logo{
+font-size:26px;
+font-weight:bold;
 }
 
-.header h1 {
-  margin: 0 0 8px;
-  font-size: 32px;
+.company{
+font-size:14px;
+opacity:.8;
 }
 
-.header p {
-  margin: 0;
-  opacity: .85;
+.layout{
+display:flex;
+min-height:calc(100vh - 78px);
 }
 
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 25px;
+.sidebar{
+width:240px;
+background:#fff;
+border-left:1px solid #ddd;
+padding:15px;
 }
 
-.menu {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 12px;
-  margin-bottom: 25px;
+.sidebar button{
+width:100%;
+padding:14px;
+margin-bottom:8px;
+border:0;
+border-radius:9px;
+background:#f1f4f8;
+text-align:right;
+cursor:pointer;
+font-size:15px;
 }
 
-.menu button {
-  border: 0;
-  padding: 16px;
-  border-radius: 12px;
-  background: white;
-  color: #172033;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 3px 12px #0001;
+.sidebar button:hover,
+.sidebar button.active{
+background:#1769e0;
+color:white;
 }
 
-.menu button:hover {
-  background: #1769e0;
-  color: white;
+.content{
+flex:1;
+padding:25px;
 }
 
-.section {
-  display: none;
+.page{
+display:none;
 }
 
-.section.active {
-  display: block;
+.page.active{
+display:block;
 }
 
-.card {
-  background: white;
-  border-radius: 16px;
-  padding: 22px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 18px #0001;
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+gap:15px;
 }
 
-.card h2 {
-  margin-top: 0;
+.card{
+background:white;
+border-radius:14px;
+padding:20px;
+box-shadow:0 3px 15px #0001;
 }
 
-.stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
+.card h3{
+margin-top:0;
+color:#64748b;
 }
 
-.stat {
-  background: white;
-  padding: 22px;
-  border-radius: 15px;
-  box-shadow: 0 3px 15px #0001;
+.number{
+font-size:30px;
+font-weight:bold;
 }
 
-.stat h3 {
-  margin: 0 0 10px;
-  color: #64748b;
+.box{
+background:white;
+border-radius:14px;
+padding:20px;
+margin-top:20px;
+box-shadow:0 3px 15px #0001;
 }
 
-.stat strong {
-  font-size: 28px;
+input,select{
+width:100%;
+padding:12px;
+margin:6px 0 12px;
+border:1px solid #ccd4df;
+border-radius:8px;
 }
 
-input,
-select {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  margin: 6px 0 12px;
-  font-size: 15px;
+.btn{
+padding:11px 18px;
+border:0;
+border-radius:8px;
+background:#1769e0;
+color:white;
+cursor:pointer;
 }
 
-button.primary {
-  background: #1769e0;
-  color: white;
-  border: 0;
-  padding: 12px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 15px;
+.btn.red{
+background:#dc2626;
 }
 
-button.danger {
-  background: #dc2626;
-  color: white;
-  border: 0;
-  padding: 8px 12px;
-  border-radius: 7px;
-  cursor: pointer;
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
+th,td{
+padding:12px;
+border-bottom:1px solid #e5e7eb;
+text-align:right;
 }
 
-th,
-td {
-  padding: 12px;
-  border-bottom: 1px solid #e2e8f0;
-  text-align: right;
+th{
+background:#f8fafc;
 }
 
-th {
-  background: #f8fafc;
+@media(max-width:700px){
+
+.sidebar{
+width:180px;
 }
 
-.message {
-  margin-top: 15px;
-  padding: 12px;
-  border-radius: 8px;
-  background: #eef2ff;
+.header{
+padding:18px;
 }
 
-.empty {
-  text-align: center;
-  padding: 30px;
-  color: #64748b;
+.content{
+padding:15px;
+}
+
 }
 </style>
 </head>
@@ -171,623 +166,978 @@ th {
 <body>
 
 <header class="header">
-  <h1>الرهيب سوفت</h1>
-  <p>النظام المحاسبي والإداري</p>
+
+<div class="logo">
+الرهيب سوفت
+</div>
+
+<div class="company">
+النظام المحاسبي والإداري
+</div>
+
 </header>
 
-<main class="container">
+<div class="layout">
 
-  <nav class="menu">
-    <button onclick="showSection('dashboard')">الرئيسية</button>
-    <button onclick="showSection('products')">الأصناف</button>
-    <button onclick="showSection('customers')">العملاء</button>
-    <button onclick="showSection('invoices')">الفواتير</button>
-    <button onclick="testDatabase()">اختبار قاعدة البيانات</button>
-  </nav>
+<aside class="sidebar">
 
-  <section id="dashboard" class="section active">
+<button class="active" onclick="openPage('dashboard',this)">
+🏠 الرئيسية
+</button>
 
-    <div class="stats">
+<button onclick="openPage('sales',this)">
+🧾 المبيعات
+</button>
 
-      <div class="stat">
-        <h3>عدد الأصناف</h3>
-        <strong id="productCount">0</strong>
-      </div>
+<button onclick="openPage('purchases',this)">
+🛒 المشتريات
+</button>
 
-      <div class="stat">
-        <h3>عدد العملاء</h3>
-        <strong id="customerCount">0</strong>
-      </div>
+<button onclick="openPage('products',this)">
+📦 الأصناف والمخزون
+</button>
 
-      <div class="stat">
-        <h3>عدد الفواتير</h3>
-        <strong id="invoiceCount">0</strong>
-      </div>
+<button onclick="openPage('customers',this)">
+👥 العملاء
+</button>
 
-      <div class="stat">
-        <h3>إجمالي المبيعات</h3>
-        <strong id="salesTotal">0.00</strong>
-      </div>
+<button onclick="openPage('suppliers',this)">
+🏢 الموردون
+</button>
 
-    </div>
+<button onclick="openPage('expenses',this)">
+💸 المصروفات
+</button>
 
-    <div class="card" style="margin-top:20px">
-      <h2>مرحباً بك في الرهيب سوفت</h2>
-      <p>
-        نظام محاسبي وإداري لإدارة الأصناف والعملاء والفواتير.
-      </p>
+<button onclick="openPage('cash',this)">
+💰 الصندوق
+</button>
 
-      <div id="databaseMessage" class="message">
-        جاري الاتصال بقاعدة البيانات...
-      </div>
-    </div>
+<button onclick="openPage('reports',this)">
+📊 التقارير
+</button>
 
-  </section>
+</aside>
 
+<main class="content">
 
-  <section id="products" class="section">
+<section id="dashboard" class="page active">
 
-    <div class="card">
-      <h2>إضافة صنف</h2>
+<h2>لوحة التحكم</h2>
 
-      <label>اسم الصنف</label>
-      <input id="productName" placeholder="مثال: حليب">
+<div class="cards">
 
-      <label>السعر</label>
-      <input id="productPrice" type="number" step="0.01" placeholder="0">
+<div class="card">
+<h3>إجمالي المبيعات</h3>
+<div class="number" id="salesTotal">0</div>
+</div>
 
-      <label>الكمية</label>
-      <input id="productQty" type="number" step="1" placeholder="0">
+<div class="card">
+<h3>إجمالي المشتريات</h3>
+<div class="number" id="purchaseTotal">0</div>
+</div>
 
-      <button class="primary" onclick="addProduct()">
-        إضافة الصنف
-      </button>
-    </div>
+<div class="card">
+<h3>المصروفات</h3>
+<div class="number" id="expenseTotal">0</div>
+</div>
 
-    <div class="card">
-      <h2>الأصناف</h2>
+<div class="card">
+<h3>الأصناف</h3>
+<div class="number" id="productTotal">0</div>
+</div>
 
-      <div id="productsTable"></div>
-    </div>
+<div class="card">
+<h3>العملاء</h3>
+<div class="number" id="customerTotal">0</div>
+</div>
 
-  </section>
+<div class="card">
+<h3>الموردون</h3>
+<div class="number" id="supplierTotal">0</div>
+</div>
 
+</div>
 
-  <section id="customers" class="section">
+<div class="box">
 
-    <div class="card">
-      <h2>إضافة عميل</h2>
+<h3>حالة النظام</h3>
 
-      <label>اسم العميل</label>
-      <input id="customerName" placeholder="اسم العميل">
+<div id="status">
+جاري الاتصال بقاعدة البيانات...
+</div>
 
-      <label>رقم الجوال</label>
-      <input id="customerPhone" placeholder="رقم الجوال">
+</div>
 
-      <button class="primary" onclick="addCustomer()">
-        إضافة العميل
-      </button>
-    </div>
-
-    <div class="card">
-      <h2>العملاء</h2>
-
-      <div id="customersTable"></div>
-    </div>
-
-  </section>
+</section>
 
 
-  <section id="invoices" class="section">
+<section id="sales" class="page">
 
-    <div class="card">
+<h2>المبيعات</h2>
 
-      <h2>إضافة فاتورة</h2>
+<div class="box">
 
-      <label>الصنف</label>
-      <select id="invoiceProduct"></select>
+<h3>فاتورة بيع جديدة</h3>
 
-      <label>الكمية</label>
-      <input id="invoiceQty" type="number" value="1" min="1">
+<label>العميل</label>
+<select id="saleCustomer"></select>
 
-      <button class="primary" onclick="addInvoice()">
-        حفظ الفاتورة
-      </button>
+<label>الصنف</label>
+<select id="saleProduct"></select>
 
-    </div>
+<label>الكمية</label>
+<input id="saleQty" type="number" value="1">
 
-    <div class="card">
-      <h2>الفواتير</h2>
+<button class="btn" onclick="addSale()">
+حفظ فاتورة البيع
+</button>
 
-      <div id="invoicesTable"></div>
-    </div>
+</div>
 
-  </section>
+<div class="box">
+
+<h3>فواتير البيع</h3>
+
+<div id="salesTable"></div>
+
+</div>
+
+</section>
+
+
+<section id="purchases" class="page">
+
+<h2>المشتريات</h2>
+
+<div class="box">
+
+<h3>فاتورة شراء جديدة</h3>
+
+<label>المورد</label>
+<select id="purchaseSupplier"></select>
+
+<label>الصنف</label>
+<select id="purchaseProduct"></select>
+
+<label>الكمية</label>
+<input id="purchaseQty" type="number" value="1">
+
+<label>سعر الشراء</label>
+<input id="purchasePrice" type="number" step="0.01">
+
+<button class="btn" onclick="addPurchase()">
+حفظ فاتورة الشراء
+</button>
+
+</div>
+
+<div class="box">
+
+<h3>فواتير الشراء</h3>
+
+<div id="purchasesTable"></div>
+
+</div>
+
+</section>
+
+
+<section id="products" class="page">
+
+<h2>الأصناف والمخزون</h2>
+
+<div class="box">
+
+<h3>إضافة صنف</h3>
+
+<input id="productName" placeholder="اسم الصنف">
+
+<input id="productBarcode" placeholder="الباركود">
+
+<input id="productPrice" type="number" step="0.01" placeholder="سعر البيع">
+
+<input id="productStock" type="number" placeholder="الكمية">
+
+<button class="btn" onclick="addProduct()">
+إضافة الصنف
+</button>
+
+</div>
+
+<div class="box">
+
+<div id="productsTable"></div>
+
+</div>
+
+</section>
+
+
+<section id="customers" class="page">
+
+<h2>العملاء</h2>
+
+<div class="box">
+
+<input id="customerName" placeholder="اسم العميل">
+
+<input id="customerPhone" placeholder="رقم الجوال">
+
+<button class="btn" onclick="addCustomer()">
+إضافة العميل
+</button>
+
+</div>
+
+<div class="box">
+
+<div id="customersTable"></div>
+
+</div>
+
+</section>
+
+
+<section id="suppliers" class="page">
+
+<h2>الموردون</h2>
+
+<div class="box">
+
+<input id="supplierName" placeholder="اسم المورد">
+
+<input id="supplierPhone" placeholder="رقم الجوال">
+
+<button class="btn" onclick="addSupplier()">
+إضافة المورد
+</button>
+
+</div>
+
+<div class="box">
+
+<div id="suppliersTable"></div>
+
+</div>
+
+</section>
+
+
+<section id="expenses" class="page">
+
+<h2>المصروفات</h2>
+
+<div class="box">
+
+<input id="expenseName" placeholder="بيان المصروف">
+
+<input id="expenseAmount" type="number" step="0.01" placeholder="المبلغ">
+
+<button class="btn" onclick="addExpense()">
+تسجيل المصروف
+</button>
+
+</div>
+
+<div class="box">
+
+<div id="expensesTable"></div>
+
+</div>
+
+</section>
+
+
+<section id="cash" class="page">
+
+<h2>الصندوق</h2>
+
+<div class="box">
+
+<p>
+رصيد الصندوق الحالي:
+<strong id="cashBalance">0</strong>
+</p>
+
+</div>
+
+</section>
+
+
+<section id="reports" class="page">
+
+<h2>التقارير</h2>
+
+<div class="box">
+
+<h3>ملخص الحسابات</h3>
+
+<div id="reportContent"></div>
+
+</div>
+
+</section>
 
 </main>
+
+</div>
 
 
 <script>
 
-let database = {
-  products: [],
-  customers: [],
-  invoices: []
+let db={
+company:{name:"الرهيب سوفت",currency:"ريال"},
+products:[],
+customers:[],
+suppliers:[],
+sales:[],
+purchases:[],
+expenses:[],
+cash:[]
 };
 
 
-async function loadDatabase() {
+async function loadDB(){
 
-  try {
+try{
 
-    const response = await fetch("/api/database");
+const r=await fetch("/api/database");
 
-    const result = await response.json();
+const result=await r.json();
 
-    if (result.success) {
+if(result.success){
 
-      database = result.data;
+db=result.data;
 
-      database.products = database.products || [];
-      database.customers = database.customers || [];
-      database.invoices = database.invoices || [];
+refresh();
 
-      refreshScreen();
+document.getElementById("status").textContent=
+"تم الاتصال بقاعدة البيانات بنجاح.";
 
-      document.getElementById("databaseMessage").textContent =
-        "تم الاتصال بقاعدة البيانات بنجاح.";
+}
 
-    }
+}catch(e){
 
-  } catch (error) {
+document.getElementById("status").textContent=
+"تعذر الاتصال بقاعدة البيانات.";
 
-    document.getElementById("databaseMessage").textContent =
-      "تعذر الاتصال بالسيرفر.";
-
-  }
+}
 
 }
 
 
-async function saveDatabase() {
+async function saveDB(){
 
-  const response = await fetch("/api/database", {
+const r=await fetch("/api/database",{
 
-    method: "POST",
+method:"POST",
 
-    headers: {
-      "Content-Type": "application/json"
-    },
+headers:{
+"Content-Type":"application/json"
+},
 
-    body: JSON.stringify(database)
+body:JSON.stringify(db)
 
-  });
+});
 
-  const result = await response.json();
+const result=await r.json();
 
-  if (!result.success) {
-    throw new Error(result.error || "فشل الحفظ");
-  }
+if(!result.success){
+
+throw new Error(result.error);
+
+}
 
 }
 
 
-function showSection(id) {
+function openPage(id,button){
 
-  document.querySelectorAll(".section").forEach(section => {
-    section.classList.remove("active");
-  });
+document.querySelectorAll(".page").forEach(x=>{
+x.classList.remove("active");
+});
 
-  document.getElementById(id).classList.add("active");
+document.getElementById(id).classList.add("active");
 
-}
+document.querySelectorAll(".sidebar button").forEach(x=>{
+x.classList.remove("active");
+});
 
-
-async function addProduct() {
-
-  const name = document.getElementById("productName").value.trim();
-
-  const price = Number(
-    document.getElementById("productPrice").value
-  );
-
-  const qty = Number(
-    document.getElementById("productQty").value
-  );
-
-  if (!name) {
-    alert("اكتب اسم الصنف");
-    return;
-  }
-
-  database.products.push({
-
-    id: Date.now(),
-
-    name: name,
-
-    price: price,
-
-    qty: qty
-
-  });
-
-  try {
-
-    await saveDatabase();
-
-    document.getElementById("productName").value = "";
-    document.getElementById("productPrice").value = "";
-    document.getElementById("productQty").value = "";
-
-    refreshScreen();
-
-    alert("تمت إضافة الصنف بنجاح");
-
-  } catch (error) {
-
-    alert("حدث خطأ أثناء الحفظ");
-
-  }
+button.classList.add("active");
 
 }
 
 
-async function deleteProduct(id) {
+function addProduct(){
 
-  database.products =
-    database.products.filter(product => product.id !== id);
+const name=document.getElementById("productName").value.trim();
 
-  await saveDatabase();
+if(!name){
 
-  refreshScreen();
+alert("اكتب اسم الصنف");
+
+return;
+
+}
+
+db.products.push({
+
+id:Date.now(),
+
+name:name,
+
+barcode:document.getElementById("productBarcode").value,
+
+price:Number(document.getElementById("productPrice").value)||0,
+
+stock:Number(document.getElementById("productStock").value)||0
+
+});
+
+saveDB().then(()=>{
+
+document.getElementById("productName").value="";
+
+document.getElementById("productBarcode").value="";
+
+document.getElementById("productPrice").value="";
+
+document.getElementById("productStock").value="";
+
+refresh();
+
+alert("تمت إضافة الصنف");
+
+});
 
 }
 
 
-async function addCustomer() {
+function addCustomer(){
 
-  const name =
-    document.getElementById("customerName").value.trim();
+const name=document.getElementById("customerName").value.trim();
 
-  const phone =
-    document.getElementById("customerPhone").value.trim();
+if(!name){
 
-  if (!name) {
-    alert("اكتب اسم العميل");
-    return;
-  }
+alert("اكتب اسم العميل");
 
-  database.customers.push({
+return;
 
-    id: Date.now(),
+}
 
-    name: name,
+db.customers.push({
 
-    phone: phone
+id:Date.now(),
 
-  });
+name:name,
 
-  try {
+phone:document.getElementById("customerPhone").value
 
-    await saveDatabase();
+});
 
-    document.getElementById("customerName").value = "";
-    document.getElementById("customerPhone").value = "";
+saveDB().then(()=>{
 
-    refreshScreen();
+refresh();
 
-    alert("تمت إضافة العميل بنجاح");
+alert("تمت إضافة العميل");
 
-  } catch (error) {
-
-    alert("حدث خطأ أثناء الحفظ");
-
-  }
+});
 
 }
 
 
-async function deleteCustomer(id) {
+function addSupplier(){
 
-  database.customers =
-    database.customers.filter(customer => customer.id !== id);
+const name=document.getElementById("supplierName").value.trim();
 
-  await saveDatabase();
+if(!name){
 
-  refreshScreen();
+alert("اكتب اسم المورد");
+
+return;
+
+}
+
+db.suppliers.push({
+
+id:Date.now(),
+
+name:name,
+
+phone:document.getElementById("supplierPhone").value
+
+});
+
+saveDB().then(()=>{
+
+refresh();
+
+alert("تمت إضافة المورد");
+
+});
 
 }
 
 
-async function addInvoice() {
+function addSale(){
 
-  const productId =
-    Number(document.getElementById("invoiceProduct").value);
+const productId=Number(
+document.getElementById("saleProduct").value
+);
 
-  const qty =
-    Number(document.getElementById("invoiceQty").value);
+const qty=Number(
+document.getElementById("saleQty").value
+);
 
-  const product =
-    database.products.find(p => p.id === productId);
+const product=db.products.find(x=>x.id===productId);
 
-  if (!product) {
-    alert("أضف صنفًا أولاً");
-    return;
-  }
+if(!product){
 
-  if (qty <= 0) {
-    alert("الكمية غير صحيحة");
-    return;
-  }
+alert("أضف صنفًا أولًا");
 
-  const total = product.price * qty;
+return;
 
-  database.invoices.push({
+}
 
-    id: Date.now(),
+if(qty<=0){
 
-    productId: product.id,
+alert("الكمية غير صحيحة");
 
-    productName: product.name,
+return;
 
-    qty: qty,
+}
 
-    price: product.price,
+if(product.stock<qty){
 
-    total: total,
+alert("الكمية غير متوفرة في المخزون");
 
-    date: new Date().toLocaleString("ar-SA")
+return;
 
-  });
+}
 
-  product.qty = Number(product.qty) - qty;
+const total=product.price*qty;
 
-  try {
+product.stock-=qty;
 
-    await saveDatabase();
+db.sales.push({
 
-    refreshScreen();
+id:Date.now(),
 
-    alert("تم حفظ الفاتورة بنجاح");
+product:product.name,
 
-  } catch (error) {
+qty:qty,
 
-    alert("حدث خطأ أثناء حفظ الفاتورة");
+price:product.price,
 
-  }
+total:total,
+
+date:new Date().toLocaleString("ar-SA")
+
+});
+
+saveDB().then(()=>{
+
+refresh();
+
+alert("تم حفظ فاتورة البيع");
+
+});
 
 }
 
 
-function renderProducts() {
+function addPurchase(){
 
-  const container =
-    document.getElementById("productsTable");
+const productId=Number(
+document.getElementById("purchaseProduct").value
+);
 
-  if (database.products.length === 0) {
+const qty=Number(
+document.getElementById("purchaseQty").value
+);
 
-    container.innerHTML =
-      '<div class="empty">لا توجد أصناف حتى الآن</div>';
+const price=Number(
+document.getElementById("purchasePrice").value
+);
 
-    return;
+const product=db.products.find(x=>x.id===productId);
 
-  }
+if(!product){
 
-  let html = `
-    <table>
-      <tr>
-        <th>الصنف</th>
-        <th>السعر</th>
-        <th>الكمية</th>
-        <th>إجراء</th>
-      </tr>
-  `;
+alert("أضف صنفًا أولًا");
 
-  database.products.forEach(product => {
+return;
 
-    html += `
-      <tr>
-        <td>${escapeHtml(product.name)}</td>
-        <td>${Number(product.price).toFixed(2)}</td>
-        <td>${product.qty}</td>
-        <td>
-          <button class="danger"
-            onclick="deleteProduct(${product.id})">
-            حذف
-          </button>
-        </td>
-      </tr>
-    `;
+}
 
-  });
+if(qty<=0){
 
-  html += "</table>";
+alert("الكمية غير صحيحة");
 
-  container.innerHTML = html;
+return;
+
+}
+
+product.stock+=qty;
+
+db.purchases.push({
+
+id:Date.now(),
+
+product:product.name,
+
+qty:qty,
+
+price:price,
+
+total:price*qty,
+
+date:new Date().toLocaleString("ar-SA")
+
+});
+
+saveDB().then(()=>{
+
+refresh();
+
+alert("تم حفظ فاتورة الشراء");
+
+});
 
 }
 
 
-function renderCustomers() {
+function addExpense(){
 
-  const container =
-    document.getElementById("customersTable");
+const name=document.getElementById("expenseName").value.trim();
 
-  if (database.customers.length === 0) {
+const amount=Number(
+document.getElementById("expenseAmount").value
+);
 
-    container.innerHTML =
-      '<div class="empty">لا يوجد عملاء حتى الآن</div>';
+if(!name||amount<=0){
 
-    return;
+alert("أدخل بيانات صحيحة");
 
-  }
+return;
 
-  let html = `
-    <table>
-      <tr>
-        <th>الاسم</th>
-        <th>الجوال</th>
-        <th>إجراء</th>
-      </tr>
-  `;
+}
 
-  database.customers.forEach(customer => {
+db.expenses.push({
 
-    html += `
-      <tr>
-        <td>${escapeHtml(customer.name)}</td>
-        <td>${escapeHtml(customer.phone || "")}</td>
-        <td>
-          <button class="danger"
-            onclick="deleteCustomer(${customer.id})">
-            حذف
-          </button>
-        </td>
-      </tr>
-    `;
+id:Date.now(),
 
-  });
+name:name,
 
-  html += "</table>";
+amount:amount,
 
-  container.innerHTML = html;
+date:new Date().toLocaleString("ar-SA")
+
+});
+
+saveDB().then(()=>{
+
+refresh();
+
+alert("تم تسجيل المصروف");
+
+});
 
 }
 
 
-function renderInvoices() {
+function refresh(){
 
-  const container =
-    document.getElementById("invoicesTable");
+updateDashboard();
 
-  if (database.invoices.length === 0) {
+renderProducts();
 
-    container.innerHTML =
-      '<div class="empty">لا توجد فواتير حتى الآن</div>';
+renderCustomers();
 
-    return;
+renderSuppliers();
 
-  }
+renderSales();
 
-  let html = `
-    <table>
-      <tr>
-        <th>التاريخ</th>
-        <th>الصنف</th>
-        <th>الكمية</th>
-        <th>السعر</th>
-        <th>الإجمالي</th>
-      </tr>
-  `;
+renderPurchases();
 
-  database.invoices.forEach(invoice => {
+renderExpenses();
 
-    html += `
-      <tr>
-        <td>${escapeHtml(invoice.date)}</td>
-        <td>${escapeHtml(invoice.productName)}</td>
-        <td>${invoice.qty}</td>
-        <td>${Number(invoice.price).toFixed(2)}</td>
-        <td>${Number(invoice.total).toFixed(2)}</td>
-      </tr>
-    `;
+fillSelects();
 
-  });
-
-  html += "</table>";
-
-  container.innerHTML = html;
+renderReport();
 
 }
 
 
-function updateInvoiceProducts() {
+function updateDashboard(){
 
-  const select =
-    document.getElementById("invoiceProduct");
+const sales=db.sales.reduce((a,x)=>a+Number(x.total||0),0);
 
-  if (database.products.length === 0) {
+const purchases=db.purchases.reduce((a,x)=>a+Number(x.total||0),0);
 
-    select.innerHTML =
-      '<option value="">لا توجد أصناف</option>';
+const expenses=db.expenses.reduce((a,x)=>a+Number(x.amount||0),0);
 
-    return;
+document.getElementById("salesTotal").textContent=sales.toFixed(2);
 
-  }
+document.getElementById("purchaseTotal").textContent=purchases.toFixed(2);
 
-  select.innerHTML = database.products.map(product => {
+document.getElementById("expenseTotal").textContent=expenses.toFixed(2);
 
-    return `
-      <option value="${product.id}">
-        ${escapeHtml(product.name)}
-        - ${Number(product.price).toFixed(2)}
-      </option>
-    `;
+document.getElementById("productTotal").textContent=db.products.length;
 
-  }).join("");
+document.getElementById("customerTotal").textContent=db.customers.length;
+
+document.getElementById("supplierTotal").textContent=db.suppliers.length;
+
+document.getElementById("cashBalance").textContent=
+(sales-purchases-expenses).toFixed(2);
 
 }
 
 
-function updateStats() {
+function renderProducts(){
 
-  document.getElementById("productCount").textContent =
-    database.products.length;
+document.getElementById("productsTable").innerHTML=
 
-  document.getElementById("customerCount").textContent =
-    database.customers.length;
+db.products.length?
 
-  document.getElementById("invoiceCount").textContent =
-    database.invoices.length;
+`<table>
+<tr>
+<th>الصنف</th>
+<th>الباركود</th>
+<th>السعر</th>
+<th>المخزون</th>
+</tr>
+${
+db.products.map(x=>`
+<tr>
+<td>${safe(x.name)}</td>
+<td>${safe(x.barcode)}</td>
+<td>${x.price}</td>
+<td>${x.stock}</td>
+</tr>
+`).join("")
+}
+</table>`:
 
-  const total =
-    database.invoices.reduce(
-      (sum, invoice) => sum + Number(invoice.total || 0),
-      0
-    );
-
-  document.getElementById("salesTotal").textContent =
-    total.toFixed(2);
+"<p>لا توجد أصناف.</p>";
 
 }
 
 
-function refreshScreen() {
+function renderCustomers(){
 
-  renderProducts();
+document.getElementById("customersTable").innerHTML=
 
-  renderCustomers();
+db.customers.length?
 
-  renderInvoices();
+`<table>
+<tr>
+<th>الاسم</th>
+<th>الجوال</th>
+</tr>
+${
+db.customers.map(x=>`
+<tr>
+<td>${safe(x.name)}</td>
+<td>${safe(x.phone)}</td>
+</tr>
+`).join("")
+}
+</table>`:
 
-  updateInvoiceProducts();
-
-  updateStats();
+"<p>لا يوجد عملاء.</p>";
 
 }
 
 
-function testDatabase() {
+function renderSuppliers(){
 
-  loadDatabase();
+document.getElementById("suppliersTable").innerHTML=
+
+db.suppliers.length?
+
+`<table>
+<tr>
+<th>المورد</th>
+<th>الجوال</th>
+</tr>
+${
+db.suppliers.map(x=>`
+<tr>
+<td>${safe(x.name)}</td>
+<td>${safe(x.phone)}</td>
+</tr>
+`).join("")
+}
+</table>`:
+
+"<p>لا يوجد موردون.</p>";
 
 }
 
 
-function escapeHtml(value) {
+function renderSales(){
 
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+document.getElementById("salesTable").innerHTML=
+
+db.sales.length?
+
+`<table>
+<tr>
+<th>التاريخ</th>
+<th>الصنف</th>
+<th>الكمية</th>
+<th>الإجمالي</th>
+</tr>
+${
+db.sales.map(x=>`
+<tr>
+<td>${safe(x.date)}</td>
+<td>${safe(x.product)}</td>
+<td>${x.qty}</td>
+<td>${x.total}</td>
+</tr>
+`).join("")
+}
+</table>`:
+
+"<p>لا توجد فواتير بيع.</p>";
 
 }
 
 
-loadDatabase();
+function renderPurchases(){
+
+document.getElementById("purchasesTable").innerHTML=
+
+db.purchases.length?
+
+`<table>
+<tr>
+<th>التاريخ</th>
+<th>الصنف</th>
+<th>الكمية</th>
+<th>الإجمالي</th>
+</tr>
+${
+db.purchases.map(x=>`
+<tr>
+<td>${safe(x.date)}</td>
+<td>${safe(x.product)}</td>
+<td>${x.qty}</td>
+<td>${x.total}</td>
+</tr>
+`).join("")
+}
+</table>`:
+
+"<p>لا توجد فواتير شراء.</p>";
+
+}
+
+
+function renderExpenses(){
+
+document.getElementById("expensesTable").innerHTML=
+
+db.expenses.length?
+
+`<table>
+<tr>
+<th>البيان</th>
+<th>المبلغ</th>
+<th>التاريخ</th>
+</tr>
+${
+db.expenses.map(x=>`
+<tr>
+<td>${safe(x.name)}</td>
+<td>${x.amount}</td>
+<td>${safe(x.date)}</td>
+</tr>
+`).join("")
+}
+</table>`:
+
+"<p>لا توجد مصروفات.</p>";
+
+}
+
+
+function fillSelects(){
+
+const productOptions=
+db.products.map(x=>
+`<option value="${x.id}">
+${safe(x.name)} - ${x.price}
+</option>`
+).join("");
+
+document.getElementById("saleProduct").innerHTML=
+productOptions||"<option>لا توجد أصناف</option>";
+
+document.getElementById("purchaseProduct").innerHTML=
+productOptions||"<option>لا توجد أصناف</option>";
+
+document.getElementById("saleCustomer").innerHTML=
+"<option value=''>عميل نقدي</option>"+
+db.customers.map(x=>
+`<option value="${x.id}">
+${safe(x.name)}
+</option>`
+).join("");
+
+document.getElementById("purchaseSupplier").innerHTML=
+"<option value=''>اختر المورد</option>"+
+db.suppliers.map(x=>
+`<option value="${x.id}">
+${safe(x.name)}
+</option>`
+).join("");
+
+}
+
+
+function renderReport(){
+
+const sales=db.sales.reduce((a,x)=>a+Number(x.total||0),0);
+
+const purchases=db.purchases.reduce((a,x)=>a+Number(x.total||0),0);
+
+const expenses=db.expenses.reduce((a,x)=>a+Number(x.amount||0),0);
+
+const profit=sales-purchases-expenses;
+
+document.getElementById("reportContent").innerHTML=`
+
+<p>إجمالي المبيعات: <strong>${sales.toFixed(2)}</strong></p>
+
+<p>إجمالي المشتريات: <strong>${purchases.toFixed(2)}</strong></p>
+
+<p>إجمالي المصروفات: <strong>${expenses.toFixed(2)}</strong></p>
+
+<p>صافي النتيجة: <strong>${profit.toFixed(2)}</strong></p>
+
+`;
+
+}
+
+
+function safe(value){
+
+return String(value??"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+loadDB();
 
 </script>
 
