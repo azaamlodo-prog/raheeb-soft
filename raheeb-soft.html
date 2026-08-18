@@ -16,13 +16,8 @@ background:#eef2f7;
 color:#172033
 }
 
-button,input,select{
-font-family:inherit
-}
-
-button{
-cursor:pointer
-}
+button,input,select{font-family:inherit}
+button{cursor:pointer}
 
 .header{
 height:64px;
@@ -37,15 +32,8 @@ top:0;
 z-index:1000
 }
 
-.brand{
-font-size:21px;
-font-weight:bold
-}
-
-.header-info{
-font-size:13px;
-opacity:.9
-}
+.brand{font-size:21px;font-weight:bold}
+.header-info{font-size:13px;opacity:.9}
 
 .app{
 display:flex;
@@ -71,8 +59,7 @@ text-align:right;
 font-size:14px
 }
 
-.menu:hover,
-.menu.active{
+.menu:hover,.menu.active{
 background:#2563eb;
 color:white
 }
@@ -83,13 +70,8 @@ padding:20px;
 min-width:0
 }
 
-.page{
-display:none
-}
-
-.page.active{
-display:block
-}
+.page{display:none}
+.page.active{display:block}
 
 .title{
 display:flex;
@@ -98,9 +80,7 @@ justify-content:space-between;
 margin-bottom:15px
 }
 
-.title h2{
-margin:0
-}
+.title h2{margin:0}
 
 .cards{
 display:grid;
@@ -115,9 +95,7 @@ padding:18px;
 box-shadow:0 3px 15px #0000000c
 }
 
-.card small{
-color:#667085
-}
+.card small{color:#667085}
 
 .card b{
 display:block;
@@ -139,8 +117,7 @@ grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
 gap:10px
 }
 
-input,
-select{
+input,select{
 width:100%;
 padding:11px;
 border:1px solid #d0d5dd;
@@ -154,50 +131,26 @@ padding:11px 16px;
 border-radius:8px
 }
 
-.blue{
-background:#2563eb;
-color:white
-}
+.blue{background:#2563eb;color:white}
+.green{background:#16a34a;color:white}
+.red{background:#dc2626;color:white}
+.gray{background:#64748b;color:white}
+.orange{background:#d97706;color:white}
 
-.green{
-background:#16a34a;
-color:white
-}
-
-.red{
-background:#dc2626;
-color:white
-}
-
-.gray{
-background:#64748b;
-color:white
-}
-
-.orange{
-background:#d97706;
-color:white
-}
-
-.table-wrap{
-overflow:auto
-}
+.table-wrap{overflow:auto}
 
 table{
 width:100%;
 border-collapse:collapse
 }
 
-th,
-td{
+th,td{
 padding:10px;
 border-bottom:1px solid #e5e7eb;
 white-space:nowrap
 }
 
-th{
-background:#f8fafc
-}
+th{background:#f8fafc}
 
 .pos{
 display:grid;
@@ -219,9 +172,7 @@ border-radius:10px;
 cursor:pointer
 }
 
-.product:hover{
-border-color:#2563eb
-}
+.product:hover{border-color:#2563eb}
 
 .product b{
 display:block;
@@ -236,9 +187,7 @@ align-items:center;
 margin-bottom:8px
 }
 
-.cart-line input{
-padding:7px
-}
+.cart-line input{padding:7px}
 
 .total{
 font-size:25px;
@@ -290,25 +239,125 @@ padding:20px;
 border-radius:15px
 }
 
+/* =========================
+   نموذج الطباعة
+========================= */
+
 .print{
 display:none
 }
 
-@media(max-width:900px){
-.pos{
-grid-template-columns:1fr
+.print-page{
+width:100%;
+margin:0 auto;
+background:white;
+color:#111;
+font-family:Tahoma,Arial,sans-serif;
+direction:rtl
 }
 
-.sidebar{
-width:190px
+.print-header{
+text-align:center;
+margin-bottom:10px
 }
+
+.print-header h1{
+margin:0 0 5px;
+font-size:22px
+}
+
+.print-header div{
+font-size:12px;
+line-height:1.7
+}
+
+.print-title{
+text-align:center;
+font-size:18px;
+font-weight:bold;
+margin:10px 0;
+padding:7px;
+border:1px solid #111;
+border-radius:4px
+}
+
+.print-info{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:5px;
+font-size:12px;
+margin-bottom:10px
+}
+
+.print-table{
+width:100%;
+border-collapse:collapse;
+font-size:12px;
+margin-top:8px
+}
+
+.print-table th,
+.print-table td{
+border:1px solid #222;
+padding:6px 4px;
+white-space:normal;
+text-align:center
+}
+
+.print-table th{
+background:#f1f1f1
+}
+
+.print-summary{
+margin-top:10px;
+font-size:13px
+}
+
+.print-summary-row{
+display:flex;
+justify-content:space-between;
+padding:4px 0
+}
+
+.print-total{
+font-size:17px;
+font-weight:bold;
+border-top:2px solid #111;
+padding-top:7px;
+margin-top:5px
+}
+
+.print-footer{
+text-align:center;
+margin-top:15px;
+font-size:12px
+}
+
+.qr-box{
+text-align:center;
+margin:12px auto 5px
+}
+
+.qr-box img{
+width:120px;
+height:120px;
+display:block;
+margin:auto
+}
+
+.qr-label{
+font-size:10px;
+margin-top:4px
+}
+
+@media(max-width:900px){
+.pos{grid-template-columns:1fr}
+.sidebar{width:190px}
 }
 
 @media(max-width:650px){
 
-.app{
-display:block
-}
+.app{display:block}
 
 .sidebar{
 width:100%;
@@ -322,20 +371,29 @@ min-width:125px;
 margin:0
 }
 
-.content{
-padding:10px
+.content{padding:10px}
+
+.header{padding:0 10px}
+
+.actions{grid-template-columns:1fr}
 }
 
-.header{
-padding:0 10px
-}
-
-.actions{
-grid-template-columns:1fr
-}
-}
+/* =========================
+   الطباعة
+========================= */
 
 @media print{
+
+@page{
+size:auto;
+margin:0
+}
+
+html,body{
+margin:0!important;
+padding:0!important;
+background:white!important
+}
 
 body *{
 visibility:hidden!important
@@ -348,12 +406,87 @@ visibility:visible!important
 
 .print{
 display:block!important;
-position:absolute;
-top:0;
-right:0;
-width:80mm;
-padding:5mm;
-background:white
+position:absolute!important;
+top:0!important;
+right:0!important;
+left:0!important;
+background:white!important;
+margin:0!important;
+padding:0!important
+}
+
+/* A4 */
+
+.print.a4{
+width:210mm!important;
+min-height:297mm!important;
+padding:12mm!important;
+margin:0!important
+}
+
+/* 80mm */
+
+.print.mm80{
+width:80mm!important;
+padding:4mm!important;
+margin:0!important
+}
+
+.print.mm80 .print-header h1{
+font-size:18px
+}
+
+.print.mm80 .print-table{
+font-size:10px
+}
+
+.print.mm80 .print-table th,
+.print.mm80 .print-table td{
+padding:4px 2px
+}
+
+.print.mm80 .qr-box img{
+width:90px;
+height:90px
+}
+
+/* 58mm */
+
+.print.mm58{
+width:58mm!important;
+padding:3mm!important;
+margin:0!important
+}
+
+.print.mm58 .print-header h1{
+font-size:16px
+}
+
+.print.mm58 .print-header div{
+font-size:10px
+}
+
+.print.mm58 .print-title{
+font-size:14px
+}
+
+.print.mm58 .print-info{
+grid-template-columns:1fr;
+font-size:10px
+}
+
+.print.mm58 .print-table{
+font-size:9px
+}
+
+.print.mm58 .print-table th,
+.print.mm58 .print-table td{
+padding:3px 1px
+}
+
+.print.mm58 .qr-box img{
+width:75px;
+height:75px
 }
 
 }
@@ -386,60 +519,49 @@ background:white
 
 <aside class="sidebar">
 
-<button class="menu active"
-onclick="page('dashboard',this)">
+<button class="menu active" onclick="page('dashboard',this)">
 🏠 الرئيسية
 </button>
 
-<button class="menu"
-onclick="page('cashier',this)">
+<button class="menu" onclick="page('cashier',this)">
 🧾 الكاشير
 </button>
 
-<button class="menu"
-onclick="page('products',this)">
+<button class="menu" onclick="page('products',this)">
 📦 الأصناف
 </button>
 
-<button class="menu"
-onclick="page('customers',this)">
+<button class="menu" onclick="page('customers',this)">
 👥 العملاء
 </button>
 
-<button class="menu"
-onclick="page('suppliers',this)">
+<button class="menu" onclick="page('suppliers',this)">
 🏢 الموردون
 </button>
 
-<button class="menu"
-onclick="page('purchases',this)">
+<button class="menu" onclick="page('purchases',this)">
 🛒 المشتريات
 </button>
 
-<button class="menu"
-onclick="page('expenses',this)">
+<button class="menu" onclick="page('expenses',this)">
 💸 المصروفات
 </button>
 
-<button class="menu"
-onclick="page('reports',this)">
+<button class="menu" onclick="page('reports',this)">
 📊 التقارير
 </button>
 
-<button class="menu"
-onclick="page('printing',this)">
+<button class="menu" onclick="page('printing',this)">
 🖨️ الطباعة
 </button>
 
-<button class="menu"
-onclick="page('settings',this)">
+<button class="menu" onclick="page('settings',this)">
 ⚙️ الإعدادات
 </button>
 
 </aside>
 
 <main class="content">
-
 
 <!-- الرئيسية -->
 
@@ -518,7 +640,6 @@ onclick="page('settings',this)">
 
 </section>
 
-
 <!-- الكاشير -->
 
 <section id="cashier" class="page">
@@ -527,9 +648,7 @@ onclick="page('settings',this)">
 
 <h2>نقطة البيع POS</h2>
 
-<button
-class="btn gray"
-onclick="clearCart()">
+<button class="btn gray" onclick="clearCart()">
 فاتورة جديدة
 </button>
 
@@ -544,14 +663,11 @@ onclick="clearCart()">
 <input
 id="posSearch"
 placeholder="🔎 اسم الصنف أو الباركود"
-oninput="renderPOS()">
+oninput="renderPOS">
 
 </div>
 
-<div
-id="posProducts"
-class="product-grid">
-</div>
+<div id="posProducts" class="product-grid"></div>
 
 </div>
 
@@ -594,21 +710,15 @@ oninput="renderCart()">
 
 <div class="actions">
 
-<button
-class="btn gray"
-onclick="clearCart()">
+<button class="btn gray" onclick="clearCart()">
 تفريغ
 </button>
 
-<button
-class="btn green"
-onclick="saveInvoice(false)">
+<button class="btn green" onclick="saveInvoice(false)">
 حفظ
 </button>
 
-<button
-class="btn blue"
-onclick="saveInvoice(true)">
+<button class="btn blue" onclick="saveInvoice(true)">
 حفظ وطباعة
 </button>
 
@@ -622,7 +732,6 @@ onclick="saveInvoice(true)">
 
 </section>
 
-
 <!-- الأصناف -->
 
 <section id="products" class="page">
@@ -631,9 +740,7 @@ onclick="saveInvoice(true)">
 
 <h2>إدارة الأصناف</h2>
 
-<button
-class="btn blue"
-onclick="openProduct()">
+<button class="btn blue" onclick="openProduct()">
 + إضافة صنف
 </button>
 
@@ -673,7 +780,6 @@ oninput="renderProducts()">
 
 </section>
 
-
 <!-- العملاء -->
 
 <section id="customers" class="page">
@@ -684,22 +790,17 @@ oninput="renderProducts()">
 
 <div class="grid">
 
-<input id="customerName"
-placeholder="اسم العميل">
+<input id="customerName" placeholder="اسم العميل">
 
-<input id="customerPhone"
-placeholder="رقم الجوال">
+<input id="customerPhone" placeholder="رقم الجوال">
 
-<input id="customerAddress"
-placeholder="العنوان">
+<input id="customerAddress" placeholder="العنوان">
 
 </div>
 
 <br>
 
-<button
-class="btn blue"
-onclick="addCustomer()">
+<button class="btn blue" onclick="addCustomer()">
 حفظ العميل
 </button>
 
@@ -727,7 +828,6 @@ onclick="addCustomer()">
 
 </section>
 
-
 <!-- الموردون -->
 
 <section id="suppliers" class="page">
@@ -738,22 +838,17 @@ onclick="addCustomer()">
 
 <div class="grid">
 
-<input id="supplierName"
-placeholder="اسم المورد">
+<input id="supplierName" placeholder="اسم المورد">
 
-<input id="supplierPhone"
-placeholder="رقم الجوال">
+<input id="supplierPhone" placeholder="رقم الجوال">
 
-<input id="supplierAddress"
-placeholder="العنوان">
+<input id="supplierAddress" placeholder="العنوان">
 
 </div>
 
 <br>
 
-<button
-class="btn blue"
-onclick="addSupplier()">
+<button class="btn blue" onclick="addSupplier()">
 حفظ المورد
 </button>
 
@@ -780,7 +875,6 @@ onclick="addSupplier()">
 </div>
 
 </section>
-
 
 <!-- المشتريات -->
 
@@ -810,9 +904,7 @@ placeholder="سعر الشراء">
 
 <br>
 
-<button
-class="btn blue"
-onclick="savePurchase()">
+<button class="btn blue" onclick="savePurchase()">
 حفظ المشتريات
 </button>
 
@@ -842,7 +934,6 @@ onclick="savePurchase()">
 
 </section>
 
-
 <!-- المصروفات -->
 
 <section id="expenses" class="page">
@@ -853,22 +944,15 @@ onclick="savePurchase()">
 
 <div class="grid">
 
-<input
-id="expenseName"
-placeholder="بيان المصروف">
+<input id="expenseName" placeholder="بيان المصروف">
 
-<input
-id="expenseAmount"
-type="number"
-placeholder="المبلغ">
+<input id="expenseAmount" type="number" placeholder="المبلغ">
 
 </div>
 
 <br>
 
-<button
-class="btn blue"
-onclick="saveExpense()">
+<button class="btn blue" onclick="saveExpense()">
 حفظ المصروف
 </button>
 
@@ -896,7 +980,6 @@ onclick="saveExpense()">
 
 </section>
 
-
 <!-- التقارير -->
 
 <section id="reports" class="page">
@@ -907,27 +990,19 @@ onclick="saveExpense()">
 
 <div class="grid">
 
-<button
-class="btn blue"
-onclick="salesReport()">
+<button class="btn blue" onclick="salesReport()">
 📈 تقرير المبيعات
 </button>
 
-<button
-class="btn blue"
-onclick="stockReport()">
+<button class="btn blue" onclick="stockReport()">
 📦 تقرير المخزون
 </button>
 
-<button
-class="btn blue"
-onclick="expenseReport()">
+<button class="btn blue" onclick="expenseReport()">
 💸 تقرير المصروفات
 </button>
 
-<button
-class="btn blue"
-onclick="profitReport()">
+<button class="btn blue" onclick="profitReport()">
 💰 تقرير الأرباح
 </button>
 
@@ -935,14 +1010,11 @@ onclick="profitReport()">
 
 </div>
 
-<div
-id="report"
-class="box">
+<div id="report" class="box">
 اختر التقرير
 </div>
 
 </section>
-
 
 <!-- الطباعة -->
 
@@ -992,17 +1064,9 @@ A4 احترافي
 
 <select id="copies">
 
-<option value="1">
-نسخة
-</option>
-
-<option value="2">
-نسختان
-</option>
-
-<option value="3">
-3 نسخ
-</option>
+<option value="1">نسخة</option>
+<option value="2">نسختان</option>
+<option value="3">3 نسخ</option>
 
 </select>
 
@@ -1010,16 +1074,13 @@ A4 احترافي
 
 <br>
 
-<button
-class="btn green"
-onclick="savePrinting()">
+<button class="btn green" onclick="savePrinting()">
 حفظ
 </button>
 
 </div>
 
 </section>
-
 
 <!-- الإعدادات -->
 
@@ -1033,25 +1094,15 @@ onclick="savePrinting()">
 
 <div class="grid">
 
-<input
-id="setCompany"
-placeholder="اسم المنشأة">
+<input id="setCompany" placeholder="اسم المنشأة">
 
-<input
-id="setPhone"
-placeholder="الهاتف">
+<input id="setPhone" placeholder="الهاتف">
 
-<input
-id="setAddress"
-placeholder="العنوان">
+<input id="setAddress" placeholder="العنوان">
 
-<input
-id="setTax"
-placeholder="الرقم الضريبي">
+<input id="setTax" placeholder="الرقم الضريبي">
 
-<input
-id="setCurrency"
-placeholder="العملة">
+<input id="setCurrency" placeholder="العملة">
 
 </div>
 
@@ -1065,9 +1116,7 @@ placeholder="العملة">
 
 <label>
 
-<input
-id="setTaxEnabled"
-type="checkbox">
+<input id="setTaxEnabled" type="checkbox">
 
 تفعيل الضريبة
 
@@ -1088,9 +1137,7 @@ placeholder="نسبة الضريبة">
 
 <div class="grid">
 
-<input
-id="setPrefix"
-placeholder="بادئة الفاتورة">
+<input id="setPrefix" placeholder="بادئة الفاتورة">
 
 <input
 id="setNextInvoice"
@@ -1101,9 +1148,7 @@ placeholder="رقم الفاتورة القادم">
 
 </div>
 
-<button
-class="btn green"
-onclick="saveSettings()">
+<button class="btn green" onclick="saveSettings()">
 حفظ الإعدادات
 </button>
 
@@ -1113,12 +1158,9 @@ onclick="saveSettings()">
 
 </div>
 
-
 <!-- إضافة صنف -->
 
-<div
-id="productModal"
-class="modal">
+<div id="productModal" class="modal">
 
 <div class="modal-box">
 
@@ -1126,33 +1168,17 @@ class="modal">
 
 <div class="grid">
 
-<input
-id="newName"
-placeholder="اسم الصنف">
+<input id="newName" placeholder="اسم الصنف">
 
-<input
-id="newBarcode"
-placeholder="الباركود">
+<input id="newBarcode" placeholder="الباركود">
 
-<input
-id="newPurchase"
-type="number"
-placeholder="سعر الشراء">
+<input id="newPurchase" type="number" placeholder="سعر الشراء">
 
-<input
-id="newSale"
-type="number"
-placeholder="سعر البيع">
+<input id="newSale" type="number" placeholder="سعر البيع">
 
-<input
-id="newStock"
-type="number"
-placeholder="المخزون">
+<input id="newStock" type="number" placeholder="المخزون">
 
-<input
-id="newMin"
-type="number"
-placeholder="حد التنبيه">
+<input id="newMin" type="number" placeholder="حد التنبيه">
 
 </div>
 
@@ -1165,9 +1191,7 @@ onclick="saveProduct()">
 حفظ الصنف
 </button>
 
-<button
-class="btn gray"
-onclick="closeProduct()">
+<button class="btn gray" onclick="closeProduct()">
 إلغاء
 </button>
 
@@ -1175,109 +1199,153 @@ onclick="closeProduct()">
 
 </div>
 
+<!-- =========================
+     نموذج الفاتورة
+========================= -->
 
-<!-- الطباعة -->
+<div id="printArea" class="print">
 
-<div class="print">
+<div id="printPage" class="print-page">
 
-<div style="text-align:center">
+<div class="print-header">
 
-<h2 id="printCompany">
+<h1 id="printCompany">
 الرهيب سوفت
-</h2>
+</h1>
 
 <div id="printAddress"></div>
-
 <div id="printPhone"></div>
-
 <div id="printTax"></div>
 
-<hr>
+</div>
+
+<div class="print-title" id="printInvoiceTitle">
+فاتورة مبيعات
+</div>
+
+<div class="print-info">
 
 <div>
 رقم الفاتورة:
-<span id="printNumber"></span>
-</div>
-
-<div id="printDate"></div>
-
-</div>
-
-<hr>
-
-<div id="printItems"></div>
-
-<hr>
-
-<div>
-الإجمالي:
-<b id="printSubtotal"></b>
+<strong id="printNumber"></strong>
 </div>
 
 <div>
-الخصم:
-<b id="printDiscount"></b>
+التاريخ:
+<strong id="printDate"></strong>
 </div>
 
 <div>
-الضريبة:
-<b id="printTaxAmount"></b>
+طريقة الدفع:
+<strong id="printPayment"></strong>
 </div>
 
-<div>
-الإجمالي النهائي:
-<b id="printTotal"></b>
 </div>
 
-<div>
-الدفع:
-<span id="printPayment"></span>
+<table class="print-table">
+
+<thead>
+
+<tr>
+<th>الصنف</th>
+<th>الكمية</th>
+<th>السعر</th>
+<th>الإجمالي</th>
+</tr>
+
+</thead>
+
+<tbody id="printItems"></tbody>
+
+</table>
+
+<div class="print-summary">
+
+<div class="print-summary-row">
+<span>الإجمالي قبل الخصم</span>
+<strong id="printSubtotal"></strong>
 </div>
 
-<hr>
-
-<div style="text-align:center">
-QR
+<div class="print-summary-row">
+<span>الخصم</span>
+<strong id="printDiscount"></strong>
 </div>
 
-<p style="text-align:center">
+<div class="print-summary-row">
+<span>الضريبة</span>
+<strong id="printTaxAmount"></strong>
+</div>
+
+<div class="print-summary-row print-total">
+<span>الإجمالي النهائي</span>
+<strong id="printTotal"></strong>
+</div>
+
+</div>
+
+<div class="qr-box">
+
+<img id="invoiceQR" alt="QR Code">
+
+<div class="qr-label">
+رمز الفاتورة
+</div>
+
+</div>
+
+<div class="print-footer">
 شكراً لتعاملكم معنا
-</p>
+<br>
+الرهيب سوفت PRO
+</div>
 
 </div>
 
+</div>
 
 <div id="toast"></div>
-
 
 <script>
 
 let db={};
-
 let cart=[];
-
 let savingProduct=false;
 
 
-/* الاتصال بالسيرفر */
+/* =========================
+   الاتصال بالسيرفر
+========================= */
 
 async function loadDB(){
 
 try{
 
-const r=
-await fetch("/api/database");
-
-const result=
-await r.json();
+const r=await fetch("/api/database");
+const result=await r.json();
 
 if(!result.success){
-
 throw new Error();
-
 }
 
 db=result.data;
+
+if(!db.settings) db.settings={};
+if(!db.products) db.products=[];
+if(!db.customers) db.customers=[];
+if(!db.suppliers) db.suppliers=[];
+if(!db.purchases) db.purchases=[];
+if(!db.expenses) db.expenses=[];
+if(!db.invoices) db.invoices=[];
+
+if(!db.counters){
+db.counters={
+product:1,
+customer:1,
+supplier:1,
+purchase:1,
+expense:1
+};
+}
 
 refresh();
 
@@ -1292,12 +1360,13 @@ toast("تعذر الاتصال بالسيرفر");
 }
 
 
-/* حفظ */
+/* =========================
+   حفظ قاعدة البيانات
+========================= */
 
 async function saveDB(){
 
-const r=
-await fetch(
+const r=await fetch(
 "/api/database",
 {
 method:"POST",
@@ -1308,19 +1377,18 @@ body:JSON.stringify(db)
 }
 );
 
-const result=
-await r.json();
+const result=await r.json();
 
 if(!result.success){
-
 throw new Error();
-
 }
 
 }
 
 
-/* التنقل */
+/* =========================
+   التنقل
+========================= */
 
 function page(id,btn){
 
@@ -1347,15 +1415,15 @@ btn.classList.add("active");
 }
 
 
-/* إشعار */
+/* =========================
+   إشعار
+========================= */
 
 function toast(text){
 
-const x=
-document.getElementById("toast");
+const x=document.getElementById("toast");
 
 x.textContent=text;
-
 x.style.display="block";
 
 setTimeout(()=>{
@@ -1365,17 +1433,20 @@ x.style.display="none";
 }
 
 
-/* رقم */
+/* =========================
+   المال
+========================= */
 
 function money(n){
 
-return Number(n||0)
-.toFixed(2);
+return Number(n||0).toFixed(2);
 
 }
 
 
-/* حماية النص */
+/* =========================
+   حماية النص
+========================= */
 
 function safe(x){
 
@@ -1389,7 +1460,9 @@ return String(x??"")
 }
 
 
-/* الأصناف */
+/* =========================
+   الأصناف
+========================= */
 
 function openProduct(){
 
@@ -1415,33 +1488,27 @@ if(savingProduct)return;
 const name=
 document
 .getElementById("newName")
-.value
-.trim();
+.value.trim();
 
 const barcode=
 document
 .getElementById("newBarcode")
-.value
-.trim();
+.value.trim();
 
 if(!name){
 
 toast("اكتب اسم الصنف");
-
 return;
 
 }
 
 if(
 db.products.some(
-p=>p.name.toLowerCase()
-===
-name.toLowerCase()
+p=>p.name.toLowerCase()===name.toLowerCase()
 )
 ){
 
 toast("الصنف موجود بالفعل");
-
 return;
 
 }
@@ -1454,7 +1521,6 @@ p=>String(p.barcode)===barcode
 ){
 
 toast("الباركود موجود بالفعل");
-
 return;
 
 }
@@ -1462,18 +1528,14 @@ return;
 savingProduct=true;
 
 const button=
-document
-.getElementById("saveProductButton");
+document.getElementById("saveProductButton");
 
 button.disabled=true;
-
 button.textContent="جاري الحفظ...";
-
 
 const product={
 
-id:
-db.counters.product++,
+id:db.counters.product++,
 
 name:name,
 
@@ -1501,36 +1563,18 @@ document.getElementById("newMin").value
 
 };
 
-
 try{
 
 db.products.push(product);
 
 await saveDB();
 
-document
-.getElementById("newName")
-.value="";
-
-document
-.getElementById("newBarcode")
-.value="";
-
-document
-.getElementById("newPurchase")
-.value="";
-
-document
-.getElementById("newSale")
-.value="";
-
-document
-.getElementById("newStock")
-.value="";
-
-document
-.getElementById("newMin")
-.value="";
+document.getElementById("newName").value="";
+document.getElementById("newBarcode").value="";
+document.getElementById("newPurchase").value="";
+document.getElementById("newSale").value="";
+document.getElementById("newStock").value="";
+document.getElementById("newMin").value="";
 
 closeProduct();
 
@@ -1547,9 +1591,7 @@ toast("فشل حفظ الصنف");
 }finally{
 
 savingProduct=false;
-
 button.disabled=false;
-
 button.textContent="حفظ الصنف";
 
 }
@@ -1559,49 +1601,29 @@ button.textContent="حفظ الصنف";
 
 function renderProducts(){
 
-const search=
-(
-document
-.getElementById("productSearch")
-.value||""
-)
-.toLowerCase();
+const search=(
+document.getElementById("productSearch").value||""
+).toLowerCase();
 
-const list=
-db.products.filter(
+const list=db.products.filter(
 p=>
-p.name.toLowerCase()
-.includes(search)
-||
-String(p.barcode)
-.includes(search)
+p.name.toLowerCase().includes(search) ||
+String(p.barcode).includes(search)
 );
 
-document
-.getElementById("productsTable")
-.innerHTML=
+document.getElementById("productsTable").innerHTML=
 list.map(p=>`
 
 <tr>
 
 <td>${safe(p.name)}</td>
-
 <td>${safe(p.barcode)}</td>
-
 <td>${money(p.purchasePrice)}</td>
-
 <td>${money(p.salePrice)}</td>
-
 <td>${p.stock}</td>
 
 <td>
-${
-p.stock<=p.minStock
-?
-"⚠️ منخفض"
-:
-"✅ متوفر"
-}
+${p.stock<=p.minStock?"⚠️ منخفض":"✅ متوفر"}
 </td>
 
 </tr>
@@ -1611,31 +1633,23 @@ p.stock<=p.minStock
 }
 
 
-/* POS */
+/* =========================
+   POS
+========================= */
 
 function renderPOS(){
 
-const search=
-(
-document
-.getElementById("posSearch")
-.value||""
-)
-.toLowerCase();
+const search=(
+document.getElementById("posSearch").value||""
+).toLowerCase();
 
-const list=
-db.products.filter(
+const list=db.products.filter(
 p=>
-p.name.toLowerCase()
-.includes(search)
-||
-String(p.barcode)
-.includes(search)
+p.name.toLowerCase().includes(search) ||
+String(p.barcode).includes(search)
 );
 
-document
-.getElementById("posProducts")
-.innerHTML=
+document.getElementById("posProducts").innerHTML=
 list.map(p=>`
 
 <div
@@ -1646,7 +1660,7 @@ onclick="addCart(${p.id})">
 
 <div>
 ${money(p.salePrice)}
- ${safe(db.settings.currency)}
+ ${safe(db.settings.currency||"ريال سعودي")}
 </div>
 
 <small>
@@ -1662,8 +1676,7 @@ ${money(p.salePrice)}
 
 function addCart(id){
 
-const product=
-db.products.find(
+const product=db.products.find(
 p=>p.id===id
 );
 
@@ -1672,13 +1685,11 @@ if(!product)return;
 if(product.stock<=0){
 
 toast("الصنف غير متوفر");
-
 return;
 
 }
 
-const existing=
-cart.find(
+const existing=cart.find(
 x=>x.id===id
 );
 
@@ -1687,7 +1698,6 @@ if(existing){
 if(existing.qty>=product.stock){
 
 toast("الكمية غير متوفرة");
-
 return;
 
 }
@@ -1697,15 +1707,10 @@ existing.qty++;
 }else{
 
 cart.push({
-
 id:id,
-
 name:product.name,
-
 price:Number(product.salePrice)||0,
-
 qty:1
-
 });
 
 }
@@ -1717,17 +1722,13 @@ renderCart();
 
 function renderCart(){
 
-const box=
-document.getElementById("cart");
+const box=document.getElementById("cart");
 
 if(!cart.length){
 
-box.innerHTML=
-"<p>الفاتورة فارغة</p>";
+box.innerHTML="<p>الفاتورة فارغة</p>";
 
-document
-.getElementById("cartTotal")
-.textContent="0.00";
+document.getElementById("cartTotal").textContent="0.00";
 
 return;
 
@@ -1738,9 +1739,7 @@ cart.map((x,i)=>`
 
 <div class="cart-line">
 
-<div>
-${safe(x.name)}
-</div>
+<div>${safe(x.name)}</div>
 
 <input
 type="number"
@@ -1762,10 +1761,8 @@ onclick="removeCart(${i})">
 
 `).join("");
 
-const subtotal=
-cart.reduce(
-(a,x)=>a+x.qty*x.price,
-0
+const subtotal=cart.reduce(
+(a,x)=>a+x.qty*x.price,0
 );
 
 const discount=
@@ -1775,8 +1772,7 @@ document.getElementById("discount").value
 
 let tax=0;
 
-const taxable=
-Math.max(
+const taxable=Math.max(
 0,
 subtotal-discount
 );
@@ -1790,42 +1786,32 @@ taxable*
 
 }
 
-const total=
-taxable+tax;
+const total=taxable+tax;
 
-document
-.getElementById("cartTotal")
-.textContent=
-money(total);
+document.getElementById("cartTotal")
+.textContent=money(total);
 
 }
 
 
 function changeQty(i,value){
 
-const qty=
-Number(value);
+const qty=Number(value);
 
 if(qty<=0){
 
 removeCart(i);
-
 return;
 
 }
 
-const product=
-db.products.find(
+const product=db.products.find(
 p=>p.id===cart[i].id
 );
 
-if(
-product &&
-qty>product.stock
-){
+if(product && qty>product.stock){
 
 toast("الكمية أكبر من المخزون");
-
 return;
 
 }
@@ -1840,7 +1826,6 @@ renderCart();
 function removeCart(i){
 
 cart.splice(i,1);
-
 renderCart();
 
 }
@@ -1850,51 +1835,43 @@ function clearCart(){
 
 cart=[];
 
-document
-.getElementById("discount")
-.value=0;
+document.getElementById("discount").value=0;
 
 renderCart();
 
 }
 
 
-/* حفظ الفاتورة */
+/* =========================
+   حفظ الفاتورة
+========================= */
 
 async function saveInvoice(print){
 
 if(!cart.length){
 
 toast("الفاتورة فارغة");
-
 return;
 
 }
 
 for(const item of cart){
 
-const product=
-db.products.find(
+const product=db.products.find(
 p=>p.id===item.id
 );
 
-if(
-!product ||
-item.qty>product.stock
-){
+if(!product || item.qty>product.stock){
 
 toast("المخزون غير كاف");
-
 return;
 
 }
 
 }
 
-const subtotal=
-cart.reduce(
-(a,x)=>a+x.qty*x.price,
-0
+const subtotal=cart.reduce(
+(a,x)=>a+x.qty*x.price,0
 );
 
 const discount=
@@ -1902,8 +1879,7 @@ Number(
 document.getElementById("discount").value
 )||0;
 
-const taxable=
-Math.max(
+const taxable=Math.max(
 0,
 subtotal-discount
 );
@@ -1914,22 +1890,14 @@ db.settings.taxEnabled
 taxable*
 (Number(db.settings.taxRate)||0)/
 100
-:
-0;
+:0;
 
-const total=
-taxable+tax;
-
+const total=taxable+tax;
 
 const number=
-String(
-db.settings.invoicePrefix||"INV-"
-)+
-String(
-db.settings.nextInvoice++
-)
+String(db.settings.invoicePrefix||"INV-")+
+String(db.settings.nextInvoice++)
 .padStart(5,"0");
-
 
 const invoice={
 
@@ -1956,11 +1924,9 @@ total:total
 
 };
 
-
 cart.forEach(item=>{
 
-const product=
-db.products.find(
+const product=db.products.find(
 p=>p.id===item.id
 );
 
@@ -1968,9 +1934,7 @@ product.stock-=item.qty;
 
 });
 
-
 db.invoices.push(invoice);
-
 
 try{
 
@@ -1986,9 +1950,7 @@ clearCart();
 
 refresh();
 
-toast(
-"تم حفظ الفاتورة "+number
-);
+toast("تم حفظ الفاتورة "+number);
 
 }catch(e){
 
@@ -1999,42 +1961,36 @@ toast("تعذر حفظ الفاتورة");
 }
 
 
-/* العملاء */
+/* =========================
+   العملاء
+========================= */
 
 async function addCustomer(){
 
 const name=
-document
-.getElementById("customerName")
-.value
-.trim();
+document.getElementById("customerName")
+.value.trim();
 
 if(!name){
 
 toast("اكتب اسم العميل");
-
 return;
 
 }
 
 db.customers.push({
 
-id:
-db.counters.customer++,
+id:db.counters.customer++,
 
 name:name,
 
 phone:
-document
-.getElementById("customerPhone")
-.value
-.trim(),
+document.getElementById("customerPhone")
+.value.trim(),
 
 address:
-document
-.getElementById("customerAddress")
-.value
-.trim(),
+document.getElementById("customerAddress")
+.value.trim(),
 
 balance:0
 
@@ -2042,17 +1998,9 @@ balance:0
 
 await saveDB();
 
-document
-.getElementById("customerName")
-.value="";
-
-document
-.getElementById("customerPhone")
-.value="";
-
-document
-.getElementById("customerAddress")
-.value="";
+document.getElementById("customerName").value="";
+document.getElementById("customerPhone").value="";
+document.getElementById("customerAddress").value="";
 
 refresh();
 
@@ -2061,58 +2009,44 @@ toast("تم حفظ العميل");
 }
 
 
-/* الموردون */
+/* =========================
+   الموردون
+========================= */
 
 async function addSupplier(){
 
 const name=
-document
-.getElementById("supplierName")
-.value
-.trim();
+document.getElementById("supplierName")
+.value.trim();
 
 if(!name){
 
 toast("اكتب اسم المورد");
-
 return;
 
 }
 
 db.suppliers.push({
 
-id:
-db.counters.supplier++,
+id:db.counters.supplier++,
 
 name:name,
 
 phone:
-document
-.getElementById("supplierPhone")
-.value
-.trim(),
+document.getElementById("supplierPhone")
+.value.trim(),
 
 address:
-document
-.getElementById("supplierAddress")
-.value
-.trim()
+document.getElementById("supplierAddress")
+.value.trim()
 
 });
 
 await saveDB();
 
-document
-.getElementById("supplierName")
-.value="";
-
-document
-.getElementById("supplierPhone")
-.value="";
-
-document
-.getElementById("supplierAddress")
-.value="";
+document.getElementById("supplierName").value="";
+document.getElementById("supplierPhone").value="";
+document.getElementById("supplierAddress").value="";
 
 refresh();
 
@@ -2121,39 +2055,32 @@ toast("تم حفظ المورد");
 }
 
 
-/* المشتريات */
+/* =========================
+   المشتريات
+========================= */
 
 async function savePurchase(){
 
-const product=
-db.products.find(
-p=>
-p.id===
+const product=db.products.find(
+p=>p.id===
 Number(
-document
-.getElementById("purchaseProduct")
-.value
+document.getElementById("purchaseProduct").value
 )
 );
 
 const qty=
 Number(
-document
-.getElementById("purchaseQty")
-.value
+document.getElementById("purchaseQty").value
 );
 
 const cost=
 Number(
-document
-.getElementById("purchaseCost")
-.value
+document.getElementById("purchaseCost").value
 );
 
 if(!product||qty<=0){
 
 toast("بيانات غير صحيحة");
-
 return;
 
 }
@@ -2162,8 +2089,7 @@ product.stock+=qty;
 
 db.purchases.push({
 
-id:
-db.counters.purchase++,
+id:db.counters.purchase++,
 
 date:new Date().toISOString(),
 
@@ -2188,35 +2114,31 @@ toast("تم حفظ المشتريات");
 }
 
 
-/* المصروفات */
+/* =========================
+   المصروفات
+========================= */
 
 async function saveExpense(){
 
 const name=
-document
-.getElementById("expenseName")
-.value
-.trim();
+document.getElementById("expenseName")
+.value.trim();
 
 const amount=
 Number(
-document
-.getElementById("expenseAmount")
-.value
+document.getElementById("expenseAmount").value
 );
 
 if(!name||amount<=0){
 
 toast("بيانات غير صحيحة");
-
 return;
 
 }
 
 db.expenses.push({
 
-id:
-db.counters.expense++,
+id:db.counters.expense++,
 
 date:new Date().toISOString(),
 
@@ -2228,13 +2150,8 @@ amount:amount
 
 await saveDB();
 
-document
-.getElementById("expenseName")
-.value="";
-
-document
-.getElementById("expenseAmount")
-.value="";
+document.getElementById("expenseName").value="";
+document.getElementById("expenseAmount").value="";
 
 refresh();
 
@@ -2243,29 +2160,26 @@ toast("تم تسجيل المصروف");
 }
 
 
-/* الإعدادات */
+/* =========================
+   الإعدادات
+========================= */
 
 async function saveSettings(){
 
 db.settings.companyName=
-document.getElementById("setCompany").value
-.trim();
+document.getElementById("setCompany").value.trim();
 
 db.settings.phone=
-document.getElementById("setPhone").value
-.trim();
+document.getElementById("setPhone").value.trim();
 
 db.settings.address=
-document.getElementById("setAddress").value
-.trim();
+document.getElementById("setAddress").value.trim();
 
 db.settings.taxNumber=
-document.getElementById("setTax").value
-.trim();
+document.getElementById("setTax").value.trim();
 
 db.settings.currency=
-document.getElementById("setCurrency").value
-.trim();
+document.getElementById("setCurrency").value.trim();
 
 db.settings.taxEnabled=
 document.getElementById("setTaxEnabled").checked;
@@ -2276,8 +2190,7 @@ document.getElementById("setTaxRate").value
 )||0;
 
 db.settings.invoicePrefix=
-document.getElementById("setPrefix").value
-.trim();
+document.getElementById("setPrefix").value.trim();
 
 db.settings.nextInvoice=
 Number(
@@ -2293,7 +2206,9 @@ toast("تم حفظ الإعدادات");
 }
 
 
-/* إعدادات الطباعة */
+/* =========================
+   إعدادات الطباعة
+========================= */
 
 async function savePrinting(){
 
@@ -2315,110 +2230,245 @@ toast("تم حفظ إعدادات الطباعة");
 }
 
 
-/* الطباعة */
+/* =========================
+   إنشاء QR
+========================= */
 
-function printInvoice(invoice){
+function createInvoiceQR(invoice){
 
-document
-.getElementById("printCompany")
-.textContent=
-db.settings.companyName;
+const company=
+db.settings.companyName||"الرهيب سوفت";
 
-document
-.getElementById("printAddress")
-.textContent=
-db.settings.address;
+const tax=
+db.settings.taxNumber||"";
 
-document
-.getElementById("printPhone")
-.textContent=
-db.settings.phone;
+const data=
+[
+"الرهيب سوفت",
+"المنشأة: "+company,
+"رقم الفاتورة: "+invoice.number,
+"التاريخ: "+new Date(invoice.date).toLocaleString("ar-SA"),
+"الإجمالي: "+money(invoice.total),
+"الضريبة: "+money(invoice.tax),
+"الرقم الضريبي: "+tax
+].join("\n");
 
-document
-.getElementById("printTax")
-.textContent=
-db.settings.taxNumber
-?
-"الرقم الضريبي: "+
-db.settings.taxNumber
-:"";
+/*
+خدمة QR خارجية لتوليد صورة QR.
+البيانات نفسها لا تُرسل إلا لإنشاء صورة QR.
+*/
 
-document
-.getElementById("printNumber")
-.textContent=
-invoice.number;
-
-document
-.getElementById("printDate")
-.textContent=
-new Date(invoice.date)
-.toLocaleString("ar-SA");
+const qrUrl=
+"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data="+
+encodeURIComponent(data);
 
 document
-.getElementById("printPayment")
-.textContent=
-invoice.payment;
-
-document
-.getElementById("printItems")
-.innerHTML=
-invoice.items.map(x=>`
-
-<div style="
-display:flex;
-justify-content:space-between;
-margin:5px 0">
-
-<span>
-${safe(x.name)} × ${x.qty}
-</span>
-
-<b>
-${money(x.qty*x.price)}
-</b>
-
-</div>
-
-`).join("");
-
-document
-.getElementById("printSubtotal")
-.textContent=
-money(invoice.subtotal);
-
-document
-.getElementById("printDiscount")
-.textContent=
-money(invoice.discount);
-
-document
-.getElementById("printTaxAmount")
-.textContent=
-money(invoice.tax);
-
-document
-.getElementById("printTotal")
-.textContent=
-money(invoice.total);
-
-window.print();
+.getElementById("invoiceQR")
+.src=qrUrl;
 
 }
 
 
-/* التقارير */
+/* =========================
+   الطباعة
+========================= */
+
+function printInvoice(invoice){
+
+const paper=
+db.settings.defaultPrinter||"80mm";
+
+const template=
+db.settings.invoiceTemplate||"thermal80";
+
+const printArea=
+document.getElementById("printArea");
+
+const printPage=
+document.getElementById("printPage");
+
+printArea.classList.remove(
+"a4",
+"mm80",
+"mm58"
+);
+
+if(paper==="A4"){
+
+printArea.classList.add("a4");
+
+}else if(paper==="58mm"){
+
+printArea.classList.add("mm58");
+
+}else{
+
+printArea.classList.add("mm80");
+
+}
+
+
+/* عنوان النموذج */
+
+const title=
+document.getElementById("printInvoiceTitle");
+
+if(template==="tax"){
+
+title.textContent="فاتورة ضريبية";
+
+}else if(template==="a4"){
+
+title.textContent="فاتورة مبيعات A4";
+
+}else if(template==="thermal58"){
+
+title.textContent="فاتورة مبيعات";
+
+}else{
+
+title.textContent="فاتورة مبيعات";
+
+}
+
+
+/* بيانات المنشأة */
+
+document.getElementById("printCompany")
+.textContent=
+db.settings.companyName||"الرهيب سوفت";
+
+document.getElementById("printAddress")
+.textContent=
+db.settings.address||"";
+
+document.getElementById("printPhone")
+.textContent=
+db.settings.phone||"";
+
+document.getElementById("printTax")
+.textContent=
+db.settings.taxNumber
+?
+"الرقم الضريبي: "+db.settings.taxNumber
+:"";
+
+
+/* بيانات الفاتورة */
+
+document.getElementById("printNumber")
+.textContent=
+invoice.number;
+
+document.getElementById("printDate")
+.textContent=
+new Date(invoice.date)
+.toLocaleString("ar-SA");
+
+document.getElementById("printPayment")
+.textContent=
+invoice.payment;
+
+
+/* الأصناف */
+
+document.getElementById("printItems")
+.innerHTML=
+invoice.items.map(x=>`
+
+<tr>
+
+<td>${safe(x.name)}</td>
+
+<td>${x.qty}</td>
+
+<td>${money(x.price)}</td>
+
+<td>${money(x.qty*x.price)}</td>
+
+</tr>
+
+`).join("");
+
+
+/* الإجماليات */
+
+document.getElementById("printSubtotal")
+.textContent=
+money(invoice.subtotal);
+
+document.getElementById("printDiscount")
+.textContent=
+money(invoice.discount);
+
+document.getElementById("printTaxAmount")
+.textContent=
+money(invoice.tax);
+
+document.getElementById("printTotal")
+.textContent=
+money(invoice.total);
+
+
+/* QR */
+
+createInvoiceQR(invoice);
+
+
+/* الطباعة بعد تجهيز QR */
+
+const copies=
+Number(db.settings.invoiceCopies)||1;
+
+let printed=0;
+
+const doPrint=()=>{
+
+printed++;
+
+window.print();
+
+if(printed<copies){
+
+setTimeout(doPrint,700);
+
+}
+
+};
+
+const qr=
+document.getElementById("invoiceQR");
+
+if(qr.complete){
+
+setTimeout(doPrint,200);
+
+}else{
+
+qr.onload=()=>{
+setTimeout(doPrint,200);
+};
+
+qr.onerror=()=>{
+setTimeout(doPrint,200);
+};
+
+}
+
+}
+
+
+/* =========================
+   التقارير
+========================= */
 
 function salesReport(){
 
-const total=
-db.invoices.reduce(
-(a,x)=>a+x.total,
-0
+const total=db.invoices.reduce(
+(a,x)=>a+x.total,0
 );
 
-document
-.getElementById("report")
-.innerHTML=`
+document.getElementById("report").innerHTML=`
 
 <h3>تقرير المبيعات</h3>
 
@@ -2439,14 +2489,11 @@ document
 
 function stockReport(){
 
-const low=
-db.products.filter(
+const low=db.products.filter(
 p=>p.stock<=p.minStock
 );
 
-document
-.getElementById("report")
-.innerHTML=`
+document.getElementById("report").innerHTML=`
 
 <h3>تقرير المخزون</h3>
 
@@ -2467,15 +2514,11 @@ document
 
 function expenseReport(){
 
-const total=
-db.expenses.reduce(
-(a,x)=>a+x.amount,
-0
+const total=db.expenses.reduce(
+(a,x)=>a+x.amount,0
 );
 
-document
-.getElementById("report")
-.innerHTML=`
+document.getElementById("report").innerHTML=`
 
 <h3>تقرير المصروفات</h3>
 
@@ -2491,30 +2534,22 @@ document
 
 function profitReport(){
 
-const sales=
-db.invoices.reduce(
-(a,x)=>a+x.total,
-0
+const sales=db.invoices.reduce(
+(a,x)=>a+x.total,0
 );
 
-const purchases=
-db.purchases.reduce(
-(a,x)=>a+x.total,
-0
+const purchases=db.purchases.reduce(
+(a,x)=>a+x.total,0
 );
 
-const expenses=
-db.expenses.reduce(
-(a,x)=>a+x.amount,
-0
+const expenses=db.expenses.reduce(
+(a,x)=>a+x.amount,0
 );
 
 const profit=
 sales-purchases-expenses;
 
-document
-.getElementById("report")
-.innerHTML=`
+document.getElementById("report").innerHTML=`
 
 <h3>تقرير الأرباح</h3>
 
@@ -2535,70 +2570,51 @@ document
 }
 
 
-/* تحديث النظام */
+/* =========================
+   تحديث النظام
+========================= */
 
 function refresh(){
 
 if(!db.settings)return;
 
-document
-.getElementById("companyNameHeader")
+document.getElementById("companyNameHeader")
 .textContent=
-db.settings.companyName;
+db.settings.companyName||"الرهيب سوفت";
 
-const sales=
-db.invoices.reduce(
-(a,x)=>a+x.total,
-0
+const sales=db.invoices.reduce(
+(a,x)=>a+x.total,0
 );
 
-const purchases=
-db.purchases.reduce(
-(a,x)=>a+x.total,
-0
+const purchases=db.purchases.reduce(
+(a,x)=>a+x.total,0
 );
 
-const expenses=
-db.expenses.reduce(
-(a,x)=>a+x.amount,
-0
+const expenses=db.expenses.reduce(
+(a,x)=>a+x.amount,0
 );
 
-document
-.getElementById("dashSales")
+document.getElementById("dashSales")
+.textContent=money(sales);
+
+document.getElementById("dashInvoices")
+.textContent=db.invoices.length;
+
+document.getElementById("dashPurchases")
+.textContent=money(purchases);
+
+document.getElementById("dashExpenses")
+.textContent=money(expenses);
+
+document.getElementById("dashProducts")
+.textContent=db.products.length;
+
+document.getElementById("dashBalance")
 .textContent=
-money(sales);
-
-document
-.getElementById("dashInvoices")
-.textContent=
-db.invoices.length;
-
-document
-.getElementById("dashPurchases")
-.textContent=
-money(purchases);
-
-document
-.getElementById("dashExpenses")
-.textContent=
-money(expenses);
-
-document
-.getElementById("dashProducts")
-.textContent=
-db.products.length;
-
-document
-.getElementById("dashBalance")
-.textContent=
-money(
-sales-purchases-expenses
-);
+money(sales-purchases-expenses);
 
 
-document
-.getElementById("latestInvoices")
+document.getElementById("latestInvoices")
 .innerHTML=
 db.invoices
 .slice(-10)
@@ -2610,8 +2626,7 @@ db.invoices
 <td>${safe(x.number)}</td>
 
 <td>
-${new Date(x.date)
-.toLocaleString("ar-SA")}
+${new Date(x.date).toLocaleString("ar-SA")}
 </td>
 
 <td>${safe(x.payment)}</td>
@@ -2624,15 +2639,12 @@ ${new Date(x.date)
 
 
 renderProducts();
-
 renderPOS();
 
 
-document
-.getElementById("customersTable")
+document.getElementById("customersTable")
 .innerHTML=
-db.customers
-.map(x=>`
+db.customers.map(x=>`
 
 <tr>
 
@@ -2645,11 +2657,9 @@ db.customers
 `).join("");
 
 
-document
-.getElementById("suppliersTable")
+document.getElementById("suppliersTable")
 .innerHTML=
-db.suppliers
-.map(x=>`
+db.suppliers.map(x=>`
 
 <tr>
 
@@ -2662,11 +2672,9 @@ db.suppliers
 `).join("");
 
 
-document
-.getElementById("purchaseProduct")
+document.getElementById("purchaseProduct")
 .innerHTML=
-db.products
-.map(x=>`
+db.products.map(x=>`
 
 <option value="${x.id}">
 ${safe(x.name)}
@@ -2675,17 +2683,14 @@ ${safe(x.name)}
 `).join("");
 
 
-document
-.getElementById("purchasesTable")
+document.getElementById("purchasesTable")
 .innerHTML=
-db.purchases
-.map(x=>`
+db.purchases.map(x=>`
 
 <tr>
 
 <td>
-${new Date(x.date)
-.toLocaleString("ar-SA")}
+${new Date(x.date).toLocaleString("ar-SA")}
 </td>
 
 <td>${safe(x.productName)}</td>
@@ -2701,17 +2706,14 @@ ${new Date(x.date)
 `).join("");
 
 
-document
-.getElementById("expensesTable")
+document.getElementById("expensesTable")
 .innerHTML=
-db.expenses
-.map(x=>`
+db.expenses.map(x=>`
 
 <tr>
 
 <td>
-${new Date(x.date)
-.toLocaleString("ar-SA")}
+${new Date(x.date).toLocaleString("ar-SA")}
 </td>
 
 <td>${safe(x.name)}</td>
@@ -2723,64 +2725,40 @@ ${new Date(x.date)
 `).join("");
 
 
-document
-.getElementById("setCompany")
-.value=
+document.getElementById("setCompany").value=
 db.settings.companyName||"";
 
-document
-.getElementById("setPhone")
-.value=
+document.getElementById("setPhone").value=
 db.settings.phone||"";
 
-document
-.getElementById("setAddress")
-.value=
+document.getElementById("setAddress").value=
 db.settings.address||"";
 
-document
-.getElementById("setTax")
-.value=
+document.getElementById("setTax").value=
 db.settings.taxNumber||"";
 
-document
-.getElementById("setCurrency")
-.value=
+document.getElementById("setCurrency").value=
 db.settings.currency||"ريال سعودي";
 
-document
-.getElementById("setTaxEnabled")
-.checked=
+document.getElementById("setTaxEnabled").checked=
 db.settings.taxEnabled!==false;
 
-document
-.getElementById("setTaxRate")
-.value=
+document.getElementById("setTaxRate").value=
 db.settings.taxRate||0;
 
-document
-.getElementById("setPrefix")
-.value=
+document.getElementById("setPrefix").value=
 db.settings.invoicePrefix||"INV-";
 
-document
-.getElementById("setNextInvoice")
-.value=
+document.getElementById("setNextInvoice").value=
 db.settings.nextInvoice||1;
 
-document
-.getElementById("paper")
-.value=
+document.getElementById("paper").value=
 db.settings.defaultPrinter||"80mm";
 
-document
-.getElementById("template")
-.value=
+document.getElementById("template").value=
 db.settings.invoiceTemplate||"thermal80";
 
-document
-.getElementById("copies")
-.value=
+document.getElementById("copies").value=
 db.settings.invoiceCopies||1;
 
 renderCart();
@@ -2788,22 +2766,19 @@ renderCart();
 }
 
 
-/* الساعة */
+/* =========================
+   الساعة
+========================= */
 
 function updateClock(){
 
-document
-.getElementById("clock")
+document.getElementById("clock")
 .textContent=
-new Date()
-.toLocaleString("ar-SA");
+new Date().toLocaleString("ar-SA");
 
 }
 
-setInterval(
-updateClock,
-1000
-);
+setInterval(updateClock,1000);
 
 updateClock();
 
