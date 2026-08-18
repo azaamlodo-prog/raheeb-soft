@@ -1,16 +1,34 @@
 {
-  "company": {
-    "name": "الرهيب سوفت",
+  "settings": {
+    "companyName": "الرهيب سوفت",
     "taxNumber": "",
     "phone": "",
     "address": "",
-    "currency": "ريال"
+    "currency": "ريال",
+    "taxEnabled": true,
+    "taxRate": 15,
+    "invoicePrefix": "INV",
+    "invoiceStart": 1,
+    "printer": "80mm",
+    "invoiceTemplate": "thermal80",
+    "copies": 1
   },
+  "users": [],
   "products": [],
+  "categories": [],
   "customers": [],
   "suppliers": [],
   "invoices": [],
   "purchases": [],
   "expenses": [],
-  "cashTransactions": []
+  "receipts": [],
+  "payments": [],
+  "cashSessions": [],
+  "suspendedInvoices": [],
+  "counters": {
+    "invoice": 1,
+    "purchase": 1,
+    "receipt": 1,
+    "payment": 1
+  }
 }
