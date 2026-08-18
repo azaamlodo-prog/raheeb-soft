@@ -8,13 +8,13 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
-app.use(express.static(path.join(__dirname, "public")));
 
-const dataDir = path.join(__dirname, "data");
-const dataFile = path.join(dataDir, "database.json");
+const HTML_FILE = path.join(__dirname, "raheeb-soft.html");
+const DATA_DIR = path.join(__dirname, "data");
+const DATA_FILE = path.join(DATA_DIR, "database.json");
 
-if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true });
+if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
 }
 
 const defaultDB = {
@@ -25,7 +25,6 @@ const defaultDB = {
         taxNumber: "",
         currency: "ر.س"
     },
-
     items: [],
     customers: [],
     suppliers: [],
@@ -33,21 +32,21 @@ const defaultDB = {
     purchases: [],
     expenses: [],
     incomes: [],
-
     cash: 0,
-
     counters: {
         item: 1,
         customer: 1,
         supplier: 1,
         sale: 1,
-        purchase: 1
+        purchase: 1,
+        expense: 1,
+        income: 1
     }
 };
 
-if (!fs.existsSync(dataFile)) {
+if (!fs.existsSync(DATA_FILE)) {
     fs.writeFileSync(
-        dataFile,
+        DATA_FILE,
         JSON.stringify(defaultDB, null, 2),
         "utf8"
     );
@@ -55,10 +54,23 @@ if (!fs.existsSync(dataFile)) {
 
 function readDB() {
     try {
-        return JSON.parse(
-            fs.readFileSync(dataFile, "utf8")
+        const db = JSON.parse(
+            fs.readFileSync(DATA_FILE, "utf8")
         );
-    } catch (error) {
+
+        return {
+            ...defaultDB,
+            ...db,
+            company: {
+                ...defaultDB.company,
+                ...(db.company || {})
+            },
+            counters: {
+                ...defaultDB.counters,
+                ...(db.counters || {})
+            }
+        };
+    } catch {
         return JSON.parse(
             JSON.stringify(defaultDB)
         );
@@ -67,16 +79,24 @@ function readDB() {
 
 function saveDB(db) {
     fs.writeFileSync(
-        dataFile,
+        DATA_FILE,
         JSON.stringify(db, null, 2),
         "utf8"
     );
 }
 
-/* =========================
-   اختبار النظام
-========================= */
+/* الصفحة الرئيسية */
+app.get("/", (req, res) => {
+    if (!fs.existsSync(HTML_FILE)) {
+        return res.status(404).send(
+            "ملف raheeb-soft.html غير موجود"
+        );
+    }
 
+    res.sendFile(HTML_FILE);
+});
+
+/* حالة النظام */
 app.get("/api/status", (req, res) => {
     res.json({
         success: true,
@@ -85,21 +105,14 @@ app.get("/api/status", (req, res) => {
     });
 });
 
-/* =========================
-   قاعدة البيانات
-========================= */
-
+/* قاعدة البيانات */
 app.get("/api/database", (req, res) => {
     res.json(readDB());
 });
 
-/* =========================
-   بيانات المؤسسة
-========================= */
-
+/* المؤسسة */
 app.get("/api/company", (req, res) => {
-    const db = readDB();
-    res.json(db.company);
+    res.json(readDB().company);
 });
 
 app.put("/api/company", (req, res) => {
@@ -118,17 +131,12 @@ app.put("/api/company", (req, res) => {
     });
 });
 
-/* =========================
-   الأصناف
-========================= */
-
+/* الأصناف */
 app.get("/api/items", (req, res) => {
-    const db = readDB();
-    res.json(db.items);
+    res.json(readDB().items);
 });
 
 app.post("/api/items", (req, res) => {
-
     const db = readDB();
 
     const item = {
@@ -149,7 +157,6 @@ app.post("/api/items", (req, res) => {
     }
 
     db.items.push(item);
-
     saveDB(db);
 
     res.json({
@@ -158,4 +165,141 @@ app.post("/api/items", (req, res) => {
     });
 });
 
-app.delete("/api/items/:id", (req, res) =>
+/* العملاء */
+app.get("/api/customers", (req, res) => {
+    res.json(readDB().customers);
+});
+
+app.post("/api/customers", (req, res) => {
+    const db = readDB();
+
+    const customer = {
+        id: db.counters.customer++,
+        name: req.body.name || "",
+        phone: req.body.phone || "",
+        address: req.body.address || ""
+    };
+
+    if (!customer.name) {
+        return res.status(400).json({
+            error: "اسم العميل مطلوب"
+        });
+    }
+
+    db.customers.push(customer);
+    saveDB(db);
+
+    res.json({
+        success: true,
+        customer
+    });
+});
+
+/* الموردون */
+app.get("/api/suppliers", (req, res) => {
+    res.json(readDB().suppliers);
+});
+
+app.post("/api/suppliers", (req, res) => {
+    const db = readDB();
+
+    const supplier = {
+        id: db.counters.supplier++,
+        name: req.body.name || "",
+        phone: req.body.phone || "",
+        address: req.body.address || ""
+    };
+
+    if (!supplier.name) {
+        return res.status(400).json({
+            error: "اسم المورد مطلوب"
+        });
+    }
+
+    db.suppliers.push(supplier);
+    saveDB(db);
+
+    res.json({
+        success: true,
+        supplier
+    });
+});
+
+/* المبيعات */
+app.get("/api/sales", (req, res) => {
+    res.json(readDB().sales);
+});
+
+app.post("/api/sales", (req, res) => {
+    const db = readDB();
+    const items = Array.isArray(req.body.items)
+        ? req.body.items
+        : [];
+
+    if (!items.length) {
+        return res.status(400).json({
+            error: "الفاتورة فارغة"
+        });
+    }
+
+    let total = 0;
+    const invoiceItems = [];
+
+    for (const x of items) {
+        const item = db.items.find(
+            i => i.id == x.itemId
+        );
+
+        if (!item) {
+            return res.status(400).json({
+                error: "الصنف غير موجود"
+            });
+        }
+
+        const quantity = Number(x.quantity) || 0;
+        const price = Number(x.price) || 0;
+        const discount = Number(x.discount) || 0;
+
+        if (quantity <= 0) {
+            return res.status(400).json({
+                error: "الكمية غير صحيحة"
+            });
+        }
+
+        if (
+            quantity >
+            Number(item.quantity || 0)
+        ) {
+            return res.status(400).json({
+                error:
+                    "الكمية غير متوفرة للصنف " +
+                    item.name
+            });
+        }
+
+        const lineTotal =
+            quantity * price - discount;
+
+        total += lineTotal;
+
+        invoiceItems.push({
+            itemId: item.id,
+            name: item.name,
+            quantity,
+            price,
+            discount,
+            total: lineTotal
+        });
+    }
+
+    for (const x of invoiceItems) {
+        const item = db.items.find(
+            i => i.id === x.itemId
+        );
+
+        if (item) {
+            item.quantity -= x.quantity;
+        }
+    }
+
+    const invoiceId =
