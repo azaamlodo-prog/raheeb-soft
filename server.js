@@ -4,17 +4,39 @@ const fs = require("fs");
 const path = require("path");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 app.use(cors());
-app.use(express.json({ limit: "10mb" }));
+app.use(express.json({ limit: "20mb" }));
 
-const HTML_FILE = path.join(__dirname, "raheeb-soft.html");
-const DATA_DIR = path.join(__dirname, "data");
-const DATA_FILE = path.join(DATA_DIR, "database.json");
+// ========================================
+// ملف واجهة الرهيب سوفت
+// يكون بجانب server.js مباشرة
+// ========================================
+
+const HTML_FILE = path.join(
+    __dirname,
+    "raheeb-soft.html"
+);
+
+// ========================================
+// قاعدة البيانات
+// ========================================
+
+const DATA_DIR = path.join(
+    __dirname,
+    "data"
+);
+
+const DATA_FILE = path.join(
+    DATA_DIR,
+    "database.json"
+);
 
 if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
+    fs.mkdirSync(DATA_DIR, {
+        recursive: true
+    });
 }
 
 const defaultDB = {
@@ -25,6 +47,7 @@ const defaultDB = {
         taxNumber: "",
         currency: "ر.س"
     },
+
     items: [],
     customers: [],
     suppliers: [],
@@ -32,7 +55,9 @@ const defaultDB = {
     purchases: [],
     expenses: [],
     incomes: [],
+
     cash: 0,
+
     counters: {
         item: 1,
         customer: 1,
@@ -44,6 +69,10 @@ const defaultDB = {
     }
 };
 
+// ========================================
+// إنشاء قاعدة البيانات
+// ========================================
+
 if (!fs.existsSync(DATA_FILE)) {
     fs.writeFileSync(
         DATA_FILE,
@@ -52,254 +81,433 @@ if (!fs.existsSync(DATA_FILE)) {
     );
 }
 
+// ========================================
+// قراءة قاعدة البيانات
+// ========================================
+
 function readDB() {
     try {
-        const db = JSON.parse(
+        const data = JSON.parse(
             fs.readFileSync(DATA_FILE, "utf8")
         );
 
         return {
             ...defaultDB,
-            ...db,
+            ...data,
+
             company: {
                 ...defaultDB.company,
-                ...(db.company || {})
+                ...(data.company || {})
             },
+
             counters: {
                 ...defaultDB.counters,
-                ...(db.counters || {})
+                ...(data.counters || {})
             }
         };
-    } catch {
+
+    } catch (error) {
+
         return JSON.parse(
             JSON.stringify(defaultDB)
         );
     }
 }
 
+// ========================================
+// حفظ قاعدة البيانات
+// ========================================
+
 function saveDB(db) {
+
     fs.writeFileSync(
         DATA_FILE,
-        JSON.stringify(db, null, 2),
+        JSON.stringify(
+            db,
+            null,
+            2
+        ),
         "utf8"
     );
 }
 
-/* الصفحة الرئيسية */
+// ========================================
+// الصفحة الرئيسية
+// ========================================
+
 app.get("/", (req, res) => {
+
     if (!fs.existsSync(HTML_FILE)) {
-        return res.status(404).send(
-            "ملف raheeb-soft.html غير موجود"
-        );
+
+        return res.status(404).send(`
+            <html dir="rtl">
+            <body style="
+                font-family:Tahoma;
+                padding:40px;
+            ">
+
+            <h1>ملف النظام غير موجود</h1>
+
+            <p>
+            يجب أن يكون ملف
+            <b>raheeb-soft.html</b>
+            بجانب server.js
+            </p>
+
+            </body>
+            </html>
+        `);
     }
 
     res.sendFile(HTML_FILE);
 });
 
-/* حالة النظام */
-app.get("/api/status", (req, res) => {
-    res.json({
-        success: true,
-        system: "الرهيب سوفت",
-        status: "working"
-    });
-});
+// ========================================
+// حالة النظام
+// ========================================
 
-/* قاعدة البيانات */
-app.get("/api/database", (req, res) => {
-    res.json(readDB());
-});
+app.get(
+    "/api/status",
+    (req, res) => {
 
-/* المؤسسة */
-app.get("/api/company", (req, res) => {
-    res.json(readDB().company);
-});
-
-app.put("/api/company", (req, res) => {
-    const db = readDB();
-
-    db.company = {
-        ...db.company,
-        ...req.body
-    };
-
-    saveDB(db);
-
-    res.json({
-        success: true,
-        company: db.company
-    });
-});
-
-/* الأصناف */
-app.get("/api/items", (req, res) => {
-    res.json(readDB().items);
-});
-
-app.post("/api/items", (req, res) => {
-    const db = readDB();
-
-    const item = {
-        id: db.counters.item++,
-        name: req.body.name || "",
-        barcode: req.body.barcode || "",
-        category: req.body.category || "عام",
-        unit: req.body.unit || "حبة",
-        purchasePrice: Number(req.body.purchasePrice) || 0,
-        salePrice: Number(req.body.salePrice) || 0,
-        quantity: Number(req.body.quantity) || 0
-    };
-
-    if (!item.name) {
-        return res.status(400).json({
-            error: "اسم الصنف مطلوب"
+        res.json({
+            success: true,
+            system: "الرهيب سوفت",
+            status: "working"
         });
+
     }
+);
 
-    db.items.push(item);
-    saveDB(db);
+// ========================================
+// قاعدة البيانات
+// ========================================
 
-    res.json({
-        success: true,
-        item
-    });
-});
+app.get(
+    "/api/database",
+    (req, res) => {
 
-/* العملاء */
-app.get("/api/customers", (req, res) => {
-    res.json(readDB().customers);
-});
-
-app.post("/api/customers", (req, res) => {
-    const db = readDB();
-
-    const customer = {
-        id: db.counters.customer++,
-        name: req.body.name || "",
-        phone: req.body.phone || "",
-        address: req.body.address || ""
-    };
-
-    if (!customer.name) {
-        return res.status(400).json({
-            error: "اسم العميل مطلوب"
-        });
-    }
-
-    db.customers.push(customer);
-    saveDB(db);
-
-    res.json({
-        success: true,
-        customer
-    });
-});
-
-/* الموردون */
-app.get("/api/suppliers", (req, res) => {
-    res.json(readDB().suppliers);
-});
-
-app.post("/api/suppliers", (req, res) => {
-    const db = readDB();
-
-    const supplier = {
-        id: db.counters.supplier++,
-        name: req.body.name || "",
-        phone: req.body.phone || "",
-        address: req.body.address || ""
-    };
-
-    if (!supplier.name) {
-        return res.status(400).json({
-            error: "اسم المورد مطلوب"
-        });
-    }
-
-    db.suppliers.push(supplier);
-    saveDB(db);
-
-    res.json({
-        success: true,
-        supplier
-    });
-});
-
-/* المبيعات */
-app.get("/api/sales", (req, res) => {
-    res.json(readDB().sales);
-});
-
-app.post("/api/sales", (req, res) => {
-    const db = readDB();
-    const items = Array.isArray(req.body.items)
-        ? req.body.items
-        : [];
-
-    if (!items.length) {
-        return res.status(400).json({
-            error: "الفاتورة فارغة"
-        });
-    }
-
-    let total = 0;
-    const invoiceItems = [];
-
-    for (const x of items) {
-        const item = db.items.find(
-            i => i.id == x.itemId
+        res.json(
+            readDB()
         );
 
-        if (!item) {
+    }
+);
+
+// ========================================
+// المؤسسة
+// ========================================
+
+app.get(
+    "/api/company",
+    (req, res) => {
+
+        res.json(
+            readDB().company
+        );
+
+    }
+);
+
+app.put(
+    "/api/company",
+    (req, res) => {
+
+        const db = readDB();
+
+        db.company = {
+            ...db.company,
+            ...req.body
+        };
+
+        saveDB(db);
+
+        res.json({
+            success: true,
+            company: db.company
+        });
+
+    }
+);
+
+// ========================================
+// الأصناف
+// ========================================
+
+app.get(
+    "/api/items",
+    (req, res) => {
+
+        res.json(
+            readDB().items
+        );
+
+    }
+);
+
+app.post(
+    "/api/items",
+    (req, res) => {
+
+        const db = readDB();
+
+        const name =
+            String(
+                req.body.name || ""
+            ).trim();
+
+        if (!name) {
+
             return res.status(400).json({
-                error: "الصنف غير موجود"
+                error: "اسم الصنف مطلوب"
             });
+
         }
 
-        const quantity = Number(x.quantity) || 0;
-        const price = Number(x.price) || 0;
-        const discount = Number(x.discount) || 0;
+        const item = {
 
-        if (quantity <= 0) {
+            id:
+                db.counters.item++,
+
+            name,
+
+            barcode:
+                req.body.barcode || "",
+
+            category:
+                req.body.category || "عام",
+
+            unit:
+                req.body.unit || "حبة",
+
+            purchasePrice:
+                Number(
+                    req.body.purchasePrice
+                ) || 0,
+
+            salePrice:
+                Number(
+                    req.body.salePrice
+                ) || 0,
+
+            quantity:
+                Number(
+                    req.body.quantity
+                ) || 0
+
+        };
+
+        db.items.push(item);
+
+        saveDB(db);
+
+        res.json({
+            success: true,
+            item
+        });
+
+    }
+);
+
+// ========================================
+// العملاء
+// ========================================
+
+app.get(
+    "/api/customers",
+    (req, res) => {
+
+        res.json(
+            readDB().customers
+        );
+
+    }
+);
+
+app.post(
+    "/api/customers",
+    (req, res) => {
+
+        const db = readDB();
+
+        const name =
+            String(
+                req.body.name || ""
+            ).trim();
+
+        if (!name) {
+
             return res.status(400).json({
-                error: "الكمية غير صحيحة"
+                error: "اسم العميل مطلوب"
             });
+
         }
 
-        if (
-            quantity >
-            Number(item.quantity || 0)
+        const customer = {
+
+            id:
+                db.counters.customer++,
+
+            name,
+
+            phone:
+                req.body.phone || "",
+
+            address:
+                req.body.address || ""
+
+        };
+
+        db.customers.push(customer);
+
+        saveDB(db);
+
+        res.json({
+            success: true,
+            customer
+        });
+
+    }
+);
+
+// ========================================
+// الموردون
+// ========================================
+
+app.get(
+    "/api/suppliers",
+    (req, res) => {
+
+        res.json(
+            readDB().suppliers
+        );
+
+    }
+);
+
+app.post(
+    "/api/suppliers",
+    (req, res) => {
+
+        const db = readDB();
+
+        const name =
+            String(
+                req.body.name || ""
+            ).trim();
+
+        if (!name) {
+
+            return res.status(400).json({
+                error: "اسم المورد مطلوب"
+            });
+
+        }
+
+        const supplier = {
+
+            id:
+                db.counters.supplier++,
+
+            name,
+
+            phone:
+                req.body.phone || "",
+
+            address:
+                req.body.address || ""
+
+        };
+
+        db.suppliers.push(
+            supplier
+        );
+
+        saveDB(db);
+
+        res.json({
+            success: true,
+            supplier
+        });
+
+    }
+);
+
+// ========================================
+// المبيعات
+// ========================================
+
+app.get(
+    "/api/sales",
+    (req, res) => {
+
+        res.json(
+            readDB().sales
+        );
+
+    }
+);
+
+app.post(
+    "/api/sales",
+    (req, res) => {
+
+        const db = readDB();
+
+        const items =
+            Array.isArray(
+                req.body.items
+            )
+                ? req.body.items
+                : [];
+
+        if (!items.length) {
+
+            return res.status(400).json({
+                error: "الفاتورة فارغة"
+            });
+
+        }
+
+        let total = 0;
+
+        const invoiceItems = [];
+
+        for (
+            const x of items
         ) {
-            return res.status(400).json({
-                error:
-                    "الكمية غير متوفرة للصنف " +
-                    item.name
-            });
-        }
 
-        const lineTotal =
-            quantity * price - discount;
+            const item =
+                db.items.find(
+                    i =>
+                        i.id ==
+                        x.itemId
+                );
 
-        total += lineTotal;
+            if (!item) {
 
-        invoiceItems.push({
-            itemId: item.id,
-            name: item.name,
-            quantity,
-            price,
-            discount,
-            total: lineTotal
-        });
-    }
+                return res.status(400).json({
+                    error:
+                        "الصنف غير موجود"
+                });
 
-    for (const x of invoiceItems) {
-        const item = db.items.find(
-            i => i.id === x.itemId
-        );
+            }
 
-        if (item) {
-            item.quantity -= x.quantity;
-        }
-    }
+            const quantity =
+                Number(
+                    x.quantity
+                ) || 0;
 
-    const invoiceId =
+            const price =
+                Number(
+                    x.price
+                ) || 0;
+
+            const discount =
+                Number(
+                    x.discount
+                ) || 0;
+
+            if (quantity <= 0) {
+
+                return res
