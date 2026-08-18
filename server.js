@@ -8,62 +8,107 @@ const PORT = process.env.PORT || 3000;
 const DB_FILE = path.join(__dirname, "database.json");
 const HTML_FILE = path.join(__dirname, "raheeb-soft.html");
 
-app.use(express.json({ limit: "10mb" }));
+app.use(express.json({ limit: "20mb" }));
 
-function getDatabase() {
+function defaultDatabase() {
+  return {
+    settings: {
+      companyName: "الرهيب سوفت",
+      taxNumber: "",
+      phone: "",
+      address: "",
+      currency: "ريال",
+      taxEnabled: true,
+      taxRate: 15,
+      invoicePrefix: "INV",
+      invoiceStart: 1,
+      printer: "80mm",
+      invoiceTemplate: "thermal80",
+      copies: 1
+    },
+
+    users: [],
+
+    products: [],
+
+    categories: [],
+
+    customers: [],
+
+    suppliers: [],
+
+    invoices: [],
+
+    purchases: [],
+
+    expenses: [],
+
+    receipts: [],
+
+    payments: [],
+
+    cashSessions: [],
+
+    suspendedInvoices: [],
+
+    counters: {
+      invoice: 1,
+      purchase: 1,
+      receipt: 1,
+      payment: 1
+    }
+  };
+}
+
+function ensureDatabase() {
   if (!fs.existsSync(DB_FILE)) {
-    const database = {
-      company: {
-        name: "الرهيب سوفت",
-        taxNumber: "",
-        phone: "",
-        address: "",
-        currency: "ريال"
-      },
-      products: [],
-      customers: [],
-      suppliers: [],
-      invoices: [],
-      purchases: [],
-      expenses: [],
-      cashTransactions: []
-    };
+    const db = defaultDatabase();
 
     fs.writeFileSync(
       DB_FILE,
-      JSON.stringify(database, null, 2),
+      JSON.stringify(db, null, 2),
       "utf8"
     );
 
-    return database;
+    return db;
   }
 
   try {
-    return JSON.parse(fs.readFileSync(DB_FILE, "utf8"));
-  } catch (error) {
+    const db = JSON.parse(
+      fs.readFileSync(DB_FILE, "utf8")
+    );
+
+    const defaults = defaultDatabase();
+
     return {
-      company: {
-        name: "الرهيب سوفت",
-        taxNumber: "",
-        phone: "",
-        address: "",
-        currency: "ريال"
+      ...defaults,
+      ...db,
+      settings: {
+        ...defaults.settings,
+        ...(db.settings || {})
       },
-      products: [],
-      customers: [],
-      suppliers: [],
-      invoices: [],
-      purchases: [],
-      expenses: [],
-      cashTransactions: []
+      counters: {
+        ...defaults.counters,
+        ...(db.counters || {})
+      }
     };
+  } catch {
+    const db = defaultDatabase();
+
+    fs.writeFileSync(
+      DB_FILE,
+      JSON.stringify(db, null, 2),
+      "utf8"
+    );
+
+    return db;
   }
 }
 
-function saveDatabase(database) {
+function saveDatabase(db) {
   fs.writeFileSync(
     DB_FILE,
-    JSON.stringify(database, null, 2),
+    JSON.stringify(db, null, 2),
     "utf8"
   );
 }
@@ -73,33 +118,25 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/database", (req, res) => {
-  res.json(getDatabase());
-});
-
-app.post("/api/database", (req, res) => {
   try {
-    saveDatabase(req.body);
+    const db = ensureDatabase();
 
     res.json({
       success: true,
-      message: "تم حفظ البيانات بنجاح"
+      data: db
     });
+
   } catch (error) {
+
     res.status(500).json({
       success: false,
       error: error.message
     });
+
   }
 });
 
-app.get("/api/health", (req, res) => {
-  res.json({
-    success: true,
-    message: "الرهيب سوفت يعمل",
-    port: PORT
-  });
-});
+app.post("/api/database", (req, res) => {
+  try {
 
-app.listen(PORT, "0.0.0.0", () => {
-  console.log("الرهيب سوفت يعمل على المنفذ " + PORT);
-});
+    const incoming = req.body;
