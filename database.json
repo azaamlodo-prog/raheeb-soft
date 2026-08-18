@@ -1,34 +1,59 @@
 {
   "settings": {
     "companyName": "الرهيب سوفت",
-    "taxNumber": "",
     "phone": "",
     "address": "",
-    "currency": "ريال",
+    "taxNumber": "",
+    "currency": "ريال سعودي",
     "taxEnabled": true,
     "taxRate": 15,
-    "invoicePrefix": "INV",
-    "invoiceStart": 1,
-    "printer": "80mm",
+    "invoicePrefix": "INV-",
+    "nextInvoice": 1,
+    "logo": "",
+    "defaultPrinter": "80mm",
     "invoiceTemplate": "thermal80",
-    "copies": 1
+    "invoiceCopies": 1
   },
-  "users": [],
+  "users": [
+    {
+      "id": 1,
+      "name": "المدير",
+      "username": "admin",
+      "role": "admin"
+    }
+  ],
   "products": [],
   "categories": [],
-  "customers": [],
+  "warehouses": [],
+  "customers": [
+    {
+      "id": 1,
+      "name": "عميل نقدي",
+      "phone": "",
+      "address": "",
+      "balance": 0
+    }
+  ],
   "suppliers": [],
   "invoices": [],
   "purchases": [],
+  "salesReturns": [],
+  "purchaseReturns": [],
   "expenses": [],
   "receipts": [],
   "payments": [],
   "cashSessions": [],
   "suspendedInvoices": [],
+  "stockMovements": [],
   "counters": {
+    "product": 1,
+    "customer": 2,
+    "supplier": 1,
     "invoice": 1,
     "purchase": 1,
+    "expense": 1,
     "receipt": 1,
-    "payment": 1
+    "payment": 1,
+    "session": 1
   }
 }
