@@ -1,12 +1,16 @@
 {
-  "name": "raheeb-soft",
-  "version": "3.0.0",
-  "description": "الرهيب سوفت - نظام محاسبي وكاشير",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
+  "company": {
+    "name": "الرهيب سوفت",
+    "taxNumber": "",
+    "phone": "",
+    "address": "",
+    "currency": "ريال"
   },
-  "dependencies": {
-    "express": "^4.21.2"
-  }
+  "products": [],
+  "customers": [],
+  "suppliers": [],
+  "invoices": [],
+  "purchases": [],
+  "expenses": [],
+  "cashTransactions": []
 }
