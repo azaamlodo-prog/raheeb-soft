@@ -1,8 +1,5 @@
 {
-  "system": "الرهيب سوفت",
-  "version": "1.0.0",
-  "customers": [],
   "products": [],
-  "invoices": [],
-  "settings": {}
+  "customers": [],
+  "invoices": []
 }
