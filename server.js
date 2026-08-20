@@ -9,10 +9,13 @@ const PORT = process.env.PORT || 3000;
 // مسارات الملفات
 // ===============================
 
-const DB_FILE = path.join(__dirname, "database.json");
+const DB_FILE = path.join(
+  __dirname,
+  "database.json"
+);
+
 const HTML_FILE = path.join(
   __dirname,
-  "public",
   "raheeb-soft.html"
 );
 
@@ -29,10 +32,8 @@ app.use(express.urlencoded({
   limit: "25mb"
 }));
 
-// الملفات الثابتة
-app.use(express.static(
-  path.join(__dirname, "public")
-));
+// الملفات الثابتة من المجلد الرئيسي
+app.use(express.static(__dirname));
 
 // ===============================
 // إنشاء قاعدة البيانات
@@ -160,7 +161,9 @@ function loadDatabase() {
       return db;
     }
 
-    const saved = JSON.parse(fileContent);
+    const saved = JSON.parse(
+      fileContent
+    );
 
     const fresh = createDatabase();
 
@@ -305,9 +308,7 @@ function saveDatabase(db) {
 
 app.get("/", (req, res) => {
 
-  if (
-    fs.existsSync(HTML_FILE)
-  ) {
+  if (fs.existsSync(HTML_FILE)) {
 
     return res.sendFile(
       HTML_FILE
@@ -315,8 +316,8 @@ app.get("/", (req, res) => {
 
   }
 
-  res.status(404).send(
-    "ملف النظام raheeb-soft.html غير موجود داخل مجلد public"
+  return res.status(404).send(
+    "ملف النظام raheeb-soft.html غير موجود"
   );
 
 });
@@ -450,7 +451,7 @@ app.post("/api/database", (req, res) => {
 });
 
 // ===============================
-// API لاختبار قاعدة البيانات
+// اختبار قاعدة البيانات
 // ===============================
 
 app.get("/api/test", (req, res) => {
