@@ -1,13 +1,9 @@
 {
   "name": "raheeb-soft-pro",
   "version": "4.0.0",
-  "description": "الرهيب سوفت PRO - نظام محاسبي وكاشير",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
-  },
-  "engines": {
-    "node": ">=18"
   },
   "dependencies": {
     "express": "^4.21.2"
