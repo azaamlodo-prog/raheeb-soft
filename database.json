@@ -1,6 +1,7 @@
 {
   "settings": {
-    "companyName": "الرهيب سوفت",
+    "companyName": "مؤسسة الرهيب",
+    "branch": "الفرع الرئيسي",
     "phone": "",
     "address": "",
     "taxNumber": "",
@@ -8,65 +9,143 @@
     "taxEnabled": true,
     "taxRate": 15,
     "invoicePrefix": "INV-",
-    "nextInvoice": 1,
-    "logo": "",
+    "purchasePrefix": "PUR-",
+    "returnPrefix": "RET-",
+    "quotePrefix": "QUO-",
+    "invoiceNumber": 1,
+    "purchaseNumber": 1,
+    "salesReturnNumber": 1,
+    "purchaseReturnNumber": 1,
+    "quoteNumber": 1,
+    "receiptNumber": 1,
+    "paymentNumber": 1,
+    "expenseNumber": 1,
+    "incomeNumber": 1,
     "defaultPrinter": "80mm",
     "invoiceTemplate": "thermal80",
     "invoiceCopies": 1
   },
+
+  "company": {
+    "name": "مؤسسة الرهيب",
+    "branch": "الفرع الرئيسي",
+    "phone": "",
+    "mobile": "",
+    "email": "",
+    "address": "",
+    "taxNumber": "",
+    "commercialNumber": "",
+    "logo": ""
+  },
+
+  "products": [],
+
+  "categories": [],
+
+  "units": [
+    {
+      "id": 1,
+      "name": "قطعة"
+    },
+    {
+      "id": 2,
+      "name": "كرتون"
+    },
+    {
+      "id": 3,
+      "name": "كيلو"
+    },
+    {
+      "id": 4,
+      "name": "متر"
+    }
+  ],
+
+  "warehouses": [
+    {
+      "id": 1,
+      "name": "المخزن الرئيسي",
+      "code": "WH-001",
+      "address": "",
+      "phone": "",
+      "active": true
+    }
+  ],
+
+  "customers": [
+    {
+      "id": 1,
+      "code": "CUS-001",
+      "name": "عميل نقدي",
+      "phone": "",
+      "mobile": "",
+      "address": "",
+      "taxNumber": "",
+      "balance": 0,
+      "creditLimit": 0,
+      "notes": "",
+      "active": true
+    }
+  ],
+
+  "suppliers": [],
+
+  "sales": [],
+
+  "purchases": [],
+
+  "salesReturns": [],
+
+  "purchaseReturns": [],
+
+  "quotes": [],
+
+  "receipts": [],
+
+  "payments": [],
+
+  "expenses": [],
+
+  "income": [],
+
+  "cashSessions": [],
+
+  "cashMovements": [],
+
+  "stockMovements": [],
+
+  "inventoryAdjustments": [],
 
   "users": [
     {
       "id": 1,
       "name": "المدير",
       "username": "admin",
-      "password": "1234",
-      "role": "admin"
+      "password": "admin",
+      "role": "admin",
+      "active": true,
+      "permissions": {
+        "sales": true,
+        "salesReturn": true,
+        "purchases": true,
+        "purchaseReturn": true,
+        "products": true,
+        "warehouses": true,
+        "customers": true,
+        "suppliers": true,
+        "receipts": true,
+        "payments": true,
+        "expenses": true,
+        "income": true,
+        "reports": true,
+        "settings": true,
+        "users": true
+      }
     }
   ],
 
-  "products": [],
-
-  "categories": [],
-
-  "warehouses": [],
-
-  "customers": [
+  "roles": [
     {
       "id": 1,
-      "name": "عميل نقدي",
-      "phone": "",
-      "address": "",
-      "balance": 0
-    }
-  ],
-
-  "suppliers": [],
-
-  "invoices": [],
-  "purchases": [],
-  "salesReturns": [],
-  "purchaseReturns": [],
-
-  "expenses": [],
-  "receipts": [],
-  "payments": [],
-
-  "cashSessions": [],
-  "suspendedInvoices": [],
-
-  "stockMovements": [],
-
-  "counters": {
-    "product": 1,
-    "customer": 2,
-    "supplier": 1,
-    "invoice": 1,
-    "purchase": 1,
-    "expense": 1,
-    "receipt": 1,
-    "payment": 1,
-    "session": 1,
-    "user": 2
-  }
-}
+      "name": "مدير النظام",
+      "
