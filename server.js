@@ -5,559 +5,383 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ===============================
-// مسارات الملفات
-// ===============================
+const DB_FILE = path.join(__dirname, "database.json");
+const HTML_FILE = path.join(__dirname, "raheeb-soft.html");
 
-const DB_FILE = path.join(
-  __dirname,
-  "database.json"
-);
-
-const HTML_FILE = path.join(
-  __dirname,
-  "raheeb-soft.html"
-);
-
-// ===============================
-// إعدادات Express
-// ===============================
-
-app.use(express.json({
-  limit: "25mb"
-}));
-
-app.use(express.urlencoded({
-  extended: true,
-  limit: "25mb"
-}));
-
-// الملفات الثابتة من المجلد الرئيسي
-app.use(express.static(__dirname));
-
-// ===============================
-// إنشاء قاعدة البيانات
-// ===============================
+app.use(express.json({ limit: "25mb" }));
+app.use(express.urlencoded({ extended: true, limit: "25mb" }));
 
 function createDatabase() {
+    return {
+        settings: {
+            companyName: "مؤسسة الرهيب",
+            phone: "",
+            address: "",
+            taxNumber: "",
+            currency: "ريال سعودي",
+            taxEnabled: true,
+            taxRate: 15,
+            invoicePrefix: "INV-",
+            nextInvoice: 1,
+            logo: "",
+            defaultPrinter: "80mm",
+            invoiceTemplate: "thermal80",
+            invoiceCopies: 1
+        },
 
-  return {
+        users: [
+            {
+                id: 1,
+                name: "المدير",
+                username: "admin",
+                password: "admin",
+                role: "admin",
+                active: true
+            }
+        ],
 
-    settings: {
-      companyName: "الرهيب سوفت",
-      phone: "",
-      address: "",
-      taxNumber: "",
-      currency: "ريال سعودي",
+        products: [],
+        categories: [],
+        units: ["قطعة", "كرتون", "كيلو", "متر", "علبة"],
+        warehouses: [
+            {
+                id: 1,
+                name: "المخزن الرئيسي",
+                active: true
+            }
+        ],
 
-      taxEnabled: true,
-      taxRate: 15,
+        customers: [
+            {
+                id: 1,
+                name: "عميل نقدي",
+                phone: "",
+                address: "",
+                balance: 0
+            }
+        ],
 
-      invoicePrefix: "INV-",
-      nextInvoice: 1,
+        suppliers: [],
 
-      logo: "",
+        sales: [],
+        purchases: [],
 
-      defaultPrinter: "80mm",
-      invoiceTemplate: "thermal80",
-      invoiceCopies: 1
-    },
+        salesReturns: [],
+        purchaseReturns: [],
 
-    users: [
-      {
-        id: 1,
-        name: "المدير",
-        username: "admin",
-        role: "admin"
-      }
-    ],
+        quotes: [],
 
-    products: [],
-    categories: [],
-    warehouses: [],
+        expenses: [],
+        income: [],
 
-    customers: [
-      {
-        id: 1,
-        name: "عميل نقدي",
-        phone: "",
-        address: "",
-        balance: 0
-      }
-    ],
+        receipts: [],
+        payments: [],
 
-    suppliers: [],
+        cashSessions: [],
+        suspendedInvoices: [],
 
-    invoices: [],
-    purchases: [],
+        stockMovements: [],
+        journalEntries: [],
 
-    salesReturns: [],
-    purchaseReturns: [],
+        logs: [],
 
-    expenses: [],
-    receipts: [],
-    payments: [],
-
-    cashSessions: [],
-    suspendedInvoices: [],
-
-    stockMovements: [],
-
-    counters: {
-      product: 1,
-      customer: 2,
-      supplier: 1,
-
-      invoice: 1,
-      purchase: 1,
-
-      expense: 1,
-      receipt: 1,
-      payment: 1,
-
-      session: 1
-    }
-
-  };
-
+        counters: {
+            product: 1,
+            category: 1,
+            unit: 6,
+            warehouse: 2,
+            customer: 2,
+            supplier: 1,
+            invoice: 1,
+            purchase: 1,
+            return: 1,
+            quote: 1,
+            expense: 1,
+            income: 1,
+            receipt: 1,
+            payment: 1,
+            session: 1,
+            journal: 1,
+            user: 2
+        }
+    };
 }
-
-// ===============================
-// تحميل قاعدة البيانات
-// ===============================
 
 function loadDatabase() {
 
-  try {
-
-    if (!fs.existsSync(DB_FILE)) {
-
-      const db = createDatabase();
-
-      fs.writeFileSync(
-        DB_FILE,
-        JSON.stringify(db, null, 2),
-        "utf8"
-      );
-
-      return db;
-    }
-
-    const fileContent = fs.readFileSync(
-      DB_FILE,
-      "utf8"
-    );
-
-    if (!fileContent.trim()) {
-
-      const db = createDatabase();
-
-      fs.writeFileSync(
-        DB_FILE,
-        JSON.stringify(db, null, 2),
-        "utf8"
-      );
-
-      return db;
-    }
-
-    const saved = JSON.parse(
-      fileContent
-    );
-
-    const fresh = createDatabase();
-
-    return {
-
-      ...fresh,
-
-      ...saved,
-
-      settings: {
-        ...fresh.settings,
-        ...(saved.settings || {})
-      },
-
-      counters: {
-        ...fresh.counters,
-        ...(saved.counters || {})
-      },
-
-      users: Array.isArray(saved.users)
-        ? saved.users
-        : fresh.users,
-
-      products: Array.isArray(saved.products)
-        ? saved.products
-        : [],
-
-      categories: Array.isArray(saved.categories)
-        ? saved.categories
-        : [],
-
-      warehouses: Array.isArray(saved.warehouses)
-        ? saved.warehouses
-        : [],
-
-      customers: Array.isArray(saved.customers)
-        ? saved.customers
-        : fresh.customers,
-
-      suppliers: Array.isArray(saved.suppliers)
-        ? saved.suppliers
-        : [],
-
-      invoices: Array.isArray(saved.invoices)
-        ? saved.invoices
-        : [],
-
-      purchases: Array.isArray(saved.purchases)
-        ? saved.purchases
-        : [],
-
-      salesReturns: Array.isArray(saved.salesReturns)
-        ? saved.salesReturns
-        : [],
-
-      purchaseReturns: Array.isArray(saved.purchaseReturns)
-        ? saved.purchaseReturns
-        : [],
-
-      expenses: Array.isArray(saved.expenses)
-        ? saved.expenses
-        : [],
-
-      receipts: Array.isArray(saved.receipts)
-        ? saved.receipts
-        : [],
-
-      payments: Array.isArray(saved.payments)
-        ? saved.payments
-        : [],
-
-      cashSessions: Array.isArray(saved.cashSessions)
-        ? saved.cashSessions
-        : [],
-
-      suspendedInvoices: Array.isArray(saved.suspendedInvoices)
-        ? saved.suspendedInvoices
-        : [],
-
-      stockMovements: Array.isArray(saved.stockMovements)
-        ? saved.stockMovements
-        : []
-
-    };
-
-  } catch (error) {
-
-    console.error(
-      "خطأ في قراءة قاعدة البيانات:",
-      error.message
-    );
-
-    const db = createDatabase();
-
     try {
 
-      fs.writeFileSync(
-        DB_FILE,
-        JSON.stringify(db, null, 2),
-        "utf8"
-      );
+        if (!fs.existsSync(DB_FILE)) {
+            const db = createDatabase();
+            saveDatabase(db);
+            return db;
+        }
 
-    } catch (writeError) {
+        const text = fs.readFileSync(DB_FILE, "utf8");
 
-      console.error(
-        "خطأ في إنشاء قاعدة البيانات:",
-        writeError.message
-      );
+        if (!text.trim()) {
+            const db = createDatabase();
+            saveDatabase(db);
+            return db;
+        }
 
+        const saved = JSON.parse(text);
+        const fresh = createDatabase();
+
+        const db = {
+            ...fresh,
+            ...saved,
+
+            settings: {
+                ...fresh.settings,
+                ...(saved.settings || {})
+            },
+
+            counters: {
+                ...fresh.counters,
+                ...(saved.counters || {})
+            }
+        };
+
+        Object.keys(fresh).forEach(key => {
+
+            if (Array.isArray(fresh[key])) {
+
+                if (!Array.isArray(db[key])) {
+                    db[key] = [];
+                }
+
+            }
+
+        });
+
+        return db;
+
+    } catch (error) {
+
+        console.error("DATABASE ERROR:", error);
+
+        const db = createDatabase();
+
+        try {
+            saveDatabase(db);
+        } catch (e) {
+            console.error(e);
+        }
+
+        return db;
     }
-
-    return db;
-  }
-
 }
-
-// ===============================
-// حفظ قاعدة البيانات
-// ===============================
 
 function saveDatabase(db) {
 
-  const temporaryFile =
-    DB_FILE + ".tmp";
+    const temp = DB_FILE + ".tmp";
 
-  fs.writeFileSync(
-    temporaryFile,
-    JSON.stringify(db, null, 2),
-    "utf8"
-  );
+    fs.writeFileSync(
+        temp,
+        JSON.stringify(db, null, 2),
+        "utf8"
+    );
 
-  fs.renameSync(
-    temporaryFile,
-    DB_FILE
-  );
-
+    fs.renameSync(temp, DB_FILE);
 }
 
-// ===============================
-// الصفحة الرئيسية
-// ===============================
+/* ================================
+   الصفحة
+================================ */
 
 app.get("/", (req, res) => {
 
-  if (fs.existsSync(HTML_FILE)) {
+    if (!fs.existsSync(HTML_FILE)) {
+        return res.status(404).send(
+            "ملف raheeb-soft.html غير موجود"
+        );
+    }
 
-    return res.sendFile(
-      HTML_FILE
-    );
-
-  }
-
-  return res.status(404).send(
-    "ملف النظام raheeb-soft.html غير موجود"
-  );
-
+    res.sendFile(HTML_FILE);
 });
 
-// ===============================
-// فحص النظام
-// ===============================
+/* ================================
+   HEALTH
+================================ */
 
 app.get("/api/health", (req, res) => {
 
-  res.json({
-
-    success: true,
-
-    system: "Raheeb Soft PRO",
-
-    status: "online",
-
-    time: new Date().toISOString()
-
-  });
-
+    res.json({
+        success: true,
+        system: "Raheeb Soft PRO",
+        status: "online",
+        time: new Date().toISOString()
+    });
 });
 
-// ===============================
-// رقم إصدار النظام
-// ===============================
+/* ================================
+   VERSION
+================================ */
 
 app.get("/api/version", (req, res) => {
 
-  res.json({
-
-    success: true,
-
-    name: "الرهيب سوفت PRO",
-
-    version: "4.0.0"
-
-  });
-
+    res.json({
+        success: true,
+        name: "الرهيب سوفت PRO",
+        version: "5.0.0"
+    });
 });
 
-// ===============================
-// جلب قاعدة البيانات
-// ===============================
+/* ================================
+   GET DATABASE
+================================ */
 
 app.get("/api/database", (req, res) => {
 
-  try {
+    try {
 
-    const db = loadDatabase();
+        const db = loadDatabase();
 
-    res.json({
+        res.json({
+            success: true,
+            data: db
+        });
 
-      success: true,
+    } catch (error) {
 
-      data: db
-
-    });
-
-  } catch (error) {
-
-    console.error(
-      "Database GET Error:",
-      error
-    );
-
-    res.status(500).json({
-
-      success: false,
-
-      error: error.message
-
-    });
-
-  }
-
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
 });
 
-// ===============================
-// حفظ قاعدة البيانات
-// ===============================
+/* ================================
+   SAVE DATABASE
+================================ */
 
 app.post("/api/database", (req, res) => {
 
-  try {
+    try {
 
-    if (
-      !req.body ||
-      typeof req.body !== "object" ||
-      Array.isArray(req.body)
-    ) {
+        if (
+            !req.body ||
+            typeof req.body !== "object" ||
+            Array.isArray(req.body)
+        ) {
+            return res.status(400).json({
+                success: false,
+                error: "بيانات غير صحيحة"
+            });
+        }
 
-      return res.status(400).json({
+        saveDatabase(req.body);
 
-        success: false,
+        res.json({
+            success: true,
+            message: "تم حفظ البيانات"
+        });
 
-        error: "بيانات قاعدة البيانات غير صحيحة"
+    } catch (error) {
 
-      });
+        console.error(error);
 
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
     }
-
-    saveDatabase(req.body);
-
-    res.json({
-
-      success: true,
-
-      message: "تم حفظ البيانات بنجاح"
-
-    });
-
-  } catch (error) {
-
-    console.error(
-      "Database POST Error:",
-      error
-    );
-
-    res.status(500).json({
-
-      success: false,
-
-      error: error.message
-
-    });
-
-  }
-
 });
 
-// ===============================
-// اختبار قاعدة البيانات
-// ===============================
+/* ================================
+   إضافة حركة
+================================ */
+
+app.post("/api/action", (req, res) => {
+
+    try {
+
+        const db = loadDatabase();
+
+        const {
+            collection,
+            data
+        } = req.body;
+
+        if (!collection || !Array.isArray(db[collection])) {
+
+            return res.status(400).json({
+                success: false,
+                error: "المجموعة غير صحيحة"
+            });
+        }
+
+        db[collection].push(data);
+
+        saveDatabase(db);
+
+        res.json({
+            success: true,
+            data
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+/* ================================
+   اختبار
+================================ */
 
 app.get("/api/test", (req, res) => {
-
-  try {
 
     const db = loadDatabase();
 
     res.json({
 
-      success: true,
+        success: true,
 
-      message: "النظام يعمل وقاعدة البيانات متصلة",
-
-      statistics: {
-
-        products: db.products.length,
-
-        customers: db.customers.length,
-
-        suppliers: db.suppliers.length,
-
-        invoices: db.invoices.length,
-
-        purchases: db.purchases.length,
-
-        expenses: db.expenses.length
-
-      }
+        statistics: {
+            products: db.products.length,
+            customers: db.customers.length,
+            suppliers: db.suppliers.length,
+            sales: db.sales.length,
+            purchases: db.purchases.length,
+            returns: db.salesReturns.length + db.purchaseReturns.length,
+            expenses: db.expenses.length,
+            receipts: db.receipts.length,
+            payments: db.payments.length,
+            stockMovements: db.stockMovements.length
+        }
 
     });
-
-  } catch (error) {
-
-    res.status(500).json({
-
-      success: false,
-
-      message: "حدث خطأ",
-
-      error: error.message
-
-    });
-
-  }
-
 });
 
-// ===============================
-// معالجة الأخطاء
-// ===============================
+/* ================================
+   ERROR
+================================ */
 
 app.use((err, req, res, next) => {
 
-  console.error(
-    "Server Error:",
-    err
-  );
+    console.error(err);
 
-  res.status(500).json({
-
-    success: false,
-
-    error: "حدث خطأ داخل الخادم",
-
-    message: err.message
-
-  });
-
+    res.status(500).json({
+        success: false,
+        error: err.message
+    });
 });
 
-// ===============================
-// تشغيل السيرفر
-// ===============================
+/* ================================
+   START
+================================ */
 
-app.listen(
-  PORT,
-  "0.0.0.0",
-  () => {
+app.listen(PORT, "0.0.0.0", () => {
 
-    console.log(
-      "===================================="
-    );
+    console.log("=================================");
+    console.log("الرهيب سوفت PRO يعمل");
+    console.log("PORT:", PORT);
+    console.log("DATABASE:", DB_FILE);
+    console.log("=================================");
 
-    console.log(
-      "الرهيب سوفت PRO يعمل بنجاح"
-    );
-
-    console.log(
-      "PORT:",
-      PORT
-    );
-
-    console.log(
-      "Database:",
-      DB_FILE
-    );
-
-    console.log(
-      "HTML:",
-      HTML_FILE
-    );
-
-    console.log(
-      "===================================="
-    );
-
-  }
-);
+});
