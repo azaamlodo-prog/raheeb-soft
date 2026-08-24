@@ -5,29 +5,19 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ========================================
-// المسارات
-// ========================================
-
-const DB_FILE = path.join(__dirname, "database.json");
-const HTML_FILE = path.join(__dirname, "raheeb-soft.html");
-
-// ========================================
-// Express
-// ========================================
+const PUBLIC_DIR = path.join(__dirname, "public");
+const DB_DIR = path.join(__dirname, "data");
+const DB_FILE = path.join(DB_DIR, "database.json");
 
 app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({
-    extended: true,
-    limit: "50mb"
-}));
+app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
-app.use(express.static(__dirname));
+// إنشاء مجلد قاعدة البيانات
+if (!fs.existsSync(DB_DIR)) {
+    fs.mkdirSync(DB_DIR, { recursive: true });
+}
 
-// ========================================
 // قاعدة بيانات جديدة
-// ========================================
-
 function createDatabase() {
     return {
         settings: {
@@ -39,25 +29,8 @@ function createDatabase() {
             currency: "ريال سعودي",
             taxEnabled: true,
             taxRate: 15,
-            invoicePrefix: "INV-",
-            nextInvoice: 1,
-            nextPurchase: 1,
-            nextReceipt: 1,
-            nextPayment: 1,
-            defaultPrinter: "80mm",
-            invoiceTemplate: "thermal80",
-            invoiceCopies: 1
+            invoiceNumber: 1
         },
-
-        users: [
-            {
-                id: 1,
-                name: "المدير",
-                username: "admin",
-                role: "admin",
-                active: true
-            }
-        ],
 
         products: [],
         categories: [],
@@ -76,130 +49,52 @@ function createDatabase() {
 
         suppliers: [],
 
-        invoices: [],
+        sales: [],
         purchases: [],
 
         salesReturns: [],
         purchaseReturns: [],
 
-        quotations: [],
-
-        expenses: [],
-        income: [],
+        quotes: [],
 
         receipts: [],
         payments: [],
 
-        stockMovements: [],
+        expenses: [],
+        income: [],
 
         cashSessions: [],
 
-        suspendedInvoices: [],
+        stockMovements: [],
+
+        users: [
+            {
+                id: 1,
+                name: "المدير",
+                username: "admin",
+                role: "admin"
+            }
+        ],
 
         logs: [],
 
         counters: {
             product: 1,
-            category: 1,
-            unit: 1,
-            warehouse: 1,
-
             customer: 2,
             supplier: 1,
-
             invoice: 1,
             purchase: 1,
-
-            salesReturn: 1,
-            purchaseReturn: 1,
-
-            quotation: 1,
-
-            expense: 1,
-            income: 1,
-
             receipt: 1,
             payment: 1,
-
-            stockMovement: 1,
-            session: 1,
-
-            log: 1
+            expense: 1,
+            income: 1,
+            quote: 1,
+            session: 1
         }
     };
 }
 
-// ========================================
-// توحيد قاعدة البيانات القديمة والجديدة
-// ========================================
-
-function normalizeDatabase(saved) {
-
-    const fresh = createDatabase();
-
-    if (!saved || typeof saved !== "object") {
-        return fresh;
-    }
-
-    const db = {
-        ...fresh,
-        ...saved
-    };
-
-    db.settings = {
-        ...fresh.settings,
-        ...(saved.settings || {})
-    };
-
-    db.counters = {
-        ...fresh.counters,
-        ...(saved.counters || {})
-    };
-
-    const arrays = [
-        "products",
-        "categories",
-        "units",
-        "warehouses",
-        "customers",
-        "suppliers",
-        "invoices",
-        "purchases",
-        "salesReturns",
-        "purchaseReturns",
-        "quotations",
-        "expenses",
-        "income",
-        "receipts",
-        "payments",
-        "stockMovements",
-        "cashSessions",
-        "suspendedInvoices",
-        "logs",
-        "users"
-    ];
-
-    arrays.forEach(key => {
-        if (!Array.isArray(db[key])) {
-            db[key] = [];
-        }
-    });
-
-    if (!db.customers.length) {
-        db.customers = [...fresh.customers];
-    }
-
-    if (!db.users.length) {
-        db.users = [...fresh.users];
-    }
-
-    return db;
-}
-
-// ========================================
-// تحميل قاعدة البيانات
-// ========================================
-
+// قراءة قاعدة البيانات
 function loadDatabase() {
 
     try {
@@ -217,12 +112,12 @@ function loadDatabase() {
             return db;
         }
 
-        const content = fs.readFileSync(
+        const text = fs.readFileSync(
             DB_FILE,
             "utf8"
         );
 
-        if (!content.trim()) {
+        if (!text.trim()) {
 
             const db = createDatabase();
 
@@ -235,14 +130,29 @@ function loadDatabase() {
             return db;
         }
 
-        return normalizeDatabase(
-            JSON.parse(content)
-        );
+        const saved = JSON.parse(text);
+        const fresh = createDatabase();
+
+        return {
+
+            ...fresh,
+            ...saved,
+
+            settings: {
+                ...fresh.settings,
+                ...(saved.settings || {})
+            },
+
+            counters: {
+                ...fresh.counters,
+                ...(saved.counters || {})
+            }
+        };
 
     } catch (error) {
 
         console.error(
-            "Database Load Error:",
+            "خطأ في قراءة قاعدة البيانات:",
             error.message
         );
 
@@ -250,77 +160,45 @@ function loadDatabase() {
     }
 }
 
-// ========================================
 // حفظ قاعدة البيانات
-// ========================================
-
 function saveDatabase(db) {
 
-    const normalized = normalizeDatabase(db);
-
-    const temp = DB_FILE + ".tmp";
+    const tempFile = DB_FILE + ".tmp";
 
     fs.writeFileSync(
-        temp,
-        JSON.stringify(normalized, null, 2),
+        tempFile,
+        JSON.stringify(db, null, 2),
         "utf8"
     );
 
     fs.renameSync(
-        temp,
+        tempFile,
         DB_FILE
     );
-
-    return normalized;
 }
 
-// ========================================
 // الصفحة الرئيسية
-// ========================================
-
 app.get("/", (req, res) => {
 
-    if (!fs.existsSync(HTML_FILE)) {
+    const htmlFile = path.join(
+        PUBLIC_DIR,
+        "raheeb-soft.html"
+    );
+
+    if (!fs.existsSync(htmlFile)) {
 
         return res.status(404).send(
-            "ملف raheeb-soft.html غير موجود"
+            "ملف raheeb-soft.html غير موجود داخل مجلد public"
         );
     }
 
-    res.sendFile(HTML_FILE);
+    res.sendFile(htmlFile);
 });
 
-// ========================================
-// فحص النظام
-// ========================================
+// الملفات الثابتة
+app.use(express.static(PUBLIC_DIR));
 
-app.get("/api/health", (req, res) => {
-
-    res.json({
-        success: true,
-        system: "Raheeb Soft PRO",
-        status: "online",
-        time: new Date().toISOString()
-    });
-});
-
-// ========================================
-// الإصدار
-// ========================================
-
-app.get("/api/version", (req, res) => {
-
-    res.json({
-        success: true,
-        name: "الرهيب سوفت PRO",
-        version: "5.0.0"
-    });
-});
-
-// ========================================
 // جلب قاعدة البيانات
-// ========================================
-
 app.get("/api/database", (req, res) => {
 
     try {
@@ -334,8 +212,6 @@ app.get("/api/database", (req, res) => {
 
     } catch (error) {
 
-        console.error(error);
-
         res.status(500).json({
             success: false,
             error: error.message
@@ -343,10 +219,7 @@ app.get("/api/database", (req, res) => {
     }
 });
 
-// ========================================
 // حفظ قاعدة البيانات
-// ========================================
-
 app.post("/api/database", (req, res) => {
 
     try {
@@ -363,18 +236,17 @@ app.post("/api/database", (req, res) => {
             });
         }
 
-        const db = saveDatabase(req.body);
+        saveDatabase(req.body);
 
         res.json({
             success: true,
-            message: "تم حفظ البيانات بنجاح",
-            data: db
+            message: "تم حفظ البيانات بنجاح"
         });
 
     } catch (error) {
 
         console.error(
-            "Database Save Error:",
+            "خطأ أثناء الحفظ:",
             error
         );
 
@@ -385,10 +257,18 @@ app.post("/api/database", (req, res) => {
     }
 });
 
-// ========================================
-// اختبار قاعدة البيانات
-// ========================================
+// فحص النظام
+app.get("/api/health", (req, res) => {
 
+    res.json({
+        success: true,
+        system: "Raheeb Soft PRO",
+        status: "online",
+        time: new Date().toISOString()
+    });
+});
+
+// اختبار قاعدة البيانات
 app.get("/api/test", (req, res) => {
 
     try {
@@ -402,61 +282,27 @@ app.get("/api/test", (req, res) => {
             message: "النظام وقاعدة البيانات يعملان",
 
             statistics: {
-
                 products: db.products.length,
-
                 customers: db.customers.length,
-
                 suppliers: db.suppliers.length,
-
-                invoices: db.invoices.length,
-
+                sales: db.sales.length,
                 purchases: db.purchases.length,
-
-                salesReturns:
-                    db.salesReturns.length,
-
-                purchaseReturns:
-                    db.purchaseReturns.length,
-
-                quotations:
-                    db.quotations.length,
-
-                expenses:
-                    db.expenses.length,
-
-                income:
-                    db.income.length,
-
-                receipts:
-                    db.receipts.length,
-
-                payments:
-                    db.payments.length,
-
-                stockMovements:
-                    db.stockMovements.length
-
+                expenses: db.expenses.length,
+                receipts: db.receipts.length,
+                payments: db.payments.length
             }
-
         });
 
     } catch (error) {
 
         res.status(500).json({
-
             success: false,
-
             error: error.message
-
         });
     }
 });
 
-// ========================================
 // معالجة الأخطاء
-// ========================================
-
 app.use((err, req, res, next) => {
 
     console.error(
@@ -465,27 +311,19 @@ app.use((err, req, res, next) => {
     );
 
     res.status(500).json({
-
         success: false,
-
-        error: "حدث خطأ داخل الخادم",
-
-        message: err.message
-
+        error: err.message
     });
 });
 
-// ========================================
 // تشغيل السيرفر
-// ========================================
-
 app.listen(
     PORT,
     "0.0.0.0",
     () => {
 
         console.log(
-            "===================================="
+            "======================================"
         );
 
         console.log(
@@ -498,17 +336,12 @@ app.listen(
         );
 
         console.log(
-            "Database:",
+            "DATABASE:",
             DB_FILE
         );
 
         console.log(
-            "HTML:",
-            HTML_FILE
-        );
-
-        console.log(
-            "===================================="
+            "======================================"
         );
     }
 );
