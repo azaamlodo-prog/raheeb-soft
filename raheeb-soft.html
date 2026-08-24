@@ -3,980 +3,1152 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
 <title>الرهيب سوفت PRO</title>
 
 <style>
 *{
-    box-sizing:border-box;
+box-sizing:border-box;
 }
 
 body{
-    margin:0;
-    font-family:Tahoma,Arial,sans-serif;
-    background:#f5f7f8;
-    color:#333;
+margin:0;
+font-family:Tahoma,Arial,sans-serif;
+background:#f4f6f7;
+color:#333;
 }
 
-/* =========================
-   HEADER
-========================= */
+/* ================= HEADER ================= */
 
 .header{
-    height:75px;
-    background:#ffffff;
-    border-bottom:1px solid #ddd;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 35px;
-    box-shadow:0 2px 8px rgba(0,0,0,.05);
+height:76px;
+background:#fff;
+border-bottom:1px solid #ddd;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 35px;
+box-shadow:0 2px 8px rgba(0,0,0,.06);
 }
 
 .logo{
-    display:flex;
-    align-items:center;
-    gap:12px;
+display:flex;
+align-items:center;
+gap:12px;
 }
 
 .logo-icon{
-    width:48px;
-    height:48px;
-    border-radius:12px;
-    background:#087f70;
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:25px;
-    font-weight:bold;
+width:48px;
+height:48px;
+border-radius:12px;
+background:#087c70;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+font-weight:bold;
 }
 
 .logo-text{
-    font-size:22px;
-    font-weight:bold;
-    color:#087f70;
+font-size:21px;
+font-weight:bold;
+color:#087c70;
 }
 
 .top-info{
-    display:flex;
-    gap:35px;
-    font-size:15px;
-    color:#555;
+display:flex;
+gap:35px;
+font-size:14px;
+color:#666;
 }
 
 .top-info span{
-    font-weight:bold;
-    color:#087f70;
+color:#087c70;
+font-weight:bold;
 }
 
-/* =========================
-   MAIN
-========================= */
+/* ================= MAIN ================= */
 
 .main{
-    min-height:calc(100vh - 145px);
-    padding:45px 70px 80px;
+min-height:calc(100vh - 146px);
+padding:38px 60px 90px;
 }
 
 .welcome{
-    text-align:center;
-    margin-bottom:40px;
+text-align:center;
+margin-bottom:30px;
 }
 
 .welcome h1{
-    margin:0;
-    color:#087f70;
-    font-size:28px;
+margin:0;
+font-size:27px;
+color:#087c70;
 }
 
 .welcome p{
-    margin-top:10px;
-    color:#888;
+color:#888;
+margin-top:8px;
 }
 
-/* =========================
-   MODULES
-========================= */
+/* ================= MAIN MODULES ================= */
 
 .modules{
-    max-width:1100px;
-    margin:auto;
-
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:28px;
+max-width:1100px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:24px;
 }
 
 .module{
-    background:white;
-    min-height:170px;
-    border-radius:12px;
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-
-    cursor:pointer;
-
-    border:1px solid #e5e5e5;
-
-    box-shadow:0 4px 12px rgba(0,0,0,.06);
-
-    transition:.2s;
+background:#fff;
+min-height:165px;
+border:1px solid #e3e3e3;
+border-radius:12px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+box-shadow:0 4px 12px rgba(0,0,0,.06);
+transition:.2s;
 }
 
 .module:hover{
-    transform:translateY(-5px);
-    box-shadow:0 8px 20px rgba(0,0,0,.12);
+transform:translateY(-4px);
+box-shadow:0 8px 20px rgba(0,0,0,.11);
 }
 
 .icon{
-    width:72px;
-    height:72px;
-
-    border-radius:15px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:38px;
-
-    margin-bottom:15px;
+width:70px;
+height:70px;
+border-radius:15px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:37px;
+margin-bottom:13px;
 }
 
 .module-title{
-    font-size:18px;
-    font-weight:bold;
-    color:#555;
+font-size:17px;
+font-weight:bold;
+color:#555;
 }
 
-/* ألوان الأيقونات */
-
 .sales .icon{
-    background:#dff2e5;
-    color:#27854d;
+background:#dff1e5;
 }
 
 .purchase .icon{
-    background:#dff3f1;
-    color:#278e86;
+background:#dff3f1;
 }
 
 .stock .icon{
-    background:#e4e8f8;
-    color:#5367ad;
+background:#e2e7f7;
 }
 
 .customers .icon{
-    background:#eee5f4;
-    color:#73517e;
+background:#eee5f3;
 }
 
 .users .icon{
-    background:#dfeef5;
-    color:#39819d;
+background:#e0eef5;
 }
 
 .basic .icon{
-    background:#f6e4e7;
-    color:#c15b69;
+background:#f5e3e7;
 }
 
 .accounts .icon{
-    background:#e8e8e8;
-    color:#777;
+background:#e8e8e8;
 }
 
 .settings .icon{
-    background:#dcefe5;
-    color:#43845f;
+background:#dcefe4;
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* ================= PAGE ================= */
+
+.page{
+display:none;
+max-width:1150px;
+margin:auto;
+}
+
+.page.active{
+display:block;
+}
+
+.back{
+border:0;
+background:#087c70;
+color:white;
+padding:11px 23px;
+border-radius:7px;
+cursor:pointer;
+font-family:Tahoma;
+margin-bottom:18px;
+font-size:14px;
+}
+
+.page-title{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 3px 10px rgba(0,0,0,.05);
+margin-bottom:20px;
+}
+
+.page-title h2{
+margin:0;
+color:#087c70;
+}
+
+/* ================= SUB MODULES ================= */
+
+.sub-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:17px;
+}
+
+.sub-item{
+background:#fff;
+border:1px solid #e4e4e4;
+border-radius:9px;
+min-height:105px;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+cursor:pointer;
+transition:.2s;
+box-shadow:0 2px 7px rgba(0,0,0,.04);
+}
+
+.sub-item:hover{
+transform:translateY(-3px);
+box-shadow:0 6px 15px rgba(0,0,0,.09);
+border-color:#087c70;
+}
+
+.sub-icon{
+font-size:27px;
+margin-bottom:9px;
+}
+
+.sub-title{
+font-size:14px;
+font-weight:bold;
+color:#555;
+}
+
+/* ================= FOOTER ================= */
 
 .footer{
-    position:fixed;
-    bottom:0;
-    right:0;
-    left:0;
-
-    height:70px;
-
-    background:#08766c;
-
-    color:white;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    box-shadow:0 -3px 12px rgba(0,0,0,.12);
+position:fixed;
+bottom:0;
+right:0;
+left:0;
+height:70px;
+background:#08766c;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 -3px 12px rgba(0,0,0,.12);
+z-index:10;
 }
 
 .footer-menu{
-    display:flex;
-    align-items:center;
-    gap:8px;
+display:flex;
+align-items:center;
+gap:7px;
 }
 
 .footer-btn{
-    height:50px;
-    min-width:120px;
-
-    border:0;
-    background:rgba(255,255,255,.07);
-
-    color:white;
-
-    border-radius:7px;
-
-    cursor:pointer;
-
-    font-family:Tahoma;
-
-    font-size:14px;
-
-    transition:.2s;
+height:49px;
+min-width:115px;
+border:0;
+background:rgba(255,255,255,.07);
+color:white;
+border-radius:7px;
+cursor:pointer;
+font-family:Tahoma;
+font-size:13px;
 }
 
 .footer-btn:hover{
-    background:rgba(255,255,255,.15);
+background:rgba(255,255,255,.15);
 }
 
 .footer-btn.active{
-    background:#d94b4b;
+background:#d84c4c;
 }
 
 .footer-btn small{
-    display:block;
-    margin-top:4px;
-    opacity:.8;
+display:block;
+margin-top:3px;
+opacity:.8;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* ================= RESPONSIVE ================= */
 
-@media(max-width:900px){
+@media(max-width:950px){
 
-    .modules{
-        grid-template-columns:repeat(2,1fr);
-    }
+.modules{
+grid-template-columns:repeat(2,1fr);
+}
 
-    .main{
-        padding:30px 25px 90px;
-    }
+.sub-grid{
+grid-template-columns:repeat(3,1fr);
+}
 
-    .top-info{
-        gap:15px;
-        font-size:12px;
-    }
+.main{
+padding:30px 25px 90px;
+}
+
+.top-info{
+gap:15px;
+font-size:12px;
+}
+
 }
 
 @media(max-width:600px){
 
-    .header{
-        height:auto;
-        padding:15px;
-        flex-direction:column;
-        gap:12px;
-    }
-
-    .top-info{
-        flex-wrap:wrap;
-        justify-content:center;
-    }
-
-    .modules{
-        grid-template-columns:1fr 1fr;
-        gap:15px;
-    }
-
-    .module{
-        min-height:145px;
-    }
-
-    .icon{
-        width:58px;
-        height:58px;
-        font-size:30px;
-    }
-
-    .module-title{
-        font-size:14px;
-    }
-
-    .footer{
-        overflow-x:auto;
-    }
-
-    .footer-menu{
-        min-width:max-content;
-    }
+.header{
+height:auto;
+padding:12px;
+flex-direction:column;
+gap:12px;
 }
 
-/* =========================
-   PAGE
-========================= */
-
-.page{
-    display:none;
+.top-info{
+flex-wrap:wrap;
+justify-content:center;
 }
 
-.page.active{
-    display:block;
+.modules{
+grid-template-columns:repeat(2,1fr);
+gap:13px;
 }
 
-.back{
-    border:0;
-    background:#087f70;
-    color:white;
-    padding:10px 20px;
-    border-radius:7px;
-    cursor:pointer;
-    font-family:Tahoma;
-    margin-bottom:20px;
+.module{
+min-height:140px;
 }
 
-.page-title{
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 3px 10px rgba(0,0,0,.05);
-    margin-bottom:20px;
+.icon{
+width:55px;
+height:55px;
+font-size:29px;
 }
 
-.page-title h2{
-    margin:0;
-    color:#087f70;
+.module-title{
+font-size:14px;
 }
 
-/* =========================
-   SIMPLE CONTENT
-========================= */
-
-.content-box{
-    background:white;
-    padding:25px;
-    border-radius:10px;
-    box-shadow:0 3px 10px rgba(0,0,0,.05);
+.sub-grid{
+grid-template-columns:repeat(2,1fr);
 }
 
-.btn{
-    border:0;
-    background:#087f70;
-    color:white;
-    padding:12px 25px;
-    border-radius:7px;
-    cursor:pointer;
-    font-family:Tahoma;
+.footer{
+overflow-x:auto;
+justify-content:flex-start;
 }
 
-input,select{
-    padding:11px;
-    border:1px solid #ddd;
-    border-radius:6px;
-    font-family:Tahoma;
+.footer-menu{
+min-width:max-content;
+}
+
+}
+
+/* ================= ALERT ================= */
+
+.notice{
+display:none;
+position:fixed;
+top:90px;
+left:50%;
+transform:translateX(-50%);
+background:#087c70;
+color:#fff;
+padding:14px 25px;
+border-radius:8px;
+z-index:100;
+box-shadow:0 5px 20px rgba(0,0,0,.2);
+}
+
+.notice.show{
+display:block;
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
+<!-- ================= HEADER ================= -->
 
 <header class="header">
 
-    <div class="logo">
+<div class="logo">
 
-        <div class="logo-icon">
-            ر
-        </div>
+<div class="logo-icon">
+ر
+</div>
 
-        <div class="logo-text">
-            الرهيب سوفت PRO
-        </div>
+<div class="logo-text">
+الرهيب سوفت PRO
+</div>
 
-    </div>
+</div>
 
-    <div class="top-info">
+<div class="top-info">
 
-        <div>
-            المؤسسة:
-            <span id="companyName">مؤسسة الرهيب</span>
-        </div>
+<div>
+المؤسسة:
+<span id="companyName">مؤسسة الرهيب</span>
+</div>
 
-        <div>
-            الفرع:
-            <span>الفرع الرئيسي</span>
-        </div>
+<div>
+الفرع:
+<span>الفرع الرئيسي</span>
+</div>
 
-        <div>
-            المستخدم:
-            <span>admin</span>
-        </div>
+<div>
+المستخدم:
+<span>admin</span>
+</div>
 
-    </div>
+</div>
 
 </header>
 
 
-<!-- =========================
-     HOME
-========================= -->
+<!-- ================= MAIN ================= -->
 
 <main class="main">
 
+<!-- ================= HOME ================= -->
+
 <section id="homePage" class="page active">
 
-    <div class="welcome">
+<div class="welcome">
 
-        <h1>الرئيسية</h1>
+<h1>الرئيسية</h1>
 
-        <p>
-            مرحباً بك في نظام الرهيب سوفت PRO
-        </p>
+<p>
+مرحباً بك في نظام الرهيب سوفت PRO
+</p>
 
-    </div>
-
-
-    <div class="modules">
-
-        <!-- SALES -->
-
-        <div class="module sales"
-             onclick="openPage('salesPage')">
-
-            <div class="icon">
-                🛍️
-            </div>
-
-            <div class="module-title">
-                المبيعات
-            </div>
-
-        </div>
+</div>
 
 
-        <!-- PURCHASE -->
+<div class="modules">
 
-        <div class="module purchase"
-             onclick="openPage('purchasePage')">
+<!-- المبيعات -->
 
-            <div class="icon">
-                🛒
-            </div>
+<div class="module sales"
+onclick="openPage('salesPage')">
 
-            <div class="module-title">
-                المشتريات
-            </div>
+<div class="icon">🛍️</div>
 
-        </div>
+<div class="module-title">
+المبيعات
+</div>
 
-
-        <!-- STOCK -->
-
-        <div class="module stock"
-             onclick="openPage('stockPage')">
-
-            <div class="icon">
-                💼
-            </div>
-
-            <div class="module-title">
-                المخازن
-            </div>
-
-        </div>
+</div>
 
 
-        <!-- CUSTOMERS -->
+<!-- المشتريات -->
 
-        <div class="module customers"
-             onclick="openPage('customersPage')">
+<div class="module purchase"
+onclick="openPage('purchasePage')">
 
-            <div class="icon">
-                👥
-            </div>
+<div class="icon">🛒</div>
 
-            <div class="module-title">
-                العملاء والموردين
-            </div>
+<div class="module-title">
+المشتريات
+</div>
 
-        </div>
+</div>
 
 
-        <!-- USERS -->
+<!-- المخازن -->
 
-        <div class="module users"
-             onclick="openPage('usersPage')">
+<div class="module stock"
+onclick="openPage('stockPage')">
 
-            <div class="icon">
-                👤
-            </div>
+<div class="icon">💼</div>
 
-            <div class="module-title">
-                المستخدمين والصلاحيات
-            </div>
+<div class="module-title">
+المخازن
+</div>
 
-        </div>
+</div>
 
 
-        <!-- BASIC DATA -->
+<!-- العملاء والموردين -->
 
-        <div class="module basic"
-             onclick="openPage('basicPage')">
+<div class="module customers"
+onclick="openPage('customersPage')">
 
-            <div class="icon">
-                ☷
-            </div>
+<div class="icon">👥</div>
 
-            <div class="module-title">
-                البيانات الأساسية
-            </div>
+<div class="module-title">
+العملاء والموردين
+</div>
 
-        </div>
+</div>
 
 
-        <!-- ACCOUNTS -->
+<!-- المستخدمين -->
 
-        <div class="module accounts"
-             onclick="openPage('accountsPage')">
+<div class="module users"
+onclick="openPage('usersPage')">
 
-            <div class="icon">
-                ✎
-            </div>
+<div class="icon">👤</div>
 
-            <div class="module-title">
-                الحسابات
-            </div>
+<div class="module-title">
+المستخدمين والصلاحيات
+</div>
 
-        </div>
+</div>
 
 
-        <!-- SETTINGS -->
+<!-- البيانات الأساسية -->
 
-        <div class="module settings"
-             onclick="openPage('settingsPage')">
+<div class="module basic"
+onclick="openPage('basicPage')">
 
-            <div class="icon">
-                ⚙
-            </div>
+<div class="icon">☷</div>
 
-            <div class="module-title">
-                إعدادات النظام
-            </div>
+<div class="module-title">
+البيانات الأساسية
+</div>
 
-        </div>
+</div>
 
-    </div>
+
+<!-- الحسابات -->
+
+<div class="module accounts"
+onclick="openPage('accountsPage')">
+
+<div class="icon">✎</div>
+
+<div class="module-title">
+الحسابات
+</div>
+
+</div>
+
+
+<!-- الإعدادات -->
+
+<div class="module settings"
+onclick="openPage('settingsPage')">
+
+<div class="icon">⚙️</div>
+
+<div class="module-title">
+إعدادات النظام
+</div>
+
+</div>
+
+</div>
 
 </section>
 
 
-<!-- =========================
-     SALES PAGE
-========================= -->
+<!-- =====================================================
+     المبيعات
+===================================================== -->
 
 <section id="salesPage" class="page">
 
-    <button class="back"
-            onclick="goHome()">
-        ← الرئيسية
-    </button>
+<button class="back" onclick="goHome()">
+← الرئيسية
+</button>
 
-    <div class="page-title">
-        <h2>المبيعات</h2>
-    </div>
+<div class="page-title">
+<h2>المبيعات</h2>
+</div>
 
-    <div class="content-box">
+<div class="sub-grid">
 
-        <h3>نقطة البيع</h3>
+<div class="sub-item" onclick="action('المبيعات')">
+<div class="sub-icon">🧾</div>
+<div class="sub-title">المبيعات</div>
+</div>
 
-        <p>
-            هنا سيتم وضع شاشة الكاشير والفواتير والبحث بالباركود.
-        </p>
+<div class="sub-item" onclick="action('مرتجع المبيعات')">
+<div class="sub-icon">↩️</div>
+<div class="sub-title">مرتجع المبيعات</div>
+</div>
 
-        <button class="btn">
-            فاتورة مبيعات جديدة
-        </button>
+<div class="sub-item" onclick="action('عرض السعر')">
+<div class="sub-icon">📄</div>
+<div class="sub-title">عرض السعر</div>
+</div>
 
-    </div>
+<div class="sub-item" onclick="action('الحركة اليومية')">
+<div class="sub-icon">📊</div>
+<div class="sub-title">الحركة اليومية</div>
+</div>
+
+<div class="sub-item" onclick="action('فواتير المبيعات')">
+<div class="sub-icon">🧾</div>
+<div class="sub-title">فواتير المبيعات</div>
+</div>
+
+<div class="sub-item" onclick="action('سند قبض')">
+<div class="sub-icon">💵</div>
+<div class="sub-title">سند قبض</div>
+</div>
+
+<div class="sub-item" onclick="action('كشف حساب العملاء')">
+<div class="sub-icon">📋</div>
+<div class="sub-title">كشف حساب العملاء</div>
+</div>
+
+<div class="sub-item" onclick="action('تقارير المبيعات')">
+<div class="sub-icon">📈</div>
+<div class="sub-title">تقارير المبيعات</div>
+</div>
+
+</div>
 
 </section>
 
 
-<!-- =========================
-     PURCHASE PAGE
-========================= -->
+<!-- =====================================================
+     المشتريات
+===================================================== -->
 
 <section id="purchasePage" class="page">
 
-    <button class="back"
-            onclick="goHome()">
-        ← الرئيسية
-    </button>
+<button class="back" onclick="goHome()">
+← الرئيسية
+</button>
 
-    <div class="page-title">
-        <h2>المشتريات</h2>
-    </div>
+<div class="page-title">
+<h2>المشتريات</h2>
+</div>
 
-    <div class="content-box">
+<div class="sub-grid">
 
-        <h3>فواتير المشتريات</h3>
+<div class="sub-item" onclick="action('المشتريات')">
+<div class="sub-icon">🛒</div>
+<div class="sub-title">المشتريات</div>
+</div>
 
-        <button class="btn">
-            فاتورة شراء جديدة
-        </button>
+<div class="sub-item" onclick="action('مرتجع المشتريات')">
+<div class="sub-icon">↩️</div>
+<div class="sub-title">مرتجع المشتريات</div>
+</div>
 
-    </div>
+<div class="sub-item" onclick="action('طلب شراء')">
+<div class="sub-icon">📝</div>
+<div class="sub-title">طلب شراء</div>
+</div>
+
+<div class="sub-item" onclick="action('الحركة اليومية')">
+<div class="sub-icon">📊</div>
+<div class="sub-title">الحركة اليومية</div>
+</div>
+
+<div class="sub-item" onclick="action('فواتير المشتريات')">
+<div class="sub-icon">🧾</div>
+<div class="sub-title">فواتير المشتريات</div>
+</div>
+
+<div class="sub-item" onclick="action('سند صرف')">
+<div class="sub-icon">💸</div>
+<div class="sub-title">سند صرف</div>
+</div>
+
+<div class="sub-item" onclick="action('كشف حساب الموردين')">
+<div class="sub-icon">📋</div>
+<div class="sub-title">كشف حساب الموردين</div>
+</div>
+
+<div class="sub-item" onclick="action('تقارير المشتريات')">
+<div class="sub-icon">📈</div>
+<div class="sub-title">تقارير المشتريات</div>
+</div>
+
+</div>
 
 </section>
 
 
-<!-- =========================
-     STOCK PAGE
-========================= -->
+<!-- =====================================================
+     المخازن
+===================================================== -->
 
 <section id="stockPage" class="page">
 
-    <button class="back"
-            onclick="goHome()">
-        ← الرئيسية
-    </button>
+<button class="back" onclick="goHome()">
+← الرئيسية
+</button>
 
-    <div class="page-title">
-        <h2>المخازن</h2>
-    </div>
+<div class="page-title">
+<h2>المخازن</h2>
+</div>
 
-    <div class="content-box">
+<div class="sub-grid">
 
-        <h3>إدارة المخزون</h3>
+<div class="sub-item" onclick="action('الأصناف والمنتجات')">
+<div class="sub-icon">📦</div>
+<div class="sub-title">الأصناف والمنتجات</div>
+</div>
 
-        <button class="btn">
-            إضافة منتج
-        </button>
+<div class="sub-item" onclick="action('المخازن')">
+<div class="sub-icon">🏬</div>
+<div class="sub-title">المخازن</div>
+</div>
 
-    </div>
+<div class="sub-item" onclick="action('تحويل بين المخازن')">
+<div class="sub-icon">🔄</div>
+<div class="sub-title">تحويل بين المخازن</div>
+</div>
+
+<div class="sub-item" onclick="action('جرد المخزون')">
+<div class="sub-icon">📋</div>
+<div class="sub-title">جرد المخزون</div>
+</div>
+
+<div class="sub-item" onclick="action('تسوية المخزون')">
+<div class="sub-icon">⚖️</div>
+<div class="sub-title">تسوية المخزون</div>
+</div>
+
+<div class="sub-item" onclick="action('حركة الصنف')">
+<div class="sub-icon">📊</div>
+<div class="sub-title">حركة الصنف</div>
+</div>
+
+<div class="sub-item" onclick="action('الأصناف الناقصة')">
+<div class="sub-icon">⚠️</div>
+<div class="sub-title">الأصناف الناقصة</div>
+</div>
+
+<div class="sub-item" onclick="action('تقرير المخزون')">
+<div class="sub-icon">📈</div>
+<div class="sub-title">تقرير المخزون</div>
+</div>
+
+</div>
 
 </section>
 
 
-<!-- =========================
-     CUSTOMERS
-========================= -->
+<!-- =====================================================
+     العملاء والموردين
+===================================================== -->
 
 <section id="customersPage" class="page">
 
-    <button class="back"
-            onclick="goHome()">
-        ← الرئيسية
-    </button>
+<button class="back" onclick="goHome()">
+← الرئيسية
+</button>
 
-    <div class="page-title">
-        <h2>العملاء والموردين</h2>
-    </div>
+<div class="page-title">
+<h2>العملاء والموردين</h2>
+</div>
 
-    <div class="content-box">
+<div class="sub-grid">
 
-        <button class="btn">
-            إضافة عميل
-        </button>
+<div class="sub-item" onclick="action('العملاء')">
+<div class="sub-icon">👤</div>
+<div class="sub-title">العملاء</div>
+</div>
 
-        <button class="btn">
-            إضافة مورد
-        </button>
+<div class="sub-item" onclick="action('الموردين')">
+<div class="sub-icon">👥</div>
+<div class="sub-title">الموردين</div>
+</div>
 
-    </div>
+<div class="sub-item" onclick="action('كشف حساب عميل')">
+<div class="sub-icon">📋</div>
+<div class="sub-title">كشف حساب عميل</div>
+</div>
+
+<div class="sub-item" onclick="action('كشف حساب مورد')">
+<div class="sub-icon">📋</div>
+<div class="sub-title">كشف حساب مورد</div>
+</div>
+
+<div class="sub-item" onclick="action('أرصدة العملاء')">
+<div class="sub-icon">💰</div>
+<div class="sub-title">أرصدة العملاء</div>
+</div>
+
+<div class="sub-item" onclick="action('أرصدة الموردين')">
+<div class="sub-icon">💵</div>
+<div class="sub-title">أرصدة الموردين</div>
+</div>
+
+<div class="sub-item" onclick="action('سندات القبض')">
+<div class="sub-icon">💳</div>
+<div class="sub-title">سندات القبض</div>
+</div>
+
+<div class="sub-item" onclick="action('سندات الصرف')">
+<div class="sub-icon">💸</div>
+<div class="sub-title">سندات الصرف</div>
+</div>
+
+</div>
 
 </section>
 
 
-<!-- =========================
-     USERS
-========================= -->
+<!-- =====================================================
+     المستخدمين والصلاحيات
+===================================================== -->
 
 <section id="usersPage" class="page">
 
-    <button class="back"
-            onclick="goHome()">
-        ← الرئيسية
-    </button>
+<button class="back" onclick="goHome()">
+← الرئيسية
+</button>
 
-    <div class="page-title">
-        <h2>المستخدمين والصلاحيات</h2>
-    </div>
+<div class="page-title">
+<h2>المستخدمين والصلاحيات</h2>
+</div>
 
-    <div class="content-box">
+<div class="sub-grid">
 
-        <button class="btn">
-            إضافة مستخدم
-        </button>
+<div class="sub-item" onclick="action('المستخدمين')">
+<div class="sub-icon">👤</div>
+<div class="sub-title">المستخدمين</div>
+</div>
 
-    </div>
+<div class="sub-item" onclick="action('الصلاحيات')">
+<div class="sub-icon">🔐</div>
+<div class="sub-title">الصلاحيات</div>
+</div>
+
+<div class="sub-item" onclick="action('الأدوار')">
+<div class="sub-icon">👥</div>
+<div class="sub-title">الأدوار</div>
+</div>
+
+<div class="sub-item" onclick="action('سجل العمليات')">
+<div class="sub-icon">📜</div>
+<div class="sub-title">سجل العمليات</div>
+</div>
+
+</div>
 
 </section>
 
 
-<!-- =========================
-     BASIC DATA
-========================= -->
+<!-- =====================================================
+     البيانات الأساسية
+===================================================== -->
 
 <section id="basicPage" class="page">
 
-    <button class="back"
-            onclick="goHome()">
-        ← الرئيسية
-    </button>
+<button class="back" onclick="goHome()">
+← الرئيسية
+</button>
 
-    <div class="page-title">
-        <h2>البيانات الأساسية</h2>
-    </div>
+<div class="page-title">
+<h2>البيانات الأساسية</h2>
+</div>
 
-    <div class="content-box">
+<div class="sub-grid">
 
-        <p>
-            المنتجات - التصنيفات - الوحدات - طرق الدفع
-        </p>
+<div class="sub-item" onclick="action('الأصناف')">
+<div class="sub-icon">📦</div>
+<div class="sub-title">الأصناف</div>
+</div>
 
-    </div>
+<div class="sub-item" onclick="action('التصنيفات')">
+<div class="sub-icon">🗂️</div>
+<div class="sub-title">التصنيفات</div>
+</div>
+
+<div class="sub-item" onclick="action('الوحدات')">
+<div class="sub-icon">📏</div>
+<div class="sub-title">الوحدات</div>
+</div>
+
+<div class="sub-item" onclick="action('طرق الدفع')">
+<div class="sub-icon">💳</div>
+<div class="sub-title">طرق الدفع</div>
+</div>
+
+<div class="sub-item" onclick="action('الضرائب')">
+<div class="sub-icon">🧾</div>
+<div class="sub-title">الضرائب</div>
+</div>
+
+<div class="sub-item" onclick="action('العملات')">
+<div class="sub-icon">💱</div>
+<div class="sub-title">العملات</div>
+</div>
+
+<div class="sub-item" onclick="action('الفروع')">
+<div class="sub-icon">🏢</div>
+<div class="sub-title">الفروع</div>
+</div>
+
+<div class="sub-item" onclick="action('بيانات المؤسسة')">
+<div class="sub-icon">🏛️</div>
+<div class="sub-title">بيانات المؤسسة</div>
+</div>
+
+</div>
 
 </section>
 
 
-<!-- =========================
-     ACCOUNTS
-========================= -->
+<!-- =====================================================
+     الحسابات
+===================================================== -->
 
 <section id="accountsPage" class="page">
 
-    <button class="back"
-            onclick="goHome()">
-        ← الرئيسية
-    </button>
+<button class="back" onclick="goHome()">
+← الرئيسية
+</button>
 
-    <div class="page-title">
-        <h2>الحسابات</h2>
-    </div>
+<div class="page-title">
+<h2>الحسابات</h2>
+</div>
 
-    <div class="content-box">
+<div class="sub-grid">
 
-        <p>
-            الحسابات والقيود اليومية والصندوق.
-        </p>
+<div class="sub-item" onclick="action('دليل الحسابات')">
+<div class="sub-icon">📚</div>
+<div class="sub-title">دليل الحسابات</div>
+</div>
 
-    </div>
+<div class="sub-item" onclick="action('القيد اليومي')">
+<div class="sub-icon">📝</div>
+<div class="sub-title">القيد اليومي</div>
+</div>
+
+<div class="sub-item" onclick="action('الصندوق')">
+<div class="sub-icon">💰</div>
+<div class="sub-title">الصندوق</div>
+</div>
+
+<div class="sub-item" onclick="action('البنوك')">
+<div class="sub-icon">🏦</div>
+<div class="sub-title">البنوك</div>
+</div>
+
+<div class="sub-item" onclick="action('المصروفات')">
+<div class="sub-icon">💸</div>
+<div class="sub-title">المصروفات</div>
+</div>
+
+<div class="sub-item" onclick="action('الإيرادات')">
+<div class="sub-icon">💵</div>
+<div class="sub-title">الإيرادات</div>
+</div>
+
+<div class="sub-item" onclick="action('الأرباح والخسائر')">
+<div class="sub-icon">📊</div>
+<div class="sub-title">الأرباح والخسائر</div>
+</div>
+
+<div class="sub-item" onclick="action('الميزانية')">
+<div class="sub-icon">📈</div>
+<div class="sub-title">الميزانية</div>
+</div>
+
+</div>
 
 </section>
 
 
-<!-- =========================
-     SETTINGS
-========================= -->
+<!-- =====================================================
+     الإعدادات
+===================================================== -->
 
 <section id="settingsPage" class="page">
 
-    <button class="back"
-            onclick="goHome()">
-        ← الرئيسية
-    </button>
+<button class="back" onclick="goHome()">
+← الرئيسية
+</button>
 
-    <div class="page-title">
-        <h2>إعدادات النظام</h2>
-    </div>
+<div class="page-title">
+<h2>إعدادات النظام</h2>
+</div>
 
-    <div class="content-box">
+<div class="sub-grid">
 
-        <label>
-            اسم المؤسسة
-        </label>
+<div class="sub-item" onclick="action('إعدادات المؤسسة')">
+<div class="sub-icon">🏢</div>
+<div class="sub-title">إعدادات المؤسسة</div>
+</div>
 
-        <br><br>
+<div class="sub-item" onclick="action('إعدادات الفواتير')">
+<div class="sub-icon">🧾</div>
+<div class="sub-title">إعدادات الفواتير</div>
+</div>
 
-        <input
-            id="companyInput"
-            placeholder="اسم المؤسسة">
+<div class="sub-item" onclick="action('إعدادات الطباعة')">
+<div class="sub-icon">🖨️</div>
+<div class="sub-title">إعدادات الطباعة</div>
+</div>
 
-        <button
-            class="btn"
-            onclick="saveCompany()">
+<div class="sub-item" onclick="action('النسخ الاحتياطي')">
+<div class="sub-icon">💾</div>
+<div class="sub-title">النسخ الاحتياطي</div>
+</div>
 
-            حفظ
+<div class="sub-item" onclick="action('استعادة البيانات')">
+<div class="sub-icon">♻️</div>
+<div class="sub-title">استعادة البيانات</div>
+</div>
 
-        </button>
+<div class="sub-item" onclick="action('ترقيم الفواتير')">
+<div class="sub-icon">🔢</div>
+<div class="sub-title">ترقيم الفواتير</div>
+</div>
 
-    </div>
+<div class="sub-item" onclick="action('إعدادات الضرائب')">
+<div class="sub-icon">🧾</div>
+<div class="sub-title">إعدادات الضرائب</div>
+</div>
+
+<div class="sub-item" onclick="action('إعدادات النظام')">
+<div class="sub-icon">⚙️</div>
+<div class="sub-title">إعدادات النظام</div>
+</div>
+
+</div>
 
 </section>
 
 </main>
 
 
-<!-- =========================
-     FOOTER
-========================= -->
+<!-- ================= FOOTER ================= -->
 
 <footer class="footer">
 
-    <div class="footer-menu">
+<div class="footer-menu">
 
-        <button class="footer-btn active"
-                onclick="goHome()">
+<button class="footer-btn active"
+onclick="goHome()">
+🏠 الرئيسية
+</button>
 
-            🏠 الرئيسية
+<button class="footer-btn"
+onclick="openPage('usersPage')">
+❔ معلومات المستخدم
+</button>
 
-        </button>
+<button class="footer-btn"
+onclick="location.reload()">
+🔄 تحديث
+</button>
 
+<button class="footer-btn"
+onclick="action('التقارير')">
+📈 التقارير
+</button>
 
-        <button class="footer-btn"
-                onclick="openPage('usersPage')">
+<button class="footer-btn">
+🌐 العربية
+<small>English</small>
+</button>
 
-            ❔ معلومات المستخدم
+<button class="footer-btn">
+📅 <span id="date"></span>
+</button>
 
-        </button>
-
-
-        <button class="footer-btn"
-                onclick="location.reload()">
-
-            🔄 تحديث
-
-        </button>
-
-
-        <button class="footer-btn">
-
-            📈 التقارير
-
-        </button>
-
-
-        <button class="footer-btn">
-
-            🌐 العربية
-
-            <small>English</small>
-
-        </button>
-
-
-        <button class="footer-btn">
-
-            📅 <span id="date"></span>
-
-        </button>
-
-    </div>
+</div>
 
 </footer>
 
 
+<!-- ================= NOTICE ================= -->
+
+<div id="notice" class="notice"></div>
+
+
 <script>
 
-/* =========================
-   PAGE NAVIGATION
-========================= */
+/* ================= NAVIGATION ================= */
 
 function openPage(id){
 
-    document.querySelectorAll('.page')
-    .forEach(page=>{
-        page.classList.remove('active');
-    });
+document.querySelectorAll('.page')
+.forEach(page=>{
+page.classList.remove('active');
+});
 
-    document.getElementById(id)
-    .classList.add('active');
+const page=document.getElementById(id);
 
-    window.scrollTo(0,0);
+if(page){
+page.classList.add('active');
+}
+
+window.scrollTo(0,0);
 }
 
 
 function goHome(){
 
-    document.querySelectorAll('.page')
-    .forEach(page=>{
-        page.classList.remove('active');
-    });
+document.querySelectorAll('.page')
+.forEach(page=>{
+page.classList.remove('active');
+});
 
-    document.getElementById('homePage')
-    .classList.add('active');
+document.getElementById('homePage')
+.classList.add('active');
 
-    window.scrollTo(0,0);
+window.scrollTo(0,0);
 }
 
 
-/* =========================
-   COMPANY NAME
-========================= */
+/* ================= ACTION ================= */
 
-function saveCompany(){
+function action(name){
 
-    const input =
-        document.getElementById('companyInput');
+const notice=document.getElementById('notice');
 
-    const name =
-        input.value.trim();
+notice.textContent=
+'تم اختيار: '+name;
 
-    if(!name){
+notice.classList.add('show');
 
-        alert('اكتب اسم المؤسسة');
+setTimeout(()=>{
+notice.classList.remove('show');
+},1800);
 
-        return;
-    }
-
-    localStorage.setItem(
-        'raheeb_company',
-        name
-    );
-
-    document.getElementById(
-        'companyName'
-    ).textContent = name;
-
-    alert('تم حفظ اسم المؤسسة');
 }
 
 
-/* =========================
-   LOAD COMPANY
-========================= */
+/* ================= DATE ================= */
 
-const savedCompany =
-    localStorage.getItem(
-        'raheeb_company'
-    );
+document.getElementById('date')
+.textContent=
+new Date().toLocaleDateString('ar-SA');
+
+
+/* ================= COMPANY ================= */
+
+const savedCompany=
+localStorage.getItem('raheeb_company');
 
 if(savedCompany){
 
-    document.getElementById(
-        'companyName'
-    ).textContent = savedCompany;
+document.getElementById('companyName')
+.textContent=savedCompany;
 
-    document.getElementById(
-        'companyInput'
-    ).value = savedCompany;
 }
-
-
-/* =========================
-   DATE
-========================= */
-
-const today =
-    new Date();
-
-document.getElementById(
-    'date'
-).textContent =
-    today.toLocaleDateString('ar-SA');
-
 
 </script>
 
