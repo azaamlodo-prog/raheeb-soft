@@ -2,3712 +2,981 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>الرهيب سوفت PRO</title>
 
 <style>
-
-/* ===============================
-   الألوان والتصميم الجديد
-================================ */
-
-:root{
---primary:#2563eb;
---primary-dark:#1d4ed8;
---secondary:#7c3aed;
---dark:#0f172a;
---dark2:#172554;
---text:#172033;
---muted:#64748b;
---bg:#f1f5f9;
---white:#ffffff;
---border:#e2e8f0;
---success:#16a34a;
---danger:#dc2626;
---warning:#d97706;
---info:#0891b2;
---shadow:0 8px 25px rgba(15,23,42,.07);
-}
-
 *{
-box-sizing:border-box
+    box-sizing:border-box;
 }
 
 body{
-margin:0;
-font-family:Tahoma,Arial,sans-serif;
-background:
-linear-gradient(135deg,#f8fafc 0%,#eef4ff 100%);
-color:var(--text)
+    margin:0;
+    font-family:Tahoma,Arial,sans-serif;
+    background:#f5f7f8;
+    color:#333;
 }
 
-button,input,select{
-font-family:inherit
-}
-
-button{
-cursor:pointer
-}
-
-/* ===============================
-   الهيدر
-================================ */
+/* =========================
+   HEADER
+========================= */
 
 .header{
-height:68px;
-background:
-linear-gradient(135deg,#0f172a,#172554);
-color:white;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 22px;
-position:sticky;
-top:0;
-z-index:1000;
-box-shadow:0 4px 18px rgba(15,23,42,.2)
+    height:75px;
+    background:#ffffff;
+    border-bottom:1px solid #ddd;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 35px;
+    box-shadow:0 2px 8px rgba(0,0,0,.05);
 }
 
-.brand{
-font-size:22px;
-font-weight:bold;
-letter-spacing:.2px
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
 
-.brand::before{
-content:"◆";
-color:#60a5fa;
-margin-left:8px
+.logo-icon{
+    width:48px;
+    height:48px;
+    border-radius:12px;
+    background:#087f70;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+    font-weight:bold;
 }
 
-.header-info{
-font-size:13px;
-opacity:.95;
-display:flex;
-align-items:center;
-gap:7px
+.logo-text{
+    font-size:22px;
+    font-weight:bold;
+    color:#087f70;
 }
 
-.logout{
-background:#334155;
-color:white;
-border:1px solid #475569;
-padding:8px 12px;
-border-radius:8px;
-margin-right:8px;
-transition:.2s
+.top-info{
+    display:flex;
+    gap:35px;
+    font-size:15px;
+    color:#555;
 }
 
-.logout:hover{
-background:#dc2626;
-border-color:#dc2626
+.top-info span{
+    font-weight:bold;
+    color:#087f70;
 }
 
-/* ===============================
-   التطبيق
-================================ */
+/* =========================
+   MAIN
+========================= */
 
-.app{
-display:flex;
-min-height:calc(100vh - 68px)
+.main{
+    min-height:calc(100vh - 145px);
+    padding:45px 70px 80px;
 }
 
-/* ===============================
-   القائمة
-================================ */
-
-.sidebar{
-width:245px;
-background:rgba(255,255,255,.96);
-border-left:1px solid var(--border);
-padding:14px;
-flex-shrink:0;
-box-shadow:3px 0 20px rgba(15,23,42,.04)
+.welcome{
+    text-align:center;
+    margin-bottom:40px;
 }
 
-.menu{
-width:100%;
-border:1px solid transparent;
-background:#f8fafc;
-color:#334155;
-padding:12px 14px;
-margin-bottom:8px;
-border-radius:10px;
-text-align:right;
-font-size:14px;
-transition:.2s;
-font-weight:600
+.welcome h1{
+    margin:0;
+    color:#087f70;
+    font-size:28px;
 }
 
-.menu:hover{
-background:#eff6ff;
-color:var(--primary);
-border-color:#bfdbfe;
-transform:translateX(-2px)
+.welcome p{
+    margin-top:10px;
+    color:#888;
 }
 
-.menu.active{
-background:
-linear-gradient(135deg,var(--primary),var(--secondary));
-color:white;
-box-shadow:0 6px 15px rgba(37,99,235,.25);
-border-color:transparent
-}
-
-/* ===============================
-   المحتوى
-================================ */
-
-.content{
-flex:1;
-padding:22px;
-min-width:0
-}
-
-.page{
-display:none
-}
-
-.page.active{
-display:block;
-animation:fadeIn .2s ease
-}
-
-@keyframes fadeIn{
-from{
-opacity:0;
-transform:translateY(4px)
-}
-to{
-opacity:1;
-transform:translateY(0)
-}
-}
-
-/* ===============================
-   العناوين
-================================ */
-
-.title{
-display:flex;
-align-items:center;
-justify-content:space-between;
-margin-bottom:18px
-}
-
-.title h2,
-section>h2{
-margin:0 0 18px;
-color:#0f172a
-}
-
-/* ===============================
-   البطاقات
-================================ */
-
-.cards{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(180px,1fr));
-gap:16px
-}
-
-.card{
-background:white;
-border-radius:16px;
-padding:20px;
-box-shadow:var(--shadow);
-border:1px solid rgba(226,232,240,.8);
-position:relative;
-overflow:hidden;
-transition:.2s
-}
-
-.card:hover{
-transform:translateY(-3px);
-box-shadow:0 12px 30px rgba(37,99,235,.12)
-}
-
-.card::after{
-content:"";
-position:absolute;
-left:-25px;
-bottom:-30px;
-width:90px;
-height:90px;
-background:#eff6ff;
-border-radius:50%
-}
-
-.card small{
-color:var(--muted);
-font-size:13px
-}
-
-.card b{
-display:block;
-font-size:27px;
-margin-top:9px;
-color:#1e3a8a
-}
-
-/* ===============================
-   الصناديق
-================================ */
-
-.box{
-background:rgba(255,255,255,.96);
-padding:20px;
-border-radius:16px;
-margin-bottom:18px;
-box-shadow:var(--shadow);
-border:1px solid var(--border)
-}
-
-.box h3{
-margin-top:0;
-color:#1e293b
-}
-
-/* ===============================
-   الشبكات
-================================ */
-
-.grid{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(180px,1fr));
-gap:11px
-}
-
-/* ===============================
-   الحقول
-================================ */
-
-input,select{
-width:100%;
-padding:12px;
-border:1px solid #cbd5e1;
-border-radius:9px;
-background:white;
-color:#172033;
-outline:none;
-transition:.2s
-}
-
-input:focus,
-select:focus{
-border-color:var(--primary);
-box-shadow:0 0 0 3px rgba(37,99,235,.1)
-}
-
-/* ===============================
-   الأزرار
-================================ */
-
-.btn{
-border:0;
-padding:11px 17px;
-border-radius:9px;
-font-weight:600;
-transition:.2s;
-box-shadow:0 2px 5px rgba(15,23,42,.08)
-}
-
-.btn:hover{
-transform:translateY(-1px);
-filter:brightness(.96)
-}
-
-.blue{
-background:linear-gradient(135deg,#2563eb,#1d4ed8);
-color:white
-}
-
-.green{
-background:linear-gradient(135deg,#16a34a,#15803d);
-color:white
-}
-
-.red{
-background:linear-gradient(135deg,#dc2626,#b91c1c);
-color:white
-}
-
-.gray{
-background:#64748b;
-color:white
-}
-
-.orange{
-background:linear-gradient(135deg,#f59e0b,#d97706);
-color:white
-}
-
-/* ===============================
-   الجداول
-================================ */
-
-.table-wrap{
-overflow:auto
-}
-
-table{
-width:100%;
-border-collapse:collapse
-}
-
-th,td{
-padding:12px 10px;
-border-bottom:1px solid #e5e7eb;
-white-space:nowrap
-}
-
-th{
-background:#f8fafc;
-color:#334155;
-font-weight:bold
-}
-
-tbody tr:hover{
-background:#f8fbff
-}
-
-/* ===============================
-   POS
-================================ */
-
-.pos{
-display:grid;
-grid-template-columns:1.5fr 1fr;
-gap:16px
-}
-
-.product-grid{
-display:grid;
-grid-template-columns:
-repeat(auto-fill,minmax(150px,1fr));
-gap:11px
-}
-
-.product{
-background:white;
-border:1px solid var(--border);
-padding:16px;
-border-radius:12px;
-cursor:pointer;
-transition:.2s;
-box-shadow:0 2px 8px rgba(15,23,42,.04)
-}
-
-.product:hover{
-border-color:#60a5fa;
-box-shadow:0 7px 20px rgba(37,99,235,.12);
-transform:translateY(-2px)
-}
-
-.product b{
-display:block;
-margin-bottom:8px;
-color:#1e293b
-}
-
-.product small{
-color:var(--muted)
-}
-
-.cart-line{
-display:grid;
-grid-template-columns:1fr 65px 80px 35px;
-gap:6px;
-align-items:center;
-margin-bottom:8px
-}
-
-.cart-line input{
-padding:8px
-}
-
-.total{
-font-size:26px;
-font-weight:bold;
-margin:18px 0;
-color:#1d4ed8
-}
-
-.actions{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:8px
-}
-
-/* ===============================
-   الشارات
-================================ */
-
-.badge{
-display:inline-block;
-padding:5px 10px;
-border-radius:20px;
-background:#dbeafe;
-color:#1d4ed8;
-font-size:12px;
-font-weight:bold
-}
-
-/* ===============================
-   Toast
-================================ */
-
-#toast{
-position:fixed;
-left:20px;
-bottom:20px;
-background:#0f172a;
-color:white;
-padding:14px 20px;
-border-radius:10px;
-display:none;
-z-index:5000;
-box-shadow:0 10px 30px #0004
-}
-
-/* ===============================
-   Modal
-================================ */
-
-.modal{
-position:fixed;
-inset:0;
-background:rgba(15,23,42,.65);
-display:none;
-align-items:center;
-justify-content:center;
-padding:15px;
-z-index:3000;
-backdrop-filter:blur(4px)
-}
-
-.modal-box{
-background:white;
-width:min(650px,100%);
-padding:22px;
-border-radius:17px;
-box-shadow:0 20px 60px rgba(0,0,0,.25)
-}
-
-/* ===============================
-   تسجيل الدخول
-================================ */
-
-#loginScreen{
-position:fixed;
-inset:0;
-background:
-radial-gradient(circle at top right,#3b82f6 0,#1e3a8a 35%,#0f172a 80%);
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:10000;
-padding:20px
-}
-
-.login-box{
-background:rgba(255,255,255,.98);
-width:min(420px,100%);
-border-radius:22px;
-padding:32px;
-box-shadow:0 25px 80px rgba(0,0,0,.35);
-text-align:center
-}
-
-.login-logo{
-font-size:29px;
-font-weight:bold;
-background:linear-gradient(135deg,#2563eb,#7c3aed);
--webkit-background-clip:text;
-color:transparent;
-margin-bottom:6px
-}
-
-.login-sub{
-color:#64748b;
-font-size:13px;
-margin-bottom:25px
-}
-
-.login-box input{
-margin-bottom:12px
-}
-
-.login-error{
-color:#dc2626;
-font-size:13px;
-margin:10px 0;
-display:none
-}
-
-/* ===============================
-   الطباعة
-================================ */
-
-.print{
-display:none
-}
-
-.print-page{
-width:100%;
-margin:0 auto;
-background:white;
-color:#111;
-font-family:Tahoma,Arial,sans-serif;
-direction:rtl
-}
-
-.print-header{
-text-align:center;
-margin-bottom:10px
-}
-
-.print-header h1{
-margin:0 0 5px;
-font-size:22px
-}
-
-.print-header div{
-font-size:12px;
-line-height:1.7
-}
-
-.print-title{
-text-align:center;
-font-size:18px;
-font-weight:bold;
-margin:10px 0;
-padding:7px;
-border:1px solid #111;
-border-radius:4px
-}
-
-.print-info{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:5px;
-font-size:12px;
-margin-bottom:10px
-}
-
-.print-table{
-width:100%;
-border-collapse:collapse;
-font-size:12px;
-margin-top:8px
-}
-
-.print-table th,
-.print-table td{
-border:1px solid #222;
-padding:6px 4px;
-white-space:normal;
-text-align:center
-}
+/* =========================
+   MODULES
+========================= */
 
-.print-table th{
-background:#f1f1f1
-}
-
-.print-summary{
-margin-top:10px;
-font-size:13px
-}
-
-.print-summary-row{
-display:flex;
-justify-content:space-between;
-padding:4px 0
-}
+.modules{
+    max-width:1100px;
+    margin:auto;
 
-.print-total{
-font-size:17px;
-font-weight:bold;
-border-top:2px solid #111;
-padding-top:7px;
-margin-top:5px
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:28px;
 }
 
-.print-footer{
-text-align:center;
-margin-top:15px;
-font-size:12px
-}
+.module{
+    background:white;
+    min-height:170px;
+    border-radius:12px;
 
-.qr-box{
-text-align:center;
-margin:12px auto 5px
-}
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
 
-.qr-box img{
-width:120px;
-height:120px;
-display:block;
-margin:auto
-}
+    cursor:pointer;
 
-.qr-label{
-font-size:10px;
-margin-top:4px
-}
+    border:1px solid #e5e5e5;
 
-/* ===============================
-   A4
-================================ */
-
-.print.a4{
-width:210mm!important;
-min-height:297mm!important;
-padding:12mm!important
-}
+    box-shadow:0 4px 12px rgba(0,0,0,.06);
 
-.print.a4 .print-header{
-border-bottom:2px solid #111;
-padding-bottom:10px
+    transition:.2s;
 }
 
-.print.a4 .print-title{
-font-size:21px;
-padding:10px
+.module:hover{
+    transform:translateY(-5px);
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
 }
 
-.print.a4 .print-table{
-font-size:13px
-}
+.icon{
+    width:72px;
+    height:72px;
 
-.print.a4 .print-table th,
-.print.a4 .print-table td{
-padding:9px 6px
-}
+    border-radius:15px;
 
-.print.a4-modern{
-width:210mm!important;
-min-height:297mm!important;
-padding:10mm!important
-}
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-.print.a4-modern .print-header{
-text-align:right;
-border-bottom:3px solid #2563eb;
-padding-bottom:12px;
-margin-bottom:15px
-}
+    font-size:38px;
 
-.print.a4-modern .print-title{
-background:#f1f5ff;
-border:0;
-border-right:5px solid #2563eb;
-text-align:right;
-padding:12px
+    margin-bottom:15px;
 }
 
-.print.a4-modern .print-table th{
-background:#172033;
-color:white
+.module-title{
+    font-size:18px;
+    font-weight:bold;
+    color:#555;
 }
 
-.print.a4-modern .print-table th,
-.print.a4-modern .print-table td{
-padding:9px
-}
+/* ألوان الأيقونات */
 
-.print.a4-modern .print-total{
-font-size:20px
+.sales .icon{
+    background:#dff2e5;
+    color:#27854d;
 }
 
-.print.a4-simple{
-width:210mm!important;
-min-height:297mm!important;
-padding:15mm!important
+.purchase .icon{
+    background:#dff3f1;
+    color:#278e86;
 }
 
-.print.a4-simple .print-header{
-margin-bottom:20px
+.stock .icon{
+    background:#e4e8f8;
+    color:#5367ad;
 }
 
-.print.a4-simple .print-title{
-border:2px solid #111;
-font-size:18px
+.customers .icon{
+    background:#eee5f4;
+    color:#73517e;
 }
 
-.print.tax-a4{
-width:210mm!important;
-min-height:297mm!important;
-padding:10mm!important
+.users .icon{
+    background:#dfeef5;
+    color:#39819d;
 }
 
-.print.tax-a4 .print-header{
-border:2px solid #111;
-padding:12px
+.basic .icon{
+    background:#f6e4e7;
+    color:#c15b69;
 }
 
-.print.tax-a4 .print-title{
-font-size:20px;
-border:2px solid #111
+.accounts .icon{
+    background:#e8e8e8;
+    color:#777;
 }
 
-.print.tax-a4 .print-table th{
-background:#ddd
+.settings .icon{
+    background:#dcefe5;
+    color:#43845f;
 }
-
-/* ===============================
-   حراري
-================================ */
 
-.print.mm80{
-width:80mm!important;
-padding:4mm!important
-}
+/* =========================
+   FOOTER
+========================= */
 
-.print.mm80 .print-header h1{
-font-size:18px
-}
+.footer{
+    position:fixed;
+    bottom:0;
+    right:0;
+    left:0;
 
-.print.mm80 .print-header div{
-font-size:10px
-}
+    height:70px;
 
-.print.mm80 .print-title{
-font-size:14px;
-padding:5px;
-margin:7px 0
-}
+    background:#08766c;
 
-.print.mm80 .print-info{
-font-size:10px;
-grid-template-columns:1fr
-}
+    color:white;
 
-.print.mm80 .print-table{
-font-size:10px
-}
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-.print.mm80 .print-table th,
-.print.mm80 .print-table td{
-padding:4px 2px
+    box-shadow:0 -3px 12px rgba(0,0,0,.12);
 }
 
-.print.mm80 .qr-box img{
-width:90px;
-height:90px
+.footer-menu{
+    display:flex;
+    align-items:center;
+    gap:8px;
 }
 
-.print.mm80 .print-summary{
-font-size:11px
-}
+.footer-btn{
+    height:50px;
+    min-width:120px;
 
-.print.mm58{
-width:58mm!important;
-padding:3mm!important
-}
+    border:0;
+    background:rgba(255,255,255,.07);
 
-.print.mm58 .print-header h1{
-font-size:16px
-}
+    color:white;
 
-.print.mm58 .print-header div{
-font-size:9px
-}
+    border-radius:7px;
 
-.print.mm58 .print-title{
-font-size:13px;
-padding:4px
-}
+    cursor:pointer;
 
-.print.mm58 .print-info{
-grid-template-columns:1fr;
-font-size:9px
-}
+    font-family:Tahoma;
 
-.print.mm58 .print-table{
-font-size:8px
-}
+    font-size:14px;
 
-.print.mm58 .print-table th,
-.print.mm58 .print-table td{
-padding:3px 1px
+    transition:.2s;
 }
 
-.print.mm58 .print-summary{
-font-size:9px
+.footer-btn:hover{
+    background:rgba(255,255,255,.15);
 }
 
-.print.mm58 .print-total{
-font-size:13px
+.footer-btn.active{
+    background:#d94b4b;
 }
 
-.print.mm58 .qr-box img{
-width:70px;
-height:70px
+.footer-btn small{
+    display:block;
+    margin-top:4px;
+    opacity:.8;
 }
 
-/* ===============================
-   موبايل
-================================ */
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media(max-width:900px){
 
-.pos{
-grid-template-columns:1fr
+    .modules{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .main{
+        padding:30px 25px 90px;
+    }
+
+    .top-info{
+        gap:15px;
+        font-size:12px;
+    }
 }
 
-.sidebar{
-width:190px
+@media(max-width:600px){
+
+    .header{
+        height:auto;
+        padding:15px;
+        flex-direction:column;
+        gap:12px;
+    }
+
+    .top-info{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .modules{
+        grid-template-columns:1fr 1fr;
+        gap:15px;
+    }
+
+    .module{
+        min-height:145px;
+    }
+
+    .icon{
+        width:58px;
+        height:58px;
+        font-size:30px;
+    }
+
+    .module-title{
+        font-size:14px;
+    }
+
+    .footer{
+        overflow-x:auto;
+    }
+
+    .footer-menu{
+        min-width:max-content;
+    }
 }
 
+/* =========================
+   PAGE
+========================= */
+
+.page{
+    display:none;
 }
 
-@media(max-width:650px){
-
-.app{
-display:block
+.page.active{
+    display:block;
 }
 
-.sidebar{
-width:100%;
-display:flex;
-overflow:auto;
-gap:6px;
-padding:8px
+.back{
+    border:0;
+    background:#087f70;
+    color:white;
+    padding:10px 20px;
+    border-radius:7px;
+    cursor:pointer;
+    font-family:Tahoma;
+    margin-bottom:20px;
 }
 
-.menu{
-min-width:125px;
-margin:0
+.page-title{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 3px 10px rgba(0,0,0,.05);
+    margin-bottom:20px;
 }
 
-.content{
-padding:10px
+.page-title h2{
+    margin:0;
+    color:#087f70;
 }
 
-.header{
-padding:0 10px
+/* =========================
+   SIMPLE CONTENT
+========================= */
+
+.content-box{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 3px 10px rgba(0,0,0,.05);
 }
 
-.actions{
-grid-template-columns:1fr
+.btn{
+    border:0;
+    background:#087f70;
+    color:white;
+    padding:12px 25px;
+    border-radius:7px;
+    cursor:pointer;
+    font-family:Tahoma;
 }
 
-.header-info{
-font-size:10px
+input,select{
+    padding:11px;
+    border:1px solid #ddd;
+    border-radius:6px;
+    font-family:Tahoma;
 }
-
-.brand{
-font-size:17px
-}
-
-.cards{
-grid-template-columns:repeat(2,1fr);
-gap:9px
-}
-
-.card{
-padding:14px
-}
-
-.card b{
-font-size:21px
-}
-
-}
-
-/* ===============================
-   الطباعة الفعلية
-================================ */
-
-@media print{
-
-@page{
-size:auto;
-margin:0
-}
-
-html,body{
-margin:0!important;
-padding:0!important;
-background:white!important
-}
-
-body *{
-visibility:hidden!important
-}
-
-.print,
-.print *{
-visibility:visible!important
-}
-
-.print{
-display:block!important;
-position:absolute!important;
-top:0!important;
-right:0!important;
-left:0!important;
-background:white!important;
-margin:0!important
-}
-
-.print.a4,
-.print.a4-modern,
-.print.a4-simple,
-.print.tax-a4{
-width:210mm!important;
-min-height:297mm!important
-}
-
-.print.mm80{
-width:80mm!important
-}
-
-.print.mm58{
-width:58mm!important
-}
-
-}
-
 </style>
 </head>
 
 <body>
 
-<!-- تسجيل الدخول -->
-
-<div id="loginScreen">
-
-<div class="login-box">
-
-<div class="login-logo">
-الرهيب سوفت PRO
-</div>
-
-<div class="login-sub">
-نظام الإدارة والمحاسبة
-</div>
-
-<input
-id="loginUsername"
-placeholder="اسم المستخدم"
-autocomplete="username">
-
-<input
-id="loginPassword"
-type="password"
-placeholder="كلمة المرور"
-autocomplete="current-password">
-
-<div id="loginError" class="login-error">
-اسم المستخدم أو كلمة المرور غير صحيحة
-</div>
-
-<button
-class="btn blue"
-style="width:100%"
-onclick="login()">
-دخول إلى النظام
-</button>
-
-<div style="margin-top:18px;font-size:12px;color:#667085">
-المستخدم الافتراضي: admin
-<br>
-كلمة المرور الافتراضية: 1234
-</div>
-
-</div>
-</div>
+<!-- =========================
+     HEADER
+========================= -->
 
 <header class="header">
 
-<div class="brand">
-الرهيب سوفت PRO
-</div>
+    <div class="logo">
 
-<div class="header-info">
+        <div class="logo-icon">
+            ر
+        </div>
 
-<span id="companyNameHeader">
-الرهيب سوفت
-</span>
+        <div class="logo-text">
+            الرهيب سوفت PRO
+        </div>
 
-&nbsp; | &nbsp;
+    </div>
 
-<span id="clock"></span>
+    <div class="top-info">
 
-&nbsp; | &nbsp;
+        <div>
+            المؤسسة:
+            <span id="companyName">مؤسسة الرهيب</span>
+        </div>
 
-<span id="currentUserName">
-المدير
-</span>
+        <div>
+            الفرع:
+            <span>الفرع الرئيسي</span>
+        </div>
 
-<button class="logout" onclick="logout()">
-خروج
-</button>
+        <div>
+            المستخدم:
+            <span>admin</span>
+        </div>
 
-</div>
+    </div>
 
 </header>
 
-<div class="app">
 
-<aside class="sidebar">
+<!-- =========================
+     HOME
+========================= -->
 
-<button class="menu active" onclick="page('dashboard',this)">
-🏠 الرئيسية
-</button>
+<main class="main">
 
-<button class="menu" onclick="page('cashier',this)">
-🧾 الكاشير
-</button>
+<section id="homePage" class="page active">
 
-<button class="menu" onclick="page('products',this)">
-📦 الأصناف
-</button>
+    <div class="welcome">
 
-<button class="menu" onclick="page('customers',this)">
-👥 العملاء
-</button>
+        <h1>الرئيسية</h1>
 
-<button class="menu" onclick="page('suppliers',this)">
-🏢 الموردون
-</button>
+        <p>
+            مرحباً بك في نظام الرهيب سوفت PRO
+        </p>
 
-<button class="menu" onclick="page('purchases',this)">
-🛒 المشتريات
-</button>
+    </div>
 
-<button class="menu" onclick="page('expenses',this)">
-💸 المصروفات
-</button>
 
-<button class="menu" onclick="page('reports',this)">
-📊 التقارير
-</button>
+    <div class="modules">
 
-<button class="menu" onclick="page('printing',this)">
-🖨️ الطباعة
-</button>
+        <!-- SALES -->
 
-<button id="usersMenu" class="menu" onclick="page('users',this)">
-👤 المستخدمون
-</button>
+        <div class="module sales"
+             onclick="openPage('salesPage')">
 
-<button class="menu" onclick="page('settings',this)">
-⚙️ الإعدادات
-</button>
+            <div class="icon">
+                🛍️
+            </div>
 
-</aside>
+            <div class="module-title">
+                المبيعات
+            </div>
 
-<main class="content">
+        </div>
 
-<section id="dashboard" class="page active">
 
-<div class="title">
+        <!-- PURCHASE -->
 
-<h2>لوحة التحكم</h2>
+        <div class="module purchase"
+             onclick="openPage('purchasePage')">
 
-<span class="badge">
-النظام يعمل
-</span>
+            <div class="icon">
+                🛒
+            </div>
 
-</div>
+            <div class="module-title">
+                المشتريات
+            </div>
 
-<div class="cards">
+        </div>
 
-<div class="card">
-<small>إجمالي المبيعات</small>
-<b id="dashSales">0.00</b>
-</div>
 
-<div class="card">
-<small>الفواتير</small>
-<b id="dashInvoices">0</b>
-</div>
+        <!-- STOCK -->
 
-<div class="card">
-<small>المشتريات</small>
-<b id="dashPurchases">0.00</b>
-</div>
+        <div class="module stock"
+             onclick="openPage('stockPage')">
 
-<div class="card">
-<small>المصروفات</small>
-<b id="dashExpenses">0.00</b>
-</div>
+            <div class="icon">
+                💼
+            </div>
 
-<div class="card">
-<small>الأصناف</small>
-<b id="dashProducts">0</b>
-</div>
+            <div class="module-title">
+                المخازن
+            </div>
 
-<div class="card">
-<small>صافي الحركة</small>
-<b id="dashBalance">0.00</b>
-</div>
+        </div>
 
-</div>
 
-<br>
+        <!-- CUSTOMERS -->
 
-<div class="box">
+        <div class="module customers"
+             onclick="openPage('customersPage')">
 
-<h3>آخر الفواتير</h3>
+            <div class="icon">
+                👥
+            </div>
 
-<div class="table-wrap">
+            <div class="module-title">
+                العملاء والموردين
+            </div>
 
-<table>
+        </div>
 
-<thead>
-<tr>
-<th>الفاتورة</th>
-<th>العميل</th>
-<th>التاريخ</th>
-<th>الدفع</th>
-<th>الإجمالي</th>
-</tr>
-</thead>
 
-<tbody id="latestInvoices"></tbody>
+        <!-- USERS -->
 
-</table>
+        <div class="module users"
+             onclick="openPage('usersPage')">
 
-</div>
+            <div class="icon">
+                👤
+            </div>
 
-</div>
+            <div class="module-title">
+                المستخدمين والصلاحيات
+            </div>
+
+        </div>
+
+
+        <!-- BASIC DATA -->
+
+        <div class="module basic"
+             onclick="openPage('basicPage')">
+
+            <div class="icon">
+                ☷
+            </div>
+
+            <div class="module-title">
+                البيانات الأساسية
+            </div>
+
+        </div>
+
+
+        <!-- ACCOUNTS -->
+
+        <div class="module accounts"
+             onclick="openPage('accountsPage')">
+
+            <div class="icon">
+                ✎
+            </div>
+
+            <div class="module-title">
+                الحسابات
+            </div>
+
+        </div>
+
+
+        <!-- SETTINGS -->
+
+        <div class="module settings"
+             onclick="openPage('settingsPage')">
+
+            <div class="icon">
+                ⚙
+            </div>
+
+            <div class="module-title">
+                إعدادات النظام
+            </div>
+
+        </div>
+
+    </div>
 
 </section>
 
-<section id="cashier" class="page">
 
-<div class="title">
+<!-- =========================
+     SALES PAGE
+========================= -->
 
-<h2>نقطة البيع POS</h2>
+<section id="salesPage" class="page">
 
-<button class="btn gray" onclick="clearCart()">
-فاتورة جديدة
-</button>
+    <button class="back"
+            onclick="goHome()">
+        ← الرئيسية
+    </button>
 
-</div>
+    <div class="page-title">
+        <h2>المبيعات</h2>
+    </div>
 
-<div class="pos">
+    <div class="content-box">
 
-<div>
+        <h3>نقطة البيع</h3>
 
-<div class="box">
+        <p>
+            هنا سيتم وضع شاشة الكاشير والفواتير والبحث بالباركود.
+        </p>
 
-<input
-id="posSearch"
-placeholder="🔎 اسم الصنف أو الباركود"
-oninput="renderPOS()">
+        <button class="btn">
+            فاتورة مبيعات جديدة
+        </button>
 
-</div>
-
-<div id="posProducts" class="product-grid"></div>
-
-</div>
-
-<div>
-
-<div class="box">
-
-<h3>الفاتورة الحالية</h3>
-
-<div style="display:flex;gap:7px;margin-bottom:12px">
-
-<select id="invoiceCustomer"></select>
-
-<button
-class="btn blue"
-onclick="openQuickCustomer()"
-style="white-space:nowrap">
-
-+ عميل
-
-</button>
-
-</div>
-
-<div id="cart"></div>
-
-<hr>
-
-<div class="grid">
-
-<select id="payment">
-
-<option value="نقدي">نقدي</option>
-<option value="شبكة">شبكة</option>
-<option value="آجل">آجل</option>
-
-</select>
-
-<input
-id="discount"
-type="number"
-value="0"
-min="0"
-placeholder="الخصم"
-oninput="renderCart()">
-
-</div>
-
-<div class="total">
-
-الإجمالي:
-<span id="cartTotal">0.00</span>
-
-</div>
-
-<div class="actions">
-
-<button class="btn gray" onclick="clearCart()">
-تفريغ
-</button>
-
-<button class="btn green" onclick="saveInvoice(false)">
-حفظ
-</button>
-
-<button class="btn blue" onclick="saveInvoice(true)">
-حفظ وطباعة
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
-<section id="products" class="page">
 
-<div class="title">
+<!-- =========================
+     PURCHASE PAGE
+========================= -->
 
-<h2>إدارة الأصناف</h2>
+<section id="purchasePage" class="page">
 
-<button class="btn blue" onclick="openProduct()">
-+ إضافة صنف
-</button>
+    <button class="back"
+            onclick="goHome()">
+        ← الرئيسية
+    </button>
 
-</div>
+    <div class="page-title">
+        <h2>المشتريات</h2>
+    </div>
 
-<div class="box">
+    <div class="content-box">
 
-<input
-id="productSearch"
-placeholder="🔎 بحث"
-oninput="renderProducts()">
+        <h3>فواتير المشتريات</h3>
 
-</div>
+        <button class="btn">
+            فاتورة شراء جديدة
+        </button>
 
-<div class="box table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-<th>الصنف</th>
-<th>الباركود</th>
-<th>الشراء</th>
-<th>البيع</th>
-<th>المخزون</th>
-<th>الحالة</th>
-</tr>
-
-</thead>
-
-<tbody id="productsTable"></tbody>
-
-</table>
-
-</div>
+    </div>
 
 </section>
 
-<section id="customers" class="page">
 
-<h2>العملاء</h2>
+<!-- =========================
+     STOCK PAGE
+========================= -->
 
-<div class="box">
+<section id="stockPage" class="page">
 
-<div class="grid">
+    <button class="back"
+            onclick="goHome()">
+        ← الرئيسية
+    </button>
 
-<input id="customerName" placeholder="اسم العميل">
-<input id="customerPhone" placeholder="رقم الجوال">
-<input id="customerAddress" placeholder="العنوان">
+    <div class="page-title">
+        <h2>المخازن</h2>
+    </div>
 
-</div>
+    <div class="content-box">
 
-<br>
+        <h3>إدارة المخزون</h3>
 
-<button class="btn blue" onclick="addCustomer()">
-حفظ العميل
-</button>
+        <button class="btn">
+            إضافة منتج
+        </button>
 
-</div>
-
-<div class="box table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-<th>الاسم</th>
-<th>الجوال</th>
-<th>العنوان</th>
-<th>الرصيد</th>
-</tr>
-
-</thead>
-
-<tbody id="customersTable"></tbody>
-
-</table>
-
-</div>
+    </div>
 
 </section>
 
-<section id="suppliers" class="page">
 
-<h2>الموردون</h2>
+<!-- =========================
+     CUSTOMERS
+========================= -->
 
-<div class="box">
+<section id="customersPage" class="page">
 
-<div class="grid">
+    <button class="back"
+            onclick="goHome()">
+        ← الرئيسية
+    </button>
 
-<input id="supplierName" placeholder="اسم المورد">
-<input id="supplierPhone" placeholder="رقم الجوال">
-<input id="supplierAddress" placeholder="العنوان">
+    <div class="page-title">
+        <h2>العملاء والموردين</h2>
+    </div>
 
-</div>
+    <div class="content-box">
 
-<br>
+        <button class="btn">
+            إضافة عميل
+        </button>
 
-<button class="btn blue" onclick="addSupplier()">
-حفظ المورد
-</button>
+        <button class="btn">
+            إضافة مورد
+        </button>
 
-</div>
-
-<div class="box table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-<th>الاسم</th>
-<th>الجوال</th>
-<th>العنوان</th>
-</tr>
-
-</thead>
-
-<tbody id="suppliersTable"></tbody>
-
-</table>
-
-</div>
+    </div>
 
 </section>
 
-<section id="purchases" class="page">
 
-<h2>المشتريات</h2>
+<!-- =========================
+     USERS
+========================= -->
 
-<div class="box">
+<section id="usersPage" class="page">
 
-<div class="grid">
+    <button class="back"
+            onclick="goHome()">
+        ← الرئيسية
+    </button>
 
-<select id="purchaseProduct"></select>
+    <div class="page-title">
+        <h2>المستخدمين والصلاحيات</h2>
+    </div>
 
-<input
-id="purchaseQty"
-type="number"
-min="1"
-placeholder="الكمية">
+    <div class="content-box">
 
-<input
-id="purchaseCost"
-type="number"
-min="0"
-placeholder="سعر الشراء">
+        <button class="btn">
+            إضافة مستخدم
+        </button>
 
-</div>
-
-<br>
-
-<button class="btn blue" onclick="savePurchase()">
-حفظ المشتريات
-</button>
-
-</div>
-
-<div class="box table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-<th>التاريخ</th>
-<th>الصنف</th>
-<th>الكمية</th>
-<th>التكلفة</th>
-<th>الإجمالي</th>
-</tr>
-
-</thead>
-
-<tbody id="purchasesTable"></tbody>
-
-</table>
-
-</div>
+    </div>
 
 </section>
 
-<section id="expenses" class="page">
 
-<h2>المصروفات</h2>
+<!-- =========================
+     BASIC DATA
+========================= -->
 
-<div class="box">
+<section id="basicPage" class="page">
 
-<div class="grid">
+    <button class="back"
+            onclick="goHome()">
+        ← الرئيسية
+    </button>
 
-<input id="expenseName" placeholder="بيان المصروف">
+    <div class="page-title">
+        <h2>البيانات الأساسية</h2>
+    </div>
 
-<input
-id="expenseAmount"
-type="number"
-placeholder="المبلغ">
+    <div class="content-box">
 
-</div>
+        <p>
+            المنتجات - التصنيفات - الوحدات - طرق الدفع
+        </p>
 
-<br>
-
-<button class="btn blue" onclick="saveExpense()">
-حفظ المصروف
-</button>
-
-</div>
-
-<div class="box table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-<th>التاريخ</th>
-<th>البيان</th>
-<th>المبلغ</th>
-</tr>
-
-</thead>
-
-<tbody id="expensesTable"></tbody>
-
-</table>
-
-</div>
+    </div>
 
 </section>
 
-<section id="reports" class="page">
 
-<h2>التقارير</h2>
+<!-- =========================
+     ACCOUNTS
+========================= -->
 
-<div class="box">
+<section id="accountsPage" class="page">
 
-<div class="grid">
+    <button class="back"
+            onclick="goHome()">
+        ← الرئيسية
+    </button>
 
-<button class="btn blue" onclick="salesReport()">
-📈 تقرير المبيعات
-</button>
+    <div class="page-title">
+        <h2>الحسابات</h2>
+    </div>
 
-<button class="btn blue" onclick="stockReport()">
-📦 تقرير المخزون
-</button>
+    <div class="content-box">
 
-<button class="btn blue" onclick="expenseReport()">
-💸 تقرير المصروفات
-</button>
+        <p>
+            الحسابات والقيود اليومية والصندوق.
+        </p>
 
-<button class="btn blue" onclick="profitReport()">
-💰 تقرير الأرباح
-</button>
-
-</div>
-
-</div>
-
-<div id="report" class="box">
-اختر التقرير
-</div>
+    </div>
 
 </section>
 
-<section id="printing" class="page">
 
-<h2>🖨️ نماذج وإعدادات الطباعة</h2>
+<!-- =========================
+     SETTINGS
+========================= -->
 
-<div class="box">
+<section id="settingsPage" class="page">
 
-<h3>اختر نموذج الفاتورة</h3>
+    <button class="back"
+            onclick="goHome()">
+        ← الرئيسية
+    </button>
 
-<div class="grid">
+    <div class="page-title">
+        <h2>إعدادات النظام</h2>
+    </div>
 
-<select id="template">
+    <div class="content-box">
 
-<option value="cashier80">
-🧾 كاشير 80mm - احترافي
-</option>
+        <label>
+            اسم المؤسسة
+        </label>
 
-<option value="cashier80simple">
-🧾 كاشير 80mm - مختصر
-</option>
+        <br><br>
 
-<option value="cashier58">
-🧾 كاشير 58mm
-</option>
+        <input
+            id="companyInput"
+            placeholder="اسم المؤسسة">
 
-<option value="a4">
-📄 A4 - احترافي
-</option>
+        <button
+            class="btn"
+            onclick="saveCompany()">
 
-<option value="a4modern">
-📄 A4 - حديث
-</option>
+            حفظ
 
-<option value="a4simple">
-📄 A4 - مختصر
-</option>
+        </button>
 
-<option value="tax">
-🧾 A4 - فاتورة ضريبية
-</option>
-
-</select>
-
-<select id="copies">
-
-<option value="1">نسخة واحدة</option>
-<option value="2">نسختان</option>
-<option value="3">3 نسخ</option>
-<option value="4">4 نسخ</option>
-
-</select>
-
-</div>
-
-<br>
-
-<button class="btn green" onclick="savePrinting()">
-💾 حفظ إعدادات الطباعة
-</button>
-
-</div>
-
-<div class="box">
-
-<h3>النماذج المتوفرة</h3>
-
-<p>🧾 كاشير 80mm احترافي — مناسب للطابعات الحرارية.</p>
-<p>🧾 كاشير 80mm مختصر — فاتورة سريعة.</p>
-<p>🧾 كاشير 58mm — للطابعات الصغيرة.</p>
-<p>📄 A4 احترافي — فاتورة كاملة.</p>
-<p>📄 A4 حديث — تصميم حديث.</p>
-<p>📄 A4 مختصر — تصميم بسيط.</p>
-<p>🧾 فاتورة ضريبية A4 — تشمل بيانات الرقم الضريبي والضريبة.</p>
-
-</div>
-
-</section>
-
-<section id="users" class="page">
-
-<div class="title">
-
-<h2>إدارة المستخدمين</h2>
-
-<button class="btn blue" onclick="openUser()">
-+ إضافة مستخدم
-</button>
-
-</div>
-
-<div class="box">
-
-<p>
-من هنا يمكنك إضافة المستخدمين وتحديد صلاحياتهم.
-</p>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-<th>الاسم</th>
-<th>اسم المستخدم</th>
-<th>الصلاحية</th>
-<th>الإجراء</th>
-</tr>
-
-</thead>
-
-<tbody id="usersTable"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section>
-
-<section id="settings" class="page">
-
-<h2>إعدادات النظام</h2>
-
-<div class="box">
-
-<h3>بيانات المنشأة</h3>
-
-<div class="grid">
-
-<input id="setCompany" placeholder="اسم المنشأة">
-<input id="setPhone" placeholder="الهاتف">
-<input id="setAddress" placeholder="العنوان">
-<input id="setTax" placeholder="الرقم الضريبي">
-<input id="setCurrency" placeholder="العملة">
-
-</div>
-
-</div>
-
-<div class="box">
-
-<h3>الضريبة</h3>
-
-<div class="grid">
-
-<label>
-<input id="setTaxEnabled" type="checkbox">
-تفعيل الضريبة
-</label>
-
-<input
-id="setTaxRate"
-type="number"
-placeholder="نسبة الضريبة">
-
-</div>
-
-</div>
-
-<div class="box">
-
-<h3>الفواتير</h3>
-
-<div class="grid">
-
-<input id="setPrefix" placeholder="بادئة الفاتورة">
-
-<input
-id="setNextInvoice"
-type="number"
-placeholder="رقم الفاتورة القادم">
-
-</div>
-
-</div>
-
-<button class="btn green" onclick="saveSettings()">
-حفظ الإعدادات
-</button>
+    </div>
 
 </section>
 
 </main>
 
-</div>
 
-<div id="productModal" class="modal">
+<!-- =========================
+     FOOTER
+========================= -->
 
-<div class="modal-box">
+<footer class="footer">
 
-<h3>إضافة صنف جديد</h3>
+    <div class="footer-menu">
 
-<div class="grid">
+        <button class="footer-btn active"
+                onclick="goHome()">
 
-<input id="newName" placeholder="اسم الصنف">
-<input id="newBarcode" placeholder="الباركود">
-<input id="newPurchase" type="number" placeholder="سعر الشراء">
-<input id="newSale" type="number" placeholder="سعر البيع">
-<input id="newStock" type="number" placeholder="المخزون">
-<input id="newMin" type="number" placeholder="حد التنبيه">
+            🏠 الرئيسية
 
-</div>
+        </button>
 
-<br>
 
-<button
-id="saveProductButton"
-class="btn blue"
-onclick="saveProduct()">
-حفظ الصنف
-</button>
+        <button class="footer-btn"
+                onclick="openPage('usersPage')">
 
-<button class="btn gray" onclick="closeProduct()">
-إلغاء
-</button>
+            ❔ معلومات المستخدم
 
-</div>
+        </button>
 
-</div>
 
-<div id="userModal" class="modal">
+        <button class="footer-btn"
+                onclick="location.reload()">
 
-<div class="modal-box">
+            🔄 تحديث
 
-<h3>إضافة مستخدم جديد</h3>
+        </button>
 
-<div class="grid">
 
-<input id="newUserName" placeholder="اسم الموظف">
+        <button class="footer-btn">
 
-<input id="newUsername" placeholder="اسم المستخدم">
+            📈 التقارير
 
-<input
-id="newUserPassword"
-type="password"
-placeholder="كلمة المرور">
+        </button>
 
-<select id="newUserRole">
 
-<option value="cashier">
-كاشير
-</option>
+        <button class="footer-btn">
 
-<option value="admin">
-مدير
-</option>
+            🌐 العربية
 
-</select>
+            <small>English</small>
 
-</div>
+        </button>
 
-<br>
 
-<button class="btn blue" onclick="saveUser()">
-حفظ المستخدم
-</button>
+        <button class="footer-btn">
 
-<button class="btn gray" onclick="closeUser()">
-إلغاء
-</button>
+            📅 <span id="date"></span>
 
-</div>
+        </button>
 
-</div>
+    </div>
 
-<div id="quickCustomerModal" class="modal">
+</footer>
 
-<div class="modal-box">
-
-<h3>إضافة عميل جديد</h3>
-
-<div class="grid">
-
-<input id="quickCustomerName" placeholder="اسم العميل">
-
-<input id="quickCustomerPhone" placeholder="رقم الجوال">
-
-<input id="quickCustomerAddress" placeholder="العنوان">
-
-</div>
-
-<br>
-
-<button
-class="btn blue"
-onclick="saveQuickCustomer()">
-حفظ واختيار العميل
-</button>
-
-<button
-class="btn gray"
-onclick="closeQuickCustomer()">
-إلغاء
-</button>
-
-</div>
-
-</div>
-
-<div id="printArea" class="print">
-
-<div id="printPage" class="print-page">
-
-<div class="print-header">
-
-<h1 id="printCompany">
-الرهيب سوفت
-</h1>
-
-<div id="printAddress"></div>
-
-<div id="printPhone"></div>
-
-<div id="printTax"></div>
-
-</div>
-
-<div class="print-title" id="printInvoiceTitle">
-فاتورة مبيعات
-</div>
-
-<div class="print-info">
-
-<div>
-رقم الفاتورة:
-<strong id="printNumber"></strong>
-</div>
-
-<div>
-التاريخ:
-<strong id="printDate"></strong>
-</div>
-
-<div>
-العميل:
-<strong id="printCustomer"></strong>
-</div>
-
-<div>
-طريقة الدفع:
-<strong id="printPayment"></strong>
-</div>
-
-<div>
-الكاشير:
-<strong id="printCashier"></strong>
-</div>
-
-</div>
-
-<table class="print-table">
-
-<thead>
-
-<tr>
-
-<th>الصنف</th>
-<th>الكمية</th>
-<th>السعر</th>
-<th>الإجمالي</th>
-
-</tr>
-
-</thead>
-
-<tbody id="printItems"></tbody>
-
-</table>
-
-<div class="print-summary">
-
-<div class="print-summary-row">
-
-<span>
-الإجمالي قبل الخصم
-</span>
-
-<strong id="printSubtotal"></strong>
-
-</div>
-
-<div class="print-summary-row">
-
-<span>
-الخصم
-</span>
-
-<strong id="printDiscount"></strong>
-
-</div>
-
-<div class="print-summary-row">
-
-<span>
-الضريبة
-</span>
-
-<strong id="printTaxAmount"></strong>
-
-</div>
-
-<div class="print-summary-row print-total">
-
-<span>
-الإجمالي النهائي
-</span>
-
-<strong id="printTotal"></strong>
-
-</div>
-
-</div>
-
-<div class="qr-box">
-
-<img id="invoiceQR" alt="QR Code">
-
-<div class="qr-label">
-رمز الفاتورة
-</div>
-
-</div>
-
-<div class="print-footer">
-
-شكراً لتعاملكم معنا
-
-<br>
-
-الرهيب سوفت PRO
-
-</div>
-
-</div>
-
-</div>
-
-<div id="toast"></div>
 
 <script>
 
-let db={};
-let cart=[];
-let savingProduct=false;
-let currentUser=null;
+/* =========================
+   PAGE NAVIGATION
+========================= */
 
-async function loadDB(){
+function openPage(id){
 
-try{
+    document.querySelectorAll('.page')
+    .forEach(page=>{
+        page.classList.remove('active');
+    });
 
-const r=await fetch("/api/database");
-const result=await r.json();
+    document.getElementById(id)
+    .classList.add('active');
 
-if(!result.success)throw new Error();
-
-db=result.data;
-
-if(!db.settings)db.settings={};
-if(!db.products)db.products=[];
-if(!db.customers)db.customers=[];
-if(!db.suppliers)db.suppliers=[];
-if(!db.purchases)db.purchases=[];
-if(!db.expenses)db.expenses=[];
-if(!db.invoices)db.invoices=[];
-if(!db.users)db.users=[];
-if(!db.counters)db.counters={};
-
-db.counters.product=db.counters.product||1;
-db.counters.customer=db.counters.customer||1;
-db.counters.supplier=db.counters.supplier||1;
-db.counters.purchase=db.counters.purchase||1;
-db.counters.expense=db.counters.expense||1;
-db.counters.invoice=db.counters.invoice||1;
-db.counters.user=db.counters.user||1;
-
-if(!db.settings.companyName)
-db.settings.companyName="الرهيب سوفت";
-
-if(!db.settings.currency)
-db.settings.currency="ريال سعودي";
-
-if(db.settings.taxEnabled===undefined)
-db.settings.taxEnabled=true;
-
-if(!db.settings.taxRate)
-db.settings.taxRate=15;
-
-if(!db.settings.invoicePrefix)
-db.settings.invoicePrefix="INV-";
-
-if(!db.settings.nextInvoice)
-db.settings.nextInvoice=1;
-
-if(!db.settings.invoiceTemplate)
-db.settings.invoiceTemplate="cashier80";
-
-if(!db.settings.invoiceCopies)
-db.settings.invoiceCopies=1;
-
-if(!db.users.length){
-
-db.users.push({
-id:1,
-name:"المدير",
-username:"admin",
-password:"1234",
-role:"admin"
-});
-
-db.counters.user=2;
-
-await saveDB();
-
-}
-
-refresh();
-
-}catch(e){
-
-toast("تعذر الاتصال بالسيرفر");
-
-}
-
-}
-
-async function saveDB(){
-
-const r=await fetch(
-"/api/database",
-{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify(db)
-}
-);
-
-const result=await r.json();
-
-if(!result.success)throw new Error();
-
-}
-
-function login(){
-
-const username=
-document.getElementById("loginUsername").value.trim();
-
-const password=
-document.getElementById("loginPassword").value;
-
-const user=db.users.find(
-u=>
-String(u.username).toLowerCase()===
-username.toLowerCase()
-&&
-String(u.password)===password
-);
-
-if(!user){
-
-document.getElementById("loginError").style.display="block";
-return;
-
-}
-
-currentUser=user;
-
-sessionStorage.setItem(
-"raheebUser",
-JSON.stringify(user)
-);
-
-document.getElementById("loginError").style.display="none";
-document.getElementById("loginScreen").style.display="none";
-
-document.getElementById("currentUserName").textContent=
-user.name+" - "+roleName(user.role);
-
-applyPermissions();
-
-toast("مرحباً "+user.name);
-
-}
-
-function roleName(role){
-return role==="admin"?"مدير":"كاشير";
-}
-
-function logout(){
-
-currentUser=null;
-
-sessionStorage.removeItem("raheebUser");
-
-document.getElementById("loginScreen").style.display="flex";
-
-document.getElementById("loginUsername").value="";
-document.getElementById("loginPassword").value="";
-
-}
-
-function checkSession(){
-
-const saved=
-sessionStorage.getItem("raheebUser");
-
-if(!saved)return;
-
-try{
-
-const user=JSON.parse(saved);
-
-const realUser=
-db.users.find(u=>u.id===user.id);
-
-if(realUser){
-
-currentUser=realUser;
-
-document.getElementById("loginScreen").style.display="none";
-
-document.getElementById("currentUserName").textContent=
-realUser.name+" - "+roleName(realUser.role);
-
-applyPermissions();
-
-}
-
-}catch(e){}
-
-}
-
-function applyPermissions(){
-
-if(!currentUser)return;
-
-const adminOnly=[
-"products",
-"suppliers",
-"purchases",
-"expenses",
-"reports",
-"printing",
-"users",
-"settings"
-];
-
-document.querySelectorAll(".menu").forEach(btn=>{
-
-const code=btn.getAttribute("onclick")||"";
-
-const hidden=
-currentUser.role==="cashier" &&
-adminOnly.some(
-x=>code.includes("'"+x+"'")
-);
-
-btn.style.display=hidden?"none":"";
-
-});
-
-}
-
-function page(id,btn){
-
-if(
-currentUser &&
-currentUser.role==="cashier" &&
-[
-"products",
-"suppliers",
-"purchases",
-"expenses",
-"reports",
-"printing",
-"users",
-"settings"
-].includes(id)
-){
-
-toast("ليس لديك صلاحية لهذه الصفحة");
-return;
-
-}
-
-document.querySelectorAll(".page").forEach(
-x=>x.classList.remove("active")
-);
-
-document.getElementById(id).classList.add("active");
-
-document.querySelectorAll(".menu").forEach(
-x=>x.classList.remove("active")
-);
-
-if(btn)
-btn.classList.add("active");
-
-}
-
-function toast(text){
-
-const x=document.getElementById("toast");
-
-x.textContent=text;
-x.style.display="block";
-
-setTimeout(()=>{
-x.style.display="none";
-},2500);
-
-}
-
-function money(n){
-return Number(n||0).toFixed(2);
-}
-
-function safe(x){
-
-return String(x??"")
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
-
-}
-
-function openProduct(){
-document.getElementById("productModal").style.display="flex";
-}
-
-function closeProduct(){
-document.getElementById("productModal").style.display="none";
-}
-
-async function saveProduct(){
-
-if(savingProduct)return;
-
-const name=
-document.getElementById("newName").value.trim();
-
-const barcode=
-document.getElementById("newBarcode").value.trim();
-
-if(!name){
-toast("اكتب اسم الصنف");
-return;
-}
-
-if(
-db.products.some(
-p=>String(p.name).toLowerCase()===name.toLowerCase()
-)
-){
-
-toast("الصنف موجود بالفعل");
-return;
-
-}
-
-if(
-barcode &&
-db.products.some(
-p=>String(p.barcode)===barcode
-)
-){
-
-toast("الباركود موجود بالفعل");
-return;
-
-}
-
-savingProduct=true;
-
-const button=
-document.getElementById("saveProductButton");
-
-button.disabled=true;
-button.textContent="جاري الحفظ...";
-
-const product={
-
-id:db.counters.product++,
-name:name,
-barcode:barcode,
-
-purchasePrice:
-Number(document.getElementById("newPurchase").value)||0,
-
-salePrice:
-Number(document.getElementById("newSale").value)||0,
-
-stock:
-Number(document.getElementById("newStock").value)||0,
-
-minStock:
-Number(document.getElementById("newMin").value)||0
-
-};
-
-try{
-
-db.products.push(product);
-
-await saveDB();
-
-[
-"newName",
-"newBarcode",
-"newPurchase",
-"newSale",
-"newStock",
-"newMin"
-].forEach(id=>{
-document.getElementById(id).value="";
-});
-
-closeProduct();
-
-refresh();
-
-toast("تم إضافة الصنف");
-
-}catch(e){
-
-db.products.pop();
-
-toast("فشل حفظ الصنف");
-
-}finally{
-
-savingProduct=false;
-
-button.disabled=false;
-button.textContent="حفظ الصنف";
-
-}
-
-}
-
-function renderProducts(){
-
-const search=
-(
-document.getElementById("productSearch").value||""
-).toLowerCase();
-
-const list=db.products.filter(
-p=>
-String(p.name||"").toLowerCase().includes(search) ||
-String(p.barcode||"").includes(search)
-);
-
-document.getElementById("productsTable").innerHTML=
-list.map(p=>`
-
-<tr>
-
-<td>${safe(p.name)}</td>
-<td>${safe(p.barcode)}</td>
-<td>${money(p.purchasePrice)}</td>
-<td>${money(p.salePrice)}</td>
-<td>${p.stock}</td>
-
-<td>
-${p.stock<=p.minStock?"⚠️ منخفض":"✅ متوفر"}
-</td>
-
-</tr>
-
-`).join("");
-
-}
-
-function renderPOS(){
-
-const search=
-(
-document.getElementById("posSearch").value||""
-).toLowerCase();
-
-const list=db.products.filter(
-p=>
-String(p.name||"").toLowerCase().includes(search) ||
-String(p.barcode||"").includes(search)
-);
-
-document.getElementById("posProducts").innerHTML=
-list.map(p=>`
-
-<div class="product" onclick="addCart(${p.id})">
-
-<b>${safe(p.name)}</b>
-
-<div>
-${money(p.salePrice)}
- ${safe(db.settings.currency||"ريال سعودي")}
-</div>
-
-<small>
-المخزون: ${p.stock}
-</small>
-
-</div>
-
-`).join("");
-
-}
-
-function renderCustomerSelect(){
-
-const select=
-document.getElementById("invoiceCustomer");
-
-if(!select)return;
-
-select.innerHTML=`
-
-<option value="1">
-عميل نقدي
-</option>
-
-`+
-db.customers.map(c=>`
-
-<option value="${c.id}">
-${safe(c.name)}
-</option>
-
-`).join("");
-
-}
-
-function addCart(id){
-
-const product=
-db.products.find(p=>p.id===id);
-
-if(!product)return;
-
-if(product.stock<=0){
-
-toast("الصنف غير متوفر");
-return;
-
-}
-
-const existing=
-cart.find(x=>x.id===id);
-
-if(existing){
-
-if(existing.qty>=product.stock){
-
-toast("الكمية غير متوفرة");
-return;
-
-}
-
-existing.qty++;
-
-}else{
-
-cart.push({
-
-id:id,
-name:product.name,
-price:Number(product.salePrice)||0,
-qty:1
-
-});
-
-}
-
-renderCart();
-
-}
-
-function renderCart(){
-
-const box=document.getElementById("cart");
-
-if(!cart.length){
-
-box.innerHTML="<p>الفاتورة فارغة</p>";
-
-document.getElementById("cartTotal").textContent="0.00";
-
-return;
-
-}
-
-box.innerHTML=
-cart.map((x,i)=>`
-
-<div class="cart-line">
-
-<div>${safe(x.name)}</div>
-
-<input
-type="number"
-min="1"
-value="${x.qty}"
-onchange="changeQty(${i},this.value)">
-
-<div>
-${money(x.qty*x.price)}
-</div>
-
-<button
-class="btn red"
-onclick="removeCart(${i})">
-×
-</button>
-
-</div>
-
-`).join("");
-
-const subtotal=
-cart.reduce((a,x)=>a+x.qty*x.price,0);
-
-const discount=
-Number(document.getElementById("discount").value)||0;
-
-const taxable=Math.max(0,subtotal-discount);
-
-const tax=
-db.settings.taxEnabled
-?
-taxable*(Number(db.settings.taxRate)||0)/100
-:0;
-
-const total=taxable+tax;
-
-document.getElementById("cartTotal").textContent=
-money(total);
-
-}
-
-function changeQty(i,value){
-
-const qty=Number(value);
-
-if(qty<=0){
-
-removeCart(i);
-return;
-
-}
-
-const product=
-db.products.find(
-p=>p.id===cart[i].id
-);
-
-if(product && qty>product.stock){
-
-toast("الكمية أكبر من المخزون");
-return;
-
-}
-
-cart[i].qty=qty;
-
-renderCart();
-
-}
-
-function removeCart(i){
-
-cart.splice(i,1);
-
-renderCart();
-
-}
-
-function clearCart(){
-
-cart=[];
-
-document.getElementById("discount").value=0;
-
-renderCart();
-
-}
-
-async function saveInvoice(print){
-
-if(!cart.length){
-
-toast("الفاتورة فارغة");
-return;
-
-}
-
-for(const item of cart){
-
-const product=
-db.products.find(p=>p.id===item.id);
-
-if(!product || item.qty>product.stock){
-
-toast("المخزون غير كاف");
-return;
-
-}
-
-}
-
-const customerId=
-Number(document.getElementById("invoiceCustomer").value)||1;
-
-const customer=
-db.customers.find(c=>c.id===customerId);
-
-const subtotal=
-cart.reduce((a,x)=>a+x.qty*x.price,0);
-
-const discount=
-Number(document.getElementById("discount").value)||0;
-
-const taxable=
-Math.max(0,subtotal-discount);
-
-const tax=
-db.settings.taxEnabled
-?
-taxable*(Number(db.settings.taxRate)||0)/100
-:0;
-
-const total=taxable+tax;
-
-const number=
-String(db.settings.invoicePrefix||"INV-")+
-String(db.settings.nextInvoice++).padStart(5,"0");
-
-const invoice={
-
-id:Date.now(),
-
-number:number,
-
-date:new Date().toISOString(),
-
-customerId:customerId,
-
-customerName:
-customer?customer.name:"عميل نقدي",
-
-payment:
-document.getElementById("payment").value,
-
-cashierId:
-currentUser?currentUser.id:null,
-
-cashierName:
-currentUser?currentUser.name:"",
-
-items:JSON.parse(JSON.stringify(cart)),
-
-subtotal:subtotal,
-
-discount:discount,
-
-tax:tax,
-
-total:total
-
-};
-
-cart.forEach(item=>{
-
-const product=
-db.products.find(p=>p.id===item.id);
-
-product.stock-=item.qty;
-
-});
-
-db.invoices.push(invoice);
-
-try{
-
-await saveDB();
-
-if(print)
-printInvoice(invoice);
-
-clearCart();
-
-refresh();
-
-toast("تم حفظ الفاتورة "+number);
-
-}catch(e){
-
-toast("تعذر حفظ الفاتورة");
-
-}
-
-}
-
-async function addCustomer(){
-
-const name=
-document.getElementById("customerName").value.trim();
-
-if(!name){
-
-toast("اكتب اسم العميل");
-return;
-
-}
-
-db.customers.push({
-
-id:db.counters.customer++,
-name:name,
-
-phone:
-document.getElementById("customerPhone").value.trim(),
-
-address:
-document.getElementById("customerAddress").value.trim(),
-
-balance:0
-
-});
-
-await saveDB();
-
-document.getElementById("customerName").value="";
-document.getElementById("customerPhone").value="";
-document.getElementById("customerAddress").value="";
-
-refresh();
-
-toast("تم حفظ العميل");
-
-}
-
-function openQuickCustomer(){
-
-document.getElementById("quickCustomerModal").style.display="flex";
-
-document.getElementById("quickCustomerName").focus();
-
-}
-
-function closeQuickCustomer(){
-
-document.getElementById("quickCustomerModal").style.display="none";
-
-}
-
-async function saveQuickCustomer(){
-
-const name=
-document.getElementById("quickCustomerName").value.trim();
-
-if(!name){
-
-toast("اكتب اسم العميل");
-return;
-
-}
-
-const customer={
-
-id:db.counters.customer++,
-name:name,
-
-phone:
-document.getElementById("quickCustomerPhone").value.trim(),
-
-address:
-document.getElementById("quickCustomerAddress").value.trim(),
-
-balance:0
-
-};
-
-db.customers.push(customer);
-
-try{
-
-await saveDB();
-
-renderCustomerSelect();
-
-document.getElementById("invoiceCustomer").value=customer.id;
-
-document.getElementById("quickCustomerName").value="";
-document.getElementById("quickCustomerPhone").value="";
-document.getElementById("quickCustomerAddress").value="";
-
-closeQuickCustomer();
-
-toast("تم إضافة العميل واختياره");
-
-}catch(e){
-
-db.customers.pop();
-
-toast("تعذر حفظ العميل");
-
-}
-
-}
-
-async function addSupplier(){
-
-const name=
-document.getElementById("supplierName").value.trim();
-
-if(!name){
-
-toast("اكتب اسم المورد");
-return;
-
-}
-
-db.suppliers.push({
-
-id:db.counters.supplier++,
-name:name,
-
-phone:
-document.getElementById("supplierPhone").value.trim(),
-
-address:
-document.getElementById("supplierAddress").value.trim()
-
-});
-
-await saveDB();
-
-document.getElementById("supplierName").value="";
-document.getElementById("supplierPhone").value="";
-document.getElementById("supplierAddress").value="";
-
-refresh();
-
-toast("تم حفظ المورد");
-
-}
-
-async function savePurchase(){
-
-const product=
-db.products.find(
-p=>p.id===Number(
-document.getElementById("purchaseProduct").value
-)
-);
-
-const qty=
-Number(document.getElementById("purchaseQty").value);
-
-const cost=
-Number(document.getElementById("purchaseCost").value);
-
-if(!product||qty<=0){
-
-toast("بيانات غير صحيحة");
-return;
-
-}
-
-product.stock+=qty;
-
-db.purchases.push({
-
-id:db.counters.purchase++,
-date:new Date().toISOString(),
-
-productId:product.id,
-productName:product.name,
-qty:qty,
-cost:cost,
-total:qty*cost
-
-});
-
-await saveDB();
-
-refresh();
-
-toast("تم حفظ المشتريات");
-
-}
-
-async function saveExpense(){
-
-const name=
-document.getElementById("expenseName").value.trim();
-
-const amount=
-Number(document.getElementById("expenseAmount").value);
-
-if(!name||amount<=0){
-
-toast("بيانات غير صحيحة");
-return;
-
-}
-
-db.expenses.push({
-
-id:db.counters.expense++,
-date:new Date().toISOString(),
-name:name,
-amount:amount
-
-});
-
-await saveDB();
-
-document.getElementById("expenseName").value="";
-document.getElementById("expenseAmount").value="";
-
-refresh();
-
-toast("تم تسجيل المصروف");
-
-}
-
-function openUser(){
-
-if(!currentUser || currentUser.role!=="admin"){
-
-toast("هذه الصفحة للمدير فقط");
-return;
-
-}
-
-document.getElementById("userModal").style.display="flex";
-
+    window.scrollTo(0,0);
 }
 
-function closeUser(){
 
-document.getElementById("userModal").style.display="none";
+function goHome(){
 
-}
-
-async function saveUser(){
-
-if(!currentUser || currentUser.role!=="admin"){
-
-toast("ليس لديك صلاحية");
-return;
-
-}
-
-const name=
-document.getElementById("newUserName").value.trim();
-
-const username=
-document.getElementById("newUsername").value.trim();
-
-const password=
-document.getElementById("newUserPassword").value;
-
-const role=
-document.getElementById("newUserRole").value;
-
-if(!name||!username||!password){
-
-toast("أكمل بيانات المستخدم");
-return;
-
-}
-
-if(
-db.users.some(
-u=>String(u.username).toLowerCase()===
-username.toLowerCase()
-)
-){
-
-toast("اسم المستخدم موجود بالفعل");
-return;
-
-}
-
-const user={
-
-id:db.counters.user++,
-name:name,
-username:username,
-password:password,
-role:role
-
-};
-
-db.users.push(user);
-
-try{
-
-await saveDB();
-
-document.getElementById("newUserName").value="";
-document.getElementById("newUsername").value="";
-document.getElementById("newUserPassword").value="";
-
-closeUser();
-
-renderUsers();
-
-toast("تم إضافة المستخدم");
-
-}catch(e){
-
-db.users.pop();
-
-toast("تعذر حفظ المستخدم");
-
-}
-
-}
-
-async function deleteUser(id){
-
-if(!currentUser || currentUser.role!=="admin"){
-
-toast("ليس لديك صلاحية");
-return;
-
-}
-
-if(id===currentUser.id){
-
-toast("لا يمكنك حذف المستخدم الحالي");
-return;
-
-}
-
-const user=db.users.find(u=>u.id===id);
-
-if(!user)return;
-
-if(!confirm("هل تريد حذف المستخدم "+user.name+" ؟"))
-return;
-
-const old=[...db.users];
-
-db.users=db.users.filter(u=>u.id!==id);
-
-try{
-
-await saveDB();
-
-renderUsers();
-
-toast("تم حذف المستخدم");
-
-}catch(e){
-
-db.users=old;
-
-toast("تعذر حذف المستخدم");
-
-}
-
-}
-
-function renderUsers(){
-
-const table=document.getElementById("usersTable");
-
-if(!table)return;
-
-table.innerHTML=
-db.users.map(u=>`
-
-<tr>
-
-<td>${safe(u.name)}</td>
-
-<td>${safe(u.username)}</td>
-
-<td>
-
-<span class="badge">
-${roleName(u.role)}
-</span>
-
-</td>
-
-<td>
-
-${
-u.id===1
-?
-""
-:
-`<button
-class="btn red"
-onclick="deleteUser(${u.id})">
-حذف
-</button>`
-}
-
-</td>
-
-</tr>
-
-`).join("");
-
-}
-
-async function saveSettings(){
-
-db.settings.companyName=
-document.getElementById("setCompany").value.trim();
-
-db.settings.phone=
-document.getElementById("setPhone").value.trim();
-
-db.settings.address=
-document.getElementById("setAddress").value.trim();
-
-db.settings.taxNumber=
-document.getElementById("setTax").value.trim();
-
-db.settings.currency=
-document.getElementById("setCurrency").value.trim();
-
-db.settings.taxEnabled=
-document.getElementById("setTaxEnabled").checked;
-
-db.settings.taxRate=
-Number(document.getElementById("setTaxRate").value)||0;
-
-db.settings.invoicePrefix=
-document.getElementById("setPrefix").value.trim();
-
-db.settings.nextInvoice=
-Number(document.getElementById("setNextInvoice").value)||1;
-
-await saveDB();
-
-refresh();
-
-toast("تم حفظ الإعدادات");
-
-}
-
-async function savePrinting(){
-
-db.settings.invoiceTemplate=
-document.getElementById("template").value;
-
-db.settings.invoiceCopies=
-Number(document.getElementById("copies").value)||1;
-
-await saveDB();
-
-toast("تم حفظ نموذج الطباعة");
-
-}
-
-function setPrintStyle(template){
-
-const printArea=
-document.getElementById("printArea");
-
-printArea.className="print";
-
-if(template==="cashier80"){
-printArea.classList.add("mm80");
-}
-else if(template==="cashier80simple"){
-printArea.classList.add("mm80");
-}
-else if(template==="cashier58"){
-printArea.classList.add("mm58");
-}
-else if(template==="a4modern"){
-printArea.classList.add("a4-modern");
-}
-else if(template==="a4simple"){
-printArea.classList.add("a4-simple");
-}
-else if(template==="tax"){
-printArea.classList.add("tax-a4");
-}
-else{
-printArea.classList.add("a4");
-}
-
-}
-
-function createInvoiceQR(invoice){
-
-const company=
-db.settings.companyName||
-"الرهيب سوفت";
-
-const tax=
-db.settings.taxNumber||"";
-
-const data=[
-
-"الرهيب سوفت",
-"المنشأة: "+company,
-"الرقم الضريبي: "+tax,
-"رقم الفاتورة: "+invoice.number,
-
-"التاريخ: "+
-new Date(invoice.date).toLocaleString("ar-SA"),
-
-"الإجمالي: "+money(invoice.total),
-"الضريبة: "+money(invoice.tax)
-
-].join("\n");
-
-const qrUrl=
-"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data="+
-encodeURIComponent(data);
-
-document.getElementById("invoiceQR").src=qrUrl;
-
-}
-
-function printInvoice(invoice){
-
-const template=
-db.settings.invoiceTemplate||
-"cashier80";
-
-setPrintStyle(template);
+    document.querySelectorAll('.page')
+    .forEach(page=>{
+        page.classList.remove('active');
+    });
 
-const title=
-document.getElementById("printInvoiceTitle");
+    document.getElementById('homePage')
+    .classList.add('active');
 
-if(template==="tax"){
-title.textContent="فاتورة ضريبية";
+    window.scrollTo(0,0);
 }
-else if(
-template==="a4" ||
-template==="a4modern" ||
-template==="a4simple"
-){
-title.textContent="فاتورة مبيعات";
-}
-else if(template==="cashier58"){
-title.textContent="فاتورة كاشير";
-}
-else{
-title.textContent="فاتورة مبيعات";
-}
-
-document.getElementById("printCompany").textContent=
-db.settings.companyName||"الرهيب سوفت";
-
-document.getElementById("printAddress").textContent=
-db.settings.address||"";
-
-document.getElementById("printPhone").textContent=
-db.settings.phone||"";
-
-document.getElementById("printTax").textContent=
-db.settings.taxNumber
-?
-"الرقم الضريبي: "+db.settings.taxNumber
-:"";
-
-document.getElementById("printNumber").textContent=
-invoice.number;
-
-document.getElementById("printDate").textContent=
-new Date(invoice.date).toLocaleString("ar-SA");
-
-document.getElementById("printCustomer").textContent=
-invoice.customerName||"عميل نقدي";
-
-document.getElementById("printPayment").textContent=
-invoice.payment;
-
-document.getElementById("printCashier").textContent=
-invoice.cashierName||"";
-
-document.getElementById("printItems").innerHTML=
-invoice.items.map(x=>`
-
-<tr>
-
-<td>${safe(x.name)}</td>
-<td>${x.qty}</td>
-<td>${money(x.price)}</td>
-<td>${money(x.qty*x.price)}</td>
-
-</tr>
-
-`).join("");
-
-document.getElementById("printSubtotal").textContent=
-money(invoice.subtotal);
-
-document.getElementById("printDiscount").textContent=
-money(invoice.discount);
-
-document.getElementById("printTaxAmount").textContent=
-money(invoice.tax);
-
-document.getElementById("printTotal").textContent=
-money(invoice.total);
-
-createInvoiceQR(invoice);
-
-const copies=
-Number(db.settings.invoiceCopies)||1;
-
-let printed=0;
-
-const doPrint=()=>{
-
-printed++;
-
-window.print();
-
-if(printed<copies){
-setTimeout(doPrint,900);
-}
-
-};
-
-const qr=document.getElementById("invoiceQR");
-
-if(qr.complete){
-
-setTimeout(doPrint,300);
-
-}
-else{
-
-qr.onload=()=>{
-setTimeout(doPrint,300);
-};
-
-qr.onerror=()=>{
-setTimeout(doPrint,300);
-};
-
-}
-
-}
-
-function salesReport(){
-
-const total=
-db.invoices.reduce((a,x)=>a+x.total,0);
-
-document.getElementById("report").innerHTML=`
-
-<h3>تقرير المبيعات</h3>
-
-<p>
-عدد الفواتير:
-<b>${db.invoices.length}</b>
-</p>
-
-<p>
-إجمالي المبيعات:
-<b>${money(total)}</b>
-</p>
-
-`;
-
-}
-
-function stockReport(){
-
-const low=
-db.products.filter(
-p=>p.stock<=p.minStock
-);
-
-document.getElementById("report").innerHTML=`
-
-<h3>تقرير المخزون</h3>
-
-<p>
-إجمالي الأصناف:
-<b>${db.products.length}</b>
-</p>
-
-<p>
-أصناف منخفضة:
-<b>${low.length}</b>
-</p>
-
-`;
-
-}
-
-function expenseReport(){
-
-const total=
-db.expenses.reduce((a,x)=>a+x.amount,0);
-
-document.getElementById("report").innerHTML=`
-
-<h3>تقرير المصروفات</h3>
-
-<p>
-الإجمالي:
-<b>${money(total)}</b>
-</p>
 
-`;
 
-}
-
-function profitReport(){
-
-const sales=
-db.invoices.reduce((a,x)=>a+x.total,0);
-
-const purchases=
-db.purchases.reduce((a,x)=>a+x.total,0);
+/* =========================
+   COMPANY NAME
+========================= */
 
-const expenses=
-db.expenses.reduce((a,x)=>a+x.amount,0);
+function saveCompany(){
 
-const profit=
-sales-purchases-expenses;
+    const input =
+        document.getElementById('companyInput');
 
-document.getElementById("report").innerHTML=`
+    const name =
+        input.value.trim();
 
-<h3>تقرير الأرباح</h3>
+    if(!name){
 
-<p>
-المبيعات: ${money(sales)}
-</p>
+        alert('اكتب اسم المؤسسة');
 
-<p>
-المشتريات: ${money(purchases)}
-</p>
+        return;
+    }
 
-<p>
-المصروفات: ${money(expenses)}
-</p>
+    localStorage.setItem(
+        'raheeb_company',
+        name
+    );
 
-<hr>
+    document.getElementById(
+        'companyName'
+    ).textContent = name;
 
-<h2>
-الصافي: ${money(profit)}
-</h2>
-
-`;
-
+    alert('تم حفظ اسم المؤسسة');
 }
-
-function refresh(){
-
-if(!db.settings)return;
-
-document.getElementById("companyNameHeader").textContent=
-db.settings.companyName||"الرهيب سوفت";
-
-const sales=
-db.invoices.reduce((a,x)=>a+x.total,0);
-
-const purchases=
-db.purchases.reduce((a,x)=>a+x.total,0);
-
-const expenses=
-db.expenses.reduce((a,x)=>a+x.amount,0);
-
-document.getElementById("dashSales").textContent=
-money(sales);
-
-document.getElementById("dashInvoices").textContent=
-db.invoices.length;
-
-document.getElementById("dashPurchases").textContent=
-money(purchases);
-
-document.getElementById("dashExpenses").textContent=
-money(expenses);
-
-document.getElementById("dashProducts").textContent=
-db.products.length;
-
-document.getElementById("dashBalance").textContent=
-money(sales-purchases-expenses);
-
-document.getElementById("latestInvoices").innerHTML=
-db.invoices
-.slice(-10)
-.reverse()
-.map(x=>`
-
-<tr>
-
-<td>${safe(x.number)}</td>
-
-<td>${safe(x.customerName||"عميل نقدي")}</td>
-
-<td>
-${new Date(x.date).toLocaleString("ar-SA")}
-</td>
-
-<td>${safe(x.payment)}</td>
-
-<td>${money(x.total)}</td>
-
-</tr>
-
-`).join("");
-
-renderProducts();
-renderPOS();
-renderCustomerSelect();
-renderUsers();
-
-document.getElementById("customersTable").innerHTML=
-db.customers.map(x=>`
-
-<tr>
-
-<td>${safe(x.name)}</td>
-<td>${safe(x.phone)}</td>
-<td>${safe(x.address)}</td>
-<td>${money(x.balance)}</td>
-
-</tr>
 
-`).join("");
 
-document.getElementById("suppliersTable").innerHTML=
-db.suppliers.map(x=>`
+/* =========================
+   LOAD COMPANY
+========================= */
 
-<tr>
+const savedCompany =
+    localStorage.getItem(
+        'raheeb_company'
+    );
 
-<td>${safe(x.name)}</td>
-<td>${safe(x.phone)}</td>
-<td>${safe(x.address)}</td>
+if(savedCompany){
 
-</tr>
+    document.getElementById(
+        'companyName'
+    ).textContent = savedCompany;
 
-`).join("");
-
-document.getElementById("purchaseProduct").innerHTML=
-db.products.map(x=>`
-
-<option value="${x.id}">
-${safe(x.name)}
-</option>
-
-`).join("");
-
-document.getElementById("purchasesTable").innerHTML=
-db.purchases.map(x=>`
-
-<tr>
-
-<td>
-${new Date(x.date).toLocaleString("ar-SA")}
-</td>
-
-<td>${safe(x.productName)}</td>
-<td>${x.qty}</td>
-<td>${money(x.cost)}</td>
-<td>${money(x.total)}</td>
-
-</tr>
-
-`).join("");
-
-document.getElementById("expensesTable").innerHTML=
-db.expenses.map(x=>`
-
-<tr>
-
-<td>
-${new Date(x.date).toLocaleString("ar-SA")}
-</td>
-
-<td>${safe(x.name)}</td>
-<td>${money(x.amount)}</td>
-
-</tr>
-
-`).join("");
-
-document.getElementById("setCompany").value=
-db.settings.companyName||"";
-
-document.getElementById("setPhone").value=
-db.settings.phone||"";
-
-document.getElementById("setAddress").value=
-db.settings.address||"";
-
-document.getElementById("setTax").value=
-db.settings.taxNumber||"";
-
-document.getElementById("setCurrency").value=
-db.settings.currency||"ريال سعودي";
-
-document.getElementById("setTaxEnabled").checked=
-db.settings.taxEnabled!==false;
-
-document.getElementById("setTaxRate").value=
-db.settings.taxRate||0;
-
-document.getElementById("setPrefix").value=
-db.settings.invoicePrefix||"INV-";
-
-document.getElementById("setNextInvoice").value=
-db.settings.nextInvoice||1;
-
-document.getElementById("template").value=
-db.settings.invoiceTemplate||"cashier80";
-
-document.getElementById("copies").value=
-db.settings.invoiceCopies||1;
-
-renderCart();
-
+    document.getElementById(
+        'companyInput'
+    ).value = savedCompany;
 }
 
-function updateClock(){
 
-document.getElementById("clock").textContent=
-new Date().toLocaleString("ar-SA");
+/* =========================
+   DATE
+========================= */
 
-}
-
-setInterval(updateClock,1000);
-updateClock();
+const today =
+    new Date();
 
-async function startSystem(){
-
-await loadDB();
-checkSession();
-
-}
+document.getElementById(
+    'date'
+).textContent =
+    today.toLocaleDateString('ar-SA');
 
-startSystem();
 
 </script>
 
