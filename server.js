@@ -5,28 +5,49 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const PUBLIC_DIR = path.join(__dirname, "public");
-const DB_DIR = path.join(__dirname, "data");
-const DB_FILE = path.join(DB_DIR, "database.json");
+// ==========================================
+// مسارات الملفات
+// ==========================================
+
+const BASE_DIR = __dirname;
+
+const HTML_FILE = path.join(
+    BASE_DIR,
+    "raheeb-soft.html"
+);
+
+const DB_FILE = path.join(
+    BASE_DIR,
+    "database.json"
+);
+
 const TMP_FILE = DB_FILE + ".tmp";
 
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ extended: true, limit: "50mb" }));
-
 // ==========================================
-// إنشاء مجلد قاعدة البيانات
+// إعداد Express
 // ==========================================
 
-if (!fs.existsSync(DB_DIR)) {
-    fs.mkdirSync(DB_DIR, { recursive: true });
-}
+app.use(
+    express.json({
+        limit: "50mb"
+    })
+);
+
+app.use(
+    express.urlencoded({
+        extended: true,
+        limit: "50mb"
+    })
+);
 
 // ==========================================
-// إنشاء قاعدة بيانات جديدة
+// إنشاء قاعدة البيانات الافتراضية
 // ==========================================
 
 function createDatabase() {
+
     return {
+
         settings: {
             companyName: "مؤسسة الرهيب",
             branch: "الفرع الرئيسي",
@@ -39,8 +60,11 @@ function createDatabase() {
         },
 
         products: [],
+
         categories: [],
+
         units: [],
+
         warehouses: [],
 
         customers: [
@@ -56,19 +80,25 @@ function createDatabase() {
         suppliers: [],
 
         sales: [],
+
         purchases: [],
 
         salesReturns: [],
+
         purchaseReturns: [],
+
         quotes: [],
 
         receipts: [],
+
         payments: [],
 
         expenses: [],
+
         income: [],
 
         cashSessions: [],
+
         stockMovements: [],
 
         users: [
@@ -95,6 +125,7 @@ function createDatabase() {
             quote: 1,
             session: 1
         }
+
     };
 }
 
@@ -107,7 +138,9 @@ function normalizeDatabase(saved) {
     const fresh = createDatabase();
 
     const db = {
+
         ...fresh,
+
         ...(saved || {}),
 
         settings: {
@@ -119,9 +152,11 @@ function normalizeDatabase(saved) {
             ...fresh.counters,
             ...((saved && saved.counters) || {})
         }
+
     };
 
     const arrays = [
+
         "products",
         "categories",
         "units",
@@ -141,33 +176,69 @@ function normalizeDatabase(saved) {
         "stockMovements",
         "users",
         "logs"
+
     ];
 
     arrays.forEach(key => {
+
         if (!Array.isArray(db[key])) {
+
             db[key] = [];
+
         }
+
     });
 
-    // ضمان وجود العميل النقدي
-    if (!db.customers.some(c => Number(c.id) === 1)) {
+    // ======================================
+    // العميل النقدي
+    // ======================================
+
+    const cashCustomer =
+        db.customers.find(
+            c => Number(c.id) === 1
+        );
+
+    if (!cashCustomer) {
+
         db.customers.unshift({
+
             id: 1,
+
             name: "عميل نقدي",
+
             phone: "",
+
             address: "",
+
             balance: 0
+
         });
+
     }
 
-    // ضمان وجود المدير
-    if (!db.users.some(u => u.username === "admin")) {
+    // ======================================
+    // المدير
+    // ======================================
+
+    const admin =
+        db.users.find(
+            u => u.username === "admin"
+        );
+
+    if (!admin) {
+
         db.users.unshift({
+
             id: 1,
+
             name: "المدير",
+
             username: "admin",
+
             role: "admin"
+
         });
+
     }
 
     return db;
@@ -183,30 +254,36 @@ function loadDatabase() {
 
         if (!fs.existsSync(DB_FILE)) {
 
-            const db = createDatabase();
+            const db =
+                createDatabase();
 
             saveDatabase(db);
 
             return db;
         }
 
-        const text = fs.readFileSync(
-            DB_FILE,
-            "utf8"
-        );
+        const text =
+            fs.readFileSync(
+                DB_FILE,
+                "utf8"
+            );
 
         if (!text.trim()) {
 
-            const db = createDatabase();
+            const db =
+                createDatabase();
 
             saveDatabase(db);
 
             return db;
         }
 
-        const saved = JSON.parse(text);
+        const saved =
+            JSON.parse(text);
 
-        return normalizeDatabase(saved);
+        return normalizeDatabase(
+            saved
+        );
 
     } catch (error) {
 
@@ -225,12 +302,21 @@ function loadDatabase() {
 
 function saveDatabase(db) {
 
-    const normalized = normalizeDatabase(db);
+    const normalized =
+        normalizeDatabase(db);
 
     fs.writeFileSync(
+
         TMP_FILE,
-        JSON.stringify(normalized, null, 2),
+
+        JSON.stringify(
+            normalized,
+            null,
+            2
+        ),
+
         "utf8"
+
     );
 
     fs.renameSync(
@@ -247,202 +333,340 @@ function saveDatabase(db) {
 
 app.get("/", (req, res) => {
 
-    const htmlFile = path.join(
-        PUBLIC_DIR,
-        "raheeb-soft.html"
-    );
-
-    if (!fs.existsSync(htmlFile)) {
+    if (!fs.existsSync(HTML_FILE)) {
 
         return res.status(404).send(
-            "ملف raheeb-soft.html غير موجود داخل مجلد public"
+            `
+            <html lang="ar" dir="rtl">
+            <head>
+                <meta charset="UTF-8">
+                <title>الرهيب سوفت PRO</title>
+            </head>
+
+            <body style="
+                font-family:Tahoma;
+                text-align:center;
+                padding:50px;
+            ">
+
+                <h2>
+                    ملف النظام غير موجود
+                </h2>
+
+                <p>
+                    لم يتم العثور على:
+                </p>
+
+                <b>
+                    raheeb-soft.html
+                </b>
+
+            </body>
+            </html>
+            `
         );
     }
 
-    res.sendFile(htmlFile);
+    res.sendFile(
+        HTML_FILE
+    );
 });
 
 // ==========================================
-// الملفات الثابتة
+// ملفات HTML و CSS و JS
 // ==========================================
 
 app.use(
-    express.static(PUBLIC_DIR)
+    express.static(
+        BASE_DIR
+    )
 );
 
 // ==========================================
 // جلب قاعدة البيانات
 // ==========================================
 
-app.get("/api/database", (req, res) => {
+app.get(
+    "/api/database",
+    (req, res) => {
 
-    try {
+        try {
 
-        const db = loadDatabase();
+            const db =
+                loadDatabase();
 
-        res.json({
-            success: true,
-            data: db
-        });
+            res.json({
 
-    } catch (error) {
+                success: true,
 
-        console.error(
-            "خطأ في تحميل قاعدة البيانات:",
-            error
-        );
+                data: db
 
-        res.status(500).json({
-            success: false,
-            error: error.message
-        });
+            });
+
+        } catch (error) {
+
+            console.error(
+                "DATABASE GET ERROR:",
+                error
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                error:
+                    error.message
+
+            });
+        }
     }
-});
+);
 
 // ==========================================
 // حفظ قاعدة البيانات
 // ==========================================
 
-app.post("/api/database", (req, res) => {
+app.post(
+    "/api/database",
+    (req, res) => {
 
-    try {
+        try {
 
-        if (
-            !req.body ||
-            typeof req.body !== "object" ||
-            Array.isArray(req.body)
-        ) {
+            if (
 
-            return res.status(400).json({
+                !req.body ||
+
+                typeof req.body !==
+                "object" ||
+
+                Array.isArray(req.body)
+
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    error:
+                        "بيانات قاعدة البيانات غير صحيحة"
+
+                });
+
+            }
+
+            const db =
+                normalizeDatabase(
+                    req.body
+                );
+
+            saveDatabase(db);
+
+            // التأكد من الحفظ
+            const check =
+                loadDatabase();
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "تم حفظ البيانات بنجاح",
+
+                statistics: {
+
+                    products:
+                        check.products.length,
+
+                    customers:
+                        check.customers.length,
+
+                    suppliers:
+                        check.suppliers.length,
+
+                    sales:
+                        check.sales.length,
+
+                    purchases:
+                        check.purchases.length,
+
+                    expenses:
+                        check.expenses.length,
+
+                    receipts:
+                        check.receipts.length,
+
+                    payments:
+                        check.payments.length
+
+                }
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "DATABASE SAVE ERROR:",
+                error
+            );
+
+            res.status(500).json({
+
                 success: false,
-                error: "بيانات قاعدة البيانات غير صحيحة"
+
+                error:
+                    error.message
+
             });
         }
-
-        const db = normalizeDatabase(req.body);
-
-        saveDatabase(db);
-
-        const check = loadDatabase();
-
-        res.json({
-            success: true,
-            message: "تم حفظ البيانات بنجاح",
-
-            statistics: {
-                products: check.products.length,
-                customers: check.customers.length,
-                suppliers: check.suppliers.length,
-                sales: check.sales.length,
-                purchases: check.purchases.length,
-                expenses: check.expenses.length,
-                receipts: check.receipts.length,
-                payments: check.payments.length
-            }
-        });
-
-    } catch (error) {
-
-        console.error(
-            "خطأ أثناء حفظ قاعدة البيانات:",
-            error
-        );
-
-        res.status(500).json({
-            success: false,
-            error: error.message
-        });
     }
-});
+);
 
 // ==========================================
-// فحص النظام
+// فحص السيرفر
 // ==========================================
 
-app.get("/api/health", (req, res) => {
-
-    res.json({
-        success: true,
-        system: "Raheeb Soft PRO",
-        status: "online",
-        time: new Date().toISOString()
-    });
-});
-
-// ==========================================
-// اختبار قاعدة البيانات
-// ==========================================
-
-app.get("/api/test", (req, res) => {
-
-    try {
-
-        const db = loadDatabase();
+app.get(
+    "/api/health",
+    (req, res) => {
 
         res.json({
 
             success: true,
 
-            message: "النظام وقاعدة البيانات يعملان",
+            system:
+                "Raheeb Soft PRO",
 
-            statistics: {
-                products: db.products.length,
-                customers: db.customers.length,
-                suppliers: db.suppliers.length,
-                sales: db.sales.length,
-                purchases: db.purchases.length,
-                expenses: db.expenses.length,
-                receipts: db.receipts.length,
-                payments: db.payments.length
-            }
+            status:
+                "online",
+
+            time:
+                new Date().toISOString()
+
         });
 
-    } catch (error) {
-
-        res.status(500).json({
-            success: false,
-            error: error.message
-        });
     }
-});
+);
+
+// ==========================================
+// اختبار النظام وقاعدة البيانات
+// ==========================================
+
+app.get(
+    "/api/test",
+    (req, res) => {
+
+        try {
+
+            const db =
+                loadDatabase();
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "النظام وقاعدة البيانات يعملان",
+
+                statistics: {
+
+                    products:
+                        db.products.length,
+
+                    customers:
+                        db.customers.length,
+
+                    suppliers:
+                        db.suppliers.length,
+
+                    sales:
+                        db.sales.length,
+
+                    purchases:
+                        db.purchases.length,
+
+                    expenses:
+                        db.expenses.length,
+
+                    receipts:
+                        db.receipts.length,
+
+                    payments:
+                        db.payments.length
+
+                }
+
+            });
+
+        } catch (error) {
+
+            res.status(500).json({
+
+                success: false,
+
+                error:
+                    error.message
+
+            });
+
+        }
+
+    }
+);
 
 // ==========================================
 // أي API غير موجود
 // ==========================================
 
-app.use("/api", (req, res) => {
+app.use(
+    "/api",
+    (req, res) => {
 
-    res.status(404).json({
-        success: false,
-        error: "API غير موجود"
-    });
+        res.status(404).json({
 
-});
+            success: false,
+
+            error:
+                "API غير موجود"
+
+        });
+
+    }
+);
 
 // ==========================================
 // معالجة الأخطاء
 // ==========================================
 
-app.use((err, req, res, next) => {
+app.use(
+    (err, req, res, next) => {
 
-    console.error(
-        "Server Error:",
-        err
-    );
+        console.error(
+            "SERVER ERROR:",
+            err
+        );
 
-    res.status(500).json({
-        success: false,
-        error: err.message
-    });
-});
+        res.status(500).json({
+
+            success: false,
+
+            error:
+                err.message
+
+        });
+
+    }
+);
 
 // ==========================================
-// تشغيل السيرفر
+// تشغيل النظام
 // ==========================================
 
 app.listen(
+
     PORT,
+
     "0.0.0.0",
+
     () => {
 
         console.log(
@@ -459,6 +683,11 @@ app.listen(
         );
 
         console.log(
+            "HTML:",
+            HTML_FILE
+        );
+
+        console.log(
             "DATABASE:",
             DB_FILE
         );
@@ -466,5 +695,7 @@ app.listen(
         console.log(
             "======================================"
         );
+
     }
+
 );
