@@ -1,6 +1,7 @@
 {
   "name": "raheeb-soft-pro",
   "version": "4.0.0",
+  "description": "الرهيب سوفت PRO - نظام محاسبي متكامل",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
