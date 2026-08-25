@@ -8,16 +8,23 @@ const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = path.join(__dirname, "public");
 const DB_DIR = path.join(__dirname, "data");
 const DB_FILE = path.join(DB_DIR, "database.json");
+const TMP_FILE = DB_FILE + ".tmp";
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
+// ==========================================
 // إنشاء مجلد قاعدة البيانات
+// ==========================================
+
 if (!fs.existsSync(DB_DIR)) {
     fs.mkdirSync(DB_DIR, { recursive: true });
 }
 
-// قاعدة بيانات جديدة
+// ==========================================
+// إنشاء قاعدة بيانات جديدة
+// ==========================================
+
 function createDatabase() {
     return {
         settings: {
@@ -28,8 +35,7 @@ function createDatabase() {
             taxNumber: "",
             currency: "ريال سعودي",
             taxEnabled: true,
-            taxRate: 15,
-            invoiceNumber: 1
+            taxRate: 15
         },
 
         products: [],
@@ -54,7 +60,6 @@ function createDatabase() {
 
         salesReturns: [],
         purchaseReturns: [],
-
         quotes: [],
 
         receipts: [],
@@ -64,7 +69,6 @@ function createDatabase() {
         income: [],
 
         cashSessions: [],
-
         stockMovements: [],
 
         users: [
@@ -94,7 +98,85 @@ function createDatabase() {
     };
 }
 
+// ==========================================
+// توحيد قاعدة البيانات
+// ==========================================
+
+function normalizeDatabase(saved) {
+
+    const fresh = createDatabase();
+
+    const db = {
+        ...fresh,
+        ...(saved || {}),
+
+        settings: {
+            ...fresh.settings,
+            ...((saved && saved.settings) || {})
+        },
+
+        counters: {
+            ...fresh.counters,
+            ...((saved && saved.counters) || {})
+        }
+    };
+
+    const arrays = [
+        "products",
+        "categories",
+        "units",
+        "warehouses",
+        "customers",
+        "suppliers",
+        "sales",
+        "purchases",
+        "salesReturns",
+        "purchaseReturns",
+        "quotes",
+        "receipts",
+        "payments",
+        "expenses",
+        "income",
+        "cashSessions",
+        "stockMovements",
+        "users",
+        "logs"
+    ];
+
+    arrays.forEach(key => {
+        if (!Array.isArray(db[key])) {
+            db[key] = [];
+        }
+    });
+
+    // ضمان وجود العميل النقدي
+    if (!db.customers.some(c => Number(c.id) === 1)) {
+        db.customers.unshift({
+            id: 1,
+            name: "عميل نقدي",
+            phone: "",
+            address: "",
+            balance: 0
+        });
+    }
+
+    // ضمان وجود المدير
+    if (!db.users.some(u => u.username === "admin")) {
+        db.users.unshift({
+            id: 1,
+            name: "المدير",
+            username: "admin",
+            role: "admin"
+        });
+    }
+
+    return db;
+}
+
+// ==========================================
 // قراءة قاعدة البيانات
+// ==========================================
+
 function loadDatabase() {
 
     try {
@@ -103,11 +185,7 @@ function loadDatabase() {
 
             const db = createDatabase();
 
-            fs.writeFileSync(
-                DB_FILE,
-                JSON.stringify(db, null, 2),
-                "utf8"
-            );
+            saveDatabase(db);
 
             return db;
         }
@@ -121,33 +199,14 @@ function loadDatabase() {
 
             const db = createDatabase();
 
-            fs.writeFileSync(
-                DB_FILE,
-                JSON.stringify(db, null, 2),
-                "utf8"
-            );
+            saveDatabase(db);
 
             return db;
         }
 
         const saved = JSON.parse(text);
-        const fresh = createDatabase();
 
-        return {
-
-            ...fresh,
-            ...saved,
-
-            settings: {
-                ...fresh.settings,
-                ...(saved.settings || {})
-            },
-
-            counters: {
-                ...fresh.counters,
-                ...(saved.counters || {})
-            }
-        };
+        return normalizeDatabase(saved);
 
     } catch (error) {
 
@@ -160,24 +219,32 @@ function loadDatabase() {
     }
 }
 
+// ==========================================
 // حفظ قاعدة البيانات
+// ==========================================
+
 function saveDatabase(db) {
 
-    const tempFile = DB_FILE + ".tmp";
+    const normalized = normalizeDatabase(db);
 
     fs.writeFileSync(
-        tempFile,
-        JSON.stringify(db, null, 2),
+        TMP_FILE,
+        JSON.stringify(normalized, null, 2),
         "utf8"
     );
 
     fs.renameSync(
-        tempFile,
+        TMP_FILE,
         DB_FILE
     );
+
+    return true;
 }
 
+// ==========================================
 // الصفحة الرئيسية
+// ==========================================
+
 app.get("/", (req, res) => {
 
     const htmlFile = path.join(
@@ -195,10 +262,18 @@ app.get("/", (req, res) => {
     res.sendFile(htmlFile);
 });
 
+// ==========================================
 // الملفات الثابتة
-app.use(express.static(PUBLIC_DIR));
+// ==========================================
 
+app.use(
+    express.static(PUBLIC_DIR)
+);
+
+// ==========================================
 // جلب قاعدة البيانات
+// ==========================================
+
 app.get("/api/database", (req, res) => {
 
     try {
@@ -212,6 +287,11 @@ app.get("/api/database", (req, res) => {
 
     } catch (error) {
 
+        console.error(
+            "خطأ في تحميل قاعدة البيانات:",
+            error
+        );
+
         res.status(500).json({
             success: false,
             error: error.message
@@ -219,7 +299,10 @@ app.get("/api/database", (req, res) => {
     }
 });
 
+// ==========================================
 // حفظ قاعدة البيانات
+// ==========================================
+
 app.post("/api/database", (req, res) => {
 
     try {
@@ -232,21 +315,36 @@ app.post("/api/database", (req, res) => {
 
             return res.status(400).json({
                 success: false,
-                error: "بيانات غير صحيحة"
+                error: "بيانات قاعدة البيانات غير صحيحة"
             });
         }
 
-        saveDatabase(req.body);
+        const db = normalizeDatabase(req.body);
+
+        saveDatabase(db);
+
+        const check = loadDatabase();
 
         res.json({
             success: true,
-            message: "تم حفظ البيانات بنجاح"
+            message: "تم حفظ البيانات بنجاح",
+
+            statistics: {
+                products: check.products.length,
+                customers: check.customers.length,
+                suppliers: check.suppliers.length,
+                sales: check.sales.length,
+                purchases: check.purchases.length,
+                expenses: check.expenses.length,
+                receipts: check.receipts.length,
+                payments: check.payments.length
+            }
         });
 
     } catch (error) {
 
         console.error(
-            "خطأ أثناء الحفظ:",
+            "خطأ أثناء حفظ قاعدة البيانات:",
             error
         );
 
@@ -257,7 +355,10 @@ app.post("/api/database", (req, res) => {
     }
 });
 
+// ==========================================
 // فحص النظام
+// ==========================================
+
 app.get("/api/health", (req, res) => {
 
     res.json({
@@ -268,7 +369,10 @@ app.get("/api/health", (req, res) => {
     });
 });
 
+// ==========================================
 // اختبار قاعدة البيانات
+// ==========================================
+
 app.get("/api/test", (req, res) => {
 
     try {
@@ -302,7 +406,23 @@ app.get("/api/test", (req, res) => {
     }
 });
 
+// ==========================================
+// أي API غير موجود
+// ==========================================
+
+app.use("/api", (req, res) => {
+
+    res.status(404).json({
+        success: false,
+        error: "API غير موجود"
+    });
+
+});
+
+// ==========================================
 // معالجة الأخطاء
+// ==========================================
+
 app.use((err, req, res, next) => {
 
     console.error(
@@ -316,7 +436,10 @@ app.use((err, req, res, next) => {
     });
 });
 
+// ==========================================
 // تشغيل السيرفر
+// ==========================================
+
 app.listen(
     PORT,
     "0.0.0.0",
