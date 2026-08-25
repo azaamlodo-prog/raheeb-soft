@@ -3,7 +3,6 @@ const fs = require("fs");
 const path = require("path");
 
 const app = express();
-
 const PORT = process.env.PORT || 3000;
 
 // =====================================================
@@ -36,7 +35,7 @@ app.use(express.urlencoded({
 }));
 
 // =====================================================
-// إنشاء قاعدة البيانات
+// إنشاء قاعدة البيانات الافتراضية
 // =====================================================
 
 function createDatabase() {
@@ -51,7 +50,9 @@ function createDatabase() {
             taxNumber: "",
             currency: "ريال سعودي",
             taxEnabled: true,
-            taxRate: 15
+            taxRate: 15,
+            invoicePrefix: "INV-",
+            nextInvoice: 1
         },
 
         products: [],
@@ -111,6 +112,7 @@ function createDatabase() {
             product: 1,
             customer: 2,
             supplier: 1,
+            sale: 1,
             invoice: 1,
             purchase: 1,
             receipt: 1,
@@ -118,19 +120,22 @@ function createDatabase() {
             expense: 1,
             income: 1,
             quote: 1,
-            session: 1
+            return: 1,
+            session: 1,
+            log: 1
         }
     };
 }
 
 // =====================================================
-// ضمان وجود قاعدة البيانات
+// قراءة قاعدة البيانات
 // =====================================================
 
 function ensureDatabase() {
 
     try {
 
+        // إذا لم توجد قاعدة البيانات
         if (!fs.existsSync(DB_FILE)) {
 
             const db = createDatabase();
@@ -144,11 +149,13 @@ function ensureDatabase() {
             return db;
         }
 
+        // قراءة الملف
         const text = fs.readFileSync(
             DB_FILE,
             "utf8"
         );
 
+        // إذا كان فارغاً
         if (!text.trim()) {
 
             const db = createDatabase();
@@ -162,13 +169,16 @@ function ensureDatabase() {
             return db;
         }
 
+        // تحويل JSON
         const saved = JSON.parse(text);
 
         const fresh = createDatabase();
 
+        // دمج البيانات القديمة مع الهيكل الجديد
         const db = {
 
             ...fresh,
+
             ...saved,
 
             settings: {
@@ -182,34 +192,46 @@ function ensureDatabase() {
             }
         };
 
-        // ضمان وجود المصفوفات
-
+        // ضمان وجود جميع الجداول
         const arrays = [
+
             "products",
             "categories",
             "units",
             "warehouses",
+
             "customers",
             "suppliers",
+
             "sales",
             "purchases",
+
             "salesReturns",
             "purchaseReturns",
+
             "quotes",
+
             "receipts",
             "payments",
+
             "expenses",
             "income",
+
             "cashSessions",
+
             "stockMovements",
+
             "users",
+
             "logs"
         ];
 
         arrays.forEach(name => {
 
             if (!Array.isArray(db[name])) {
+
                 db[name] = [];
+
             }
 
         });
@@ -276,30 +298,75 @@ app.get("/", (req, res) => {
     if (!fs.existsSync(HTML_FILE)) {
 
         return res.status(404).send(`
-            <!DOCTYPE html>
-            <html lang="ar" dir="rtl">
-            <head>
-                <meta charset="UTF-8">
-                <title>الرهيب سوفت PRO</title>
-            </head>
-            <body style="
-                font-family:Tahoma;
-                text-align:center;
-                padding:50px;
-            ">
-                <h2>ملف النظام غير موجود</h2>
+<!DOCTYPE html>
 
-                <p>
-                    يجب أن يكون الملف:
-                </p>
+<html lang="ar" dir="rtl">
 
-                <b>raheeb-soft.html</b>
+<head>
 
-                <p>
-                    في نفس مكان server.js
-                </p>
-            </body>
-            </html>
+<meta charset="UTF-8">
+
+<title>الرهيب سوفت PRO</title>
+
+<style>
+
+body{
+    font-family:Tahoma,Arial;
+    background:#f5f7f8;
+    text-align:center;
+    padding:50px;
+}
+
+.box{
+    background:white;
+    padding:35px;
+    border-radius:12px;
+    max-width:600px;
+    margin:auto;
+    box-shadow:0 5px 20px rgba(0,0,0,.1);
+}
+
+h2{
+    color:#c94747;
+}
+
+code{
+    background:#eee;
+    padding:8px;
+    border-radius:5px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>ملف النظام غير موجود</h2>
+
+<p>
+السيرفر يعمل، ولكن لم يجد ملف:
+</p>
+
+<p>
+<code>raheeb-soft.html</code>
+</p>
+
+<p>
+يجب أن يكون الملف في نفس مكان:
+</p>
+
+<p>
+<code>server.js</code>
+</p>
+
+</div>
+
+</body>
+
+</html>
         `);
     }
 
@@ -307,20 +374,23 @@ app.get("/", (req, res) => {
 });
 
 // =====================================================
-// تشغيل ملف HTML مباشرة
+// فتح ملف النظام مباشرة
 // =====================================================
 
-app.get("/raheeb-soft.html", (req, res) => {
+app.get(
+    "/raheeb-soft.html",
+    (req, res) => {
 
-    if (!fs.existsSync(HTML_FILE)) {
+        if (!fs.existsSync(HTML_FILE)) {
 
-        return res.status(404).send(
-            "raheeb-soft.html غير موجود"
-        );
+            return res.status(404).send(
+                "raheeb-soft.html غير موجود"
+            );
+        }
+
+        res.sendFile(HTML_FILE);
     }
-
-    res.sendFile(HTML_FILE);
-});
+);
 
 // =====================================================
 // الملفات الثابتة
@@ -331,216 +401,265 @@ app.use(
 );
 
 // =====================================================
-// API - جلب قاعدة البيانات
+// جلب قاعدة البيانات
 // =====================================================
 
-app.get("/api/database", (req, res) => {
+app.get(
+    "/api/database",
+    (req, res) => {
 
-    try {
+        try {
 
-        const db = ensureDatabase();
+            const db =
+                ensureDatabase();
 
-        res.json({
+            res.json({
 
-            success: true,
+                success: true,
 
-            data: db
+                data: db
 
-        });
+            });
 
-    } catch (error) {
+        } catch (error) {
 
-        console.error(
-            "DATABASE GET ERROR:",
-            error
-        );
+            console.error(
+                "DATABASE GET ERROR:",
+                error
+            );
 
-        res.status(500).json({
-
-            success: false,
-
-            error: error.message
-
-        });
-    }
-});
-
-// =====================================================
-// API - حفظ قاعدة البيانات
-// =====================================================
-
-app.post("/api/database", (req, res) => {
-
-    try {
-
-        if (
-            !req.body ||
-            typeof req.body !== "object" ||
-            Array.isArray(req.body)
-        ) {
-
-            return res.status(400).json({
+            res.status(500).json({
 
                 success: false,
 
-                error: "بيانات قاعدة البيانات غير صحيحة"
+                error:
+                    error.message
 
             });
         }
-
-        saveDatabase(req.body);
-
-        res.json({
-
-            success: true,
-
-            message: "تم حفظ البيانات بنجاح"
-
-        });
-
-    } catch (error) {
-
-        console.error(
-            "DATABASE SAVE ERROR:",
-            error
-        );
-
-        res.status(500).json({
-
-            success: false,
-
-            error: error.message
-
-        });
     }
-});
+);
 
 // =====================================================
-// فحص السيرفر
+// حفظ قاعدة البيانات
 // =====================================================
 
-app.get("/api/health", (req, res) => {
+app.post(
+    "/api/database",
+    (req, res) => {
 
-    res.json({
+        try {
 
-        success: true,
+            if (
+                !req.body ||
+                typeof req.body !== "object" ||
+                Array.isArray(req.body)
+            ) {
 
-        system: "Raheeb Soft PRO",
+                return res.status(400).json({
 
-        status: "online",
+                    success: false,
 
-        time: new Date().toISOString()
+                    error:
+                        "بيانات قاعدة البيانات غير صحيحة"
 
-    });
-});
-
-// =====================================================
-// اختبار قاعدة البيانات
-// =====================================================
-
-app.get("/api/test", (req, res) => {
-
-    try {
-
-        const db = ensureDatabase();
-
-        res.json({
-
-            success: true,
-
-            message:
-                "النظام وقاعدة البيانات يعملان",
-
-            statistics: {
-
-                products:
-                    db.products.length,
-
-                customers:
-                    db.customers.length,
-
-                suppliers:
-                    db.suppliers.length,
-
-                sales:
-                    db.sales.length,
-
-                purchases:
-                    db.purchases.length,
-
-                expenses:
-                    db.expenses.length,
-
-                receipts:
-                    db.receipts.length,
-
-                payments:
-                    db.payments.length
+                });
             }
 
-        });
+            saveDatabase(
+                req.body
+            );
 
-    } catch (error) {
+            res.json({
 
-        res.status(500).json({
+                success: true,
 
-            success: false,
+                message:
+                    "تم حفظ البيانات بنجاح"
 
-            error: error.message
+            });
+
+        } catch (error) {
+
+            console.error(
+                "DATABASE SAVE ERROR:",
+                error
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                error:
+                    error.message
+
+            });
+        }
+    }
+);
+
+// =====================================================
+// فحص النظام
+// =====================================================
+
+app.get(
+    "/api/health",
+    (req, res) => {
+
+        res.json({
+
+            success: true,
+
+            system:
+                "Raheeb Soft PRO",
+
+            status:
+                "online",
+
+            time:
+                new Date().toISOString()
 
         });
     }
-});
+);
+
+// =====================================================
+// اختبار النظام وقاعدة البيانات
+// =====================================================
+
+app.get(
+    "/api/test",
+    (req, res) => {
+
+        try {
+
+            const db =
+                ensureDatabase();
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "النظام وقاعدة البيانات يعملان",
+
+                statistics: {
+
+                    products:
+                        db.products.length,
+
+                    customers:
+                        db.customers.length,
+
+                    suppliers:
+                        db.suppliers.length,
+
+                    sales:
+                        db.sales.length,
+
+                    purchases:
+                        db.purchases.length,
+
+                    salesReturns:
+                        db.salesReturns.length,
+
+                    purchaseReturns:
+                        db.purchaseReturns.length,
+
+                    quotes:
+                        db.quotes.length,
+
+                    expenses:
+                        db.expenses.length,
+
+                    income:
+                        db.income.length,
+
+                    receipts:
+                        db.receipts.length,
+
+                    payments:
+                        db.payments.length,
+
+                    stockMovements:
+                        db.stockMovements.length,
+
+                    users:
+                        db.users.length
+                }
+
+            });
+
+        } catch (error) {
+
+            res.status(500).json({
+
+                success: false,
+
+                error:
+                    error.message
+
+            });
+        }
+    }
+);
 
 // =====================================================
 // معلومات النظام
 // =====================================================
 
-app.get("/api/info", (req, res) => {
+app.get(
+    "/api/info",
+    (req, res) => {
 
-    res.json({
+        res.json({
 
-        success: true,
+            success: true,
 
-        system: "Raheeb Soft PRO",
+            system:
+                "Raheeb Soft PRO",
 
-        version: "1.0.0",
+            version:
+                "4.0.0",
 
-        server: "Node.js + Express",
+            server:
+                "Node.js + Express",
 
-        database:
-            "database.json",
+            database:
+                "database.json",
 
-        interface:
-            "raheeb-soft.html",
+            interface:
+                "raheeb-soft.html",
 
-        port:
-            PORT
-
-    });
-});
+            port:
+                PORT
+        });
+    }
+);
 
 // =====================================================
-// معالجة الأخطاء
+// معالجة أخطاء السيرفر
 // =====================================================
 
-app.use((err, req, res, next) => {
+app.use(
+    (err, req, res, next) => {
 
-    console.error(
-        "SERVER ERROR:",
-        err
-    );
+        console.error(
+            "SERVER ERROR:",
+            err
+        );
 
-    res.status(500).json({
+        res.status(500).json({
 
-        success: false,
+            success: false,
 
-        error:
-            err.message ||
-            "حدث خطأ في السيرفر"
+            error:
+                err.message ||
+                "حدث خطأ في السيرفر"
 
-    });
-});
+        });
+    }
+);
 
 // =====================================================
 // تشغيل السيرفر
