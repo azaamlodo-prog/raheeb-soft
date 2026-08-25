@@ -4159,4 +4159,138 @@ margin-top:20px
 رقم الفاتورة: ${sale.invoiceNumber}
 </p>
 
+رقم الفاتورة: ${sale.invoiceNumber}
+</p>
+
 <p>
+العميل: ${escapeHtml(sale.customerName || '')}
+</p>
+
+<table>
+<thead>
+<tr>
+<th>المنتج</th>
+<th>الكمية</th>
+<th>السعر</th>
+<th>الإجمالي</th>
+</tr>
+</thead>
+
+<tbody>
+${rows}
+</tbody>
+</table>
+
+<div class="total">
+الإجمالي: ${money(sale.total)} ريال
+</div>
+
+<script>
+window.onload=function(){
+    window.print();
+};
+</script>
+
+</body>
+</html>
+`;
+
+    const win=window.open(
+        '',
+        '_blank',
+        'width=900,height=700'
+    );
+
+    if(!win){
+        alert('اسمح بفتح النوافذ المنبثقة للطباعة');
+        return;
+    }
+
+    win.document.open();
+    win.document.write(html);
+    win.document.close();
+}
+
+
+/* ================= الأدوات ================= */
+
+function money(value){
+    return Number(value||0).toFixed(2);
+}
+
+function formatDate(date){
+    if(!date)return '';
+
+    try{
+        return new Date(date).toLocaleString('ar-SA');
+    }catch(e){
+        return date;
+    }
+}
+
+function getCustomerName(id){
+    const c=db.customers.find(x=>x.id===id);
+    return c ? c.name : 'عميل نقدي';
+}
+
+function getSupplierName(id){
+    const s=db.suppliers.find(x=>x.id===id);
+    return s ? s.name : '';
+}
+
+function roleName(role){
+
+    if(role==='admin')return 'مدير';
+    if(role==='accountant')return 'محاسب';
+    if(role==='cashier')return 'كاشير';
+
+    return role||'';
+}
+
+function sumField(arr,field){
+    return arr.reduce(
+        (sum,item)=>sum+Number(item[field]||0),
+        0
+    );
+}
+
+function setText(id,value){
+
+    const el=document.getElementById(id);
+
+    if(el){
+        el.textContent=value;
+    }
+}
+
+function setValue(id,value){
+
+    const el=document.getElementById(id);
+
+    if(el){
+        el.value=value;
+    }
+}
+
+function escapeHtml(value){
+
+    return String(value??'')
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;')
+        .replace(/'/g,'&#039;');
+}
+
+
+/* ================= تشغيل النظام ================= */
+
+document.addEventListener('DOMContentLoaded',function(){
+
+    loadDatabase();
+
+});
+</script>
+
+</body>
+</html>
