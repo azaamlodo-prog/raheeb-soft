@@ -11,9 +11,15 @@
     "invoicePrefix": "INV-",
     "nextInvoice": 1
   },
+
   "products": [],
+
   "categories": [],
+
+  "units": [],
+
   "warehouses": [],
+
   "customers": [
     {
       "id": 1,
@@ -23,16 +29,31 @@
       "balance": 0
     }
   ],
+
   "suppliers": [],
+
   "sales": [],
+
   "purchases": [],
+
   "salesReturns": [],
+
   "purchaseReturns": [],
+
   "quotes": [],
+
   "receipts": [],
+
   "payments": [],
+
   "expenses": [],
+
   "income": [],
+
+  "cashSessions": [],
+
+  "stockMovements": [],
+
   "users": [
     {
       "id": 1,
@@ -41,8 +62,9 @@
       "role": "admin"
     }
   ],
+
   "logs": [],
-  "stockMovements": [],
+
   "counters": {
     "product": 1,
     "customer": 2,
@@ -55,6 +77,7 @@
     "income": 1,
     "quote": 1,
     "return": 1,
+    "session": 1,
     "log": 1
   }
 }
