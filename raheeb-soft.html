@@ -1890,4 +1890,317 @@ document.addEventListener("DOMContentLoaded",function(){
 </script>
 
 </body>
+: ${sale.invoiceNumber}</p>
+
+<p>
+التاريخ: ${formatDate(sale.date)}
+</p>
+
+<p>
+العميل: ${escapeHtml(sale.customerName || 'عميل نقدي')}
+</p>
+
+<table>
+
+<thead>
+<tr>
+<th>الصنف</th>
+<th>الكمية</th>
+<th>السعر</th>
+<th>الإجمالي</th>
+</tr>
+</thead>
+
+<tbody>
+${rows}
+</tbody>
+
+</table>
+
+<div class="total">
+الإجمالي: ${money(sale.total)} ريال
+</div>
+
+<script>
+window.onload=function(){
+    window.print();
+};
+<\/script>
+
+</body>
+</html>
+`;
+
+    const win=window.open(
+        '',
+        '_blank',
+        'width=800,height=700'
+    );
+
+    if(!win){
+        alert('اسمح للنظام بفتح نافذة الطباعة');
+        return;
+    }
+
+    win.document.open();
+    win.document.write(html);
+    win.document.close();
+}
+
+
+/* ================= الأدوات ================= */
+
+function money(value){
+
+    const number=Number(value)||0;
+
+    return number.toLocaleString(
+        'ar-SA',
+        {
+            minimumFractionDigits:2,
+            maximumFractionDigits:2
+        }
+    );
+}
+
+
+function formatDate(value){
+
+    if(!value)return '';
+
+    const d=new Date(value);
+
+    if(isNaN(d.getTime()))return '';
+
+    return d.toLocaleString(
+        'ar-SA',
+        {
+            year:'numeric',
+            month:'2-digit',
+            day:'2-digit',
+            hour:'2-digit',
+            minute:'2-digit'
+        }
+    );
+}
+
+
+function escapeHtml(value){
+
+    return String(value??'')
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;')
+        .replace(/'/g,'&#039;');
+}
+
+
+function setText(id,value){
+
+    const el=document.getElementById(id);
+
+    if(el){
+        el.textContent=value;
+    }
+}
+
+
+function setValue(id,value){
+
+    const el=document.getElementById(id);
+
+    if(el){
+        el.value=value;
+    }
+}
+
+
+function sumField(array,field){
+
+    if(!Array.isArray(array))return 0;
+
+    return array.reduce(
+        (sum,item)=>{
+            return sum+(Number(item?.[field])||0);
+        },
+        0
+    );
+}
+
+
+function getCustomerName(id){
+
+    const customer=
+        db.customers.find(c=>Number(c.id)===Number(id));
+
+    return customer?
+        customer.name:
+        'عميل نقدي';
+}
+
+
+function getSupplierName(id){
+
+    const supplier=
+        db.suppliers.find(s=>Number(s.id)===Number(id));
+
+    return supplier?
+        supplier.name:
+        '';
+}
+
+
+function roleName(role){
+
+    const roles={
+        admin:'مدير',
+        accountant:'محاسب',
+        cashier:'كاشير'
+    };
+
+    return roles[role]||role||'';
+}
+
+
+/* ================= تحسين عمليات المبيعات ================= */
+
+function setSaleProductPrice(){
+
+    const select=
+        document.getElementById('saleProduct');
+
+    const price=
+        document.getElementById('salePrice');
+
+    if(!select||!price)return;
+
+    const id=Number(select.value);
+
+    const product=
+        db.products.find(p=>Number(p.id)===id);
+
+    price.value=
+        product?
+        Number(product.salePrice||0):
+        0;
+}
+
+
+/* ================= تحديث أسماء المؤسسة ================= */
+
+function refreshHeader(){
+
+    if(!db)return;
+
+    const settings=db.settings||{};
+
+    setText(
+        'companyName',
+        settings.companyName||'مؤسسة الرهيب'
+    );
+
+    setText(
+        'branchName',
+        settings.branch||'الفرع الرئيسي'
+    );
+}
+
+
+/* ================= تهيئة النظام ================= */
+
+async function initSystem(){
+
+    await loadDatabase();
+
+    if(db){
+
+        refreshHeader();
+
+        renderAll();
+
+        updateSalePrice();
+
+        setTimeout(()=>{
+            refreshHeader();
+        },100);
+    }
+}
+
+
+/* ================= منع مشاكل الأزرار ================= */
+
+document.addEventListener(
+    'change',
+    function(e){
+
+        if(e.target.id==='saleProduct'){
+            updateSalePrice();
+        }
+
+        if(e.target.id==='purchaseProduct'){
+
+            const id=
+                Number(e.target.value);
+
+            const product=
+                db?.products?.find(
+                    p=>Number(p.id)===id
+                );
+
+            const price=
+                document.getElementById(
+                    'purchasePrice'
+                );
+
+            if(price){
+
+                price.value=
+                    product?
+                    Number(product.purchasePrice||0):
+                    0;
+            }
+        }
+
+        if(e.target.id==='quoteProduct'){
+
+            const id=
+                Number(e.target.value);
+
+            const product=
+                db?.products?.find(
+                    p=>Number(p.id)===id
+                );
+
+            const price=
+                document.getElementById(
+                    'quotePrice'
+                );
+
+            if(price){
+
+                price.value=
+                    product?
+                    Number(product.salePrice||0):
+                    0;
+            }
+        }
+    }
+);
+
+
+/* ================= تشغيل النظام ================= */
+
+window.addEventListener(
+    'DOMContentLoaded',
+    function(){
+
+        initSystem();
+
+    }
+);
+
+</script>
+
+</body>
 </html>
