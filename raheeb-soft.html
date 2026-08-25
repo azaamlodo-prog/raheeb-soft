@@ -7,169 +7,53 @@
 
 <style>
 *{box-sizing:border-box}
-body{
-margin:0;
-font-family:Tahoma,Arial,sans-serif;
-background:#f3f5f7;
-color:#333
-}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f3f5f7;color:#333}
 button,input,select,textarea{font-family:inherit}
-.header{
-height:76px;background:#fff;border-bottom:1px solid #ddd;
-display:flex;align-items:center;justify-content:space-between;
-padding:10px 30px;position:sticky;top:0;z-index:50;
-box-shadow:0 2px 8px #0000000d
-}
+.header{height:76px;background:#fff;border-bottom:1px solid #ddd;display:flex;align-items:center;justify-content:space-between;padding:10px 30px;position:sticky;top:0;z-index:50;box-shadow:0 2px 8px #0000000d}
 .logo{display:flex;align-items:center;gap:12px}
-.logo-icon{
-width:48px;height:48px;border-radius:12px;background:#087f70;
-color:white;display:flex;align-items:center;justify-content:center;
-font-size:25px;font-weight:bold
-}
+.logo-icon{width:48px;height:48px;border-radius:12px;background:#087f70;color:#fff;display:flex;align-items:center;justify-content:center;font-size:25px;font-weight:bold}
 .logo-text{font-size:22px;font-weight:bold;color:#087f70}
 .top-info{display:flex;gap:20px;font-size:13px;color:#777}
 .top-info span{color:#087f70;font-weight:bold}
-
 .main{padding:28px 40px 100px;min-height:calc(100vh - 76px)}
 .page{display:none}.page.active{display:block}
-
 .welcome{text-align:center;margin-bottom:25px}
-.welcome h1{margin:0;color:#087f70;font-size:30px}
-.welcome p{color:#888}
-
-.modules{
-max-width:1150px;margin:auto;
-display:grid;grid-template-columns:repeat(4,1fr);gap:18px
-}
-.module{
-height:150px;background:#fff;border:1px solid #e4e7e9;
-border-radius:12px;display:flex;flex-direction:column;
-align-items:center;justify-content:center;cursor:pointer;
-box-shadow:0 3px 12px #0000000a;transition:.2s
-}
+.welcome h1{margin:0;color:#087f70;font-size:30px}.welcome p{color:#888}
+.modules{max-width:1150px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.module{height:150px;background:#fff;border:1px solid #e4e7e9;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 12px #0000000a;transition:.2s}
 .module:hover{transform:translateY(-4px);box-shadow:0 8px 20px #0002}
-.icon{
-width:65px;height:65px;border-radius:15px;
-display:flex;align-items:center;justify-content:center;
-font-size:32px;margin-bottom:10px
-}
+.icon{width:65px;height:65px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:10px}
 .module-title{font-size:16px;font-weight:bold;color:#555}
-.sales .icon{background:#dff2e5;color:#27854d}
-.purchase .icon{background:#dff3f1;color:#278e86}
-.stock .icon{background:#e4e8f8;color:#5367ad}
-.people .icon{background:#eee5f4;color:#73517e}
-.accounts .icon{background:#eee;color:#555}
-.reports .icon{background:#e8e1f5;color:#7655a7}
-.users .icon{background:#dfeef5;color:#39819d}
-.settings .icon{background:#dcefe5;color:#43845f}
-
-.back{
-border:0;background:#087f70;color:#fff;padding:10px 20px;
-border-radius:7px;cursor:pointer;margin-bottom:15px
-}
-.page-title,.box{
-background:#fff;border-radius:10px;padding:20px;
-box-shadow:0 3px 10px #0000000a;margin-bottom:18px
-}
+.sales .icon{background:#dff2e5;color:#27854d}.purchase .icon{background:#dff3f1;color:#278e86}.stock .icon{background:#e4e8f8;color:#5367ad}.people .icon{background:#eee5f4;color:#73517e}.accounts .icon{background:#eee;color:#555}.reports .icon{background:#e8e1f5;color:#7655a7}.users .icon{background:#dfeef5;color:#39819d}.settings .icon{background:#dcefe5;color:#43845f}
+.back{border:0;background:#087f70;color:#fff;padding:10px 20px;border-radius:7px;cursor:pointer;margin-bottom:15px}
+.page-title,.box{background:#fff;border-radius:10px;padding:20px;box-shadow:0 3px 10px #0000000a;margin-bottom:18px}
 .page-title h2{margin:0;color:#087f70}
-
-.form-grid{
-display:grid;grid-template-columns:repeat(4,1fr);
-gap:12px;margin-bottom:14px
-}
-.form-group{display:flex;flex-direction:column;gap:6px}
-.form-group label{font-size:13px;font-weight:bold;color:#555}
-input,select,textarea{
-width:100%;padding:11px;border:1px solid #ddd;
-border-radius:6px;background:#fff;outline:none
-}
+.form-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.form-group{display:flex;flex-direction:column;gap:6px}.form-group label{font-size:13px;font-weight:bold;color:#555}
+input,select,textarea{width:100%;padding:11px;border:1px solid #ddd;border-radius:6px;background:#fff;outline:none}
 input:focus,select:focus,textarea:focus{border-color:#087f70}
 textarea{min-height:80px}
-
-.btn{
-border:0;background:#087f70;color:#fff;padding:10px 17px;
-border-radius:7px;cursor:pointer;margin:3px
-}
-.btn.red{background:#c94747}
-.btn.green{background:#27854d}
-.btn.blue{background:#5367ad}
-.btn.orange{background:#d78928}
-.btn.gray{background:#777}
-
+.btn{border:0;background:#087f70;color:#fff;padding:10px 17px;border-radius:7px;cursor:pointer;margin:3px}
+.btn.red{background:#c94747}.btn.green{background:#27854d}.btn.blue{background:#5367ad}.btn.orange{background:#d78928}.btn.gray{background:#777}
 .actions{display:flex;flex-wrap:wrap;gap:4px;margin-top:12px}
-
-table{
-width:100%;border-collapse:collapse;margin-top:15px;background:white
-}
-th,td{border:1px solid #eee;padding:9px;text-align:center}
-th{background:#087f70;color:white;white-space:nowrap}
+table{width:100%;border-collapse:collapse;margin-top:15px;background:#fff}
+th,td{border:1px solid #eee;padding:9px;text-align:center}th{background:#087f70;color:#fff;white-space:nowrap}
 tr:nth-child(even){background:#fafafa}
-
 .empty{text-align:center;color:#999;padding:25px}
-
-.stat-grid{
-display:grid;grid-template-columns:repeat(4,1fr);gap:15px;
-margin-bottom:20px
-}
-.stat{
-background:#fff;border-radius:10px;padding:18px;
-text-align:center;box-shadow:0 3px 10px #0000000a
-}
-.stat strong{
-display:block;font-size:24px;color:#087f70;margin-top:8px
-}
-
-.total{
-background:#f2f8f7;border:1px solid #d7ebe7;
-padding:15px;border-radius:8px;margin-top:15px
-}
-.total b{font-size:20px;color:#087f70}
-
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:20px}
+.stat{background:#fff;border-radius:10px;padding:18px;text-align:center;box-shadow:0 3px 10px #0000000a}
+.stat strong{display:block;font-size:24px;color:#087f70;margin-top:8px}
+.total{background:#f2f8f7;border:1px solid #d7ebe7;padding:15px;border-radius:8px;margin-top:15px}.total b{font-size:20px;color:#087f70}
 .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:15px}
-.tab{
-border:0;background:#eee;padding:10px 16px;border-radius:7px;cursor:pointer
-}
-.tab.active{background:#087f70;color:white}
+.tab{border:0;background:#eee;padding:10px 16px;border-radius:7px;cursor:pointer}.tab.active{background:#087f70;color:#fff}
 .tab-content{display:none}.tab-content.active{display:block}
-
-.message{display:none;padding:12px;border-radius:7px;margin:10px 0}
-.message.show{display:block}
-.message.ok{background:#dff2e5;color:#216b3b}
-.message.err{background:#f8dddd;color:#9b3030}
-
+.message{display:none;padding:12px;border-radius:7px;margin:10px 0}.message.show{display:block}.message.ok{background:#dff2e5;color:#216b3b}.message.err{background:#f8dddd;color:#9b3030}
 .search{max-width:350px;margin-bottom:8px}
-.badge{
-display:inline-block;padding:5px 9px;border-radius:20px;font-size:12px
-}
-.badge.ok{background:#dff2e5;color:#267744}
-.badge.bad{background:#f8dddd;color:#a22d2d}
-
-.footer{
-position:fixed;bottom:0;right:0;left:0;height:68px;
-background:#08766c;display:flex;align-items:center;
-justify-content:center;z-index:100;overflow-x:auto
-}
-.footer-menu{display:flex;gap:7px;min-width:max-content}
-.footer button{
-height:48px;min-width:105px;border:0;border-radius:7px;
-background:#ffffff12;color:white;cursor:pointer
-}
-.footer button:hover{background:#ffffff25}
-
-@media(max-width:950px){
-.modules{grid-template-columns:repeat(2,1fr)}
-.form-grid{grid-template-columns:repeat(2,1fr)}
-.stat-grid{grid-template-columns:repeat(2,1fr)}
-.main{padding:20px 15px 95px}
-}
-@media(max-width:600px){
-.header{height:auto;flex-direction:column;gap:8px;padding:10px}
-.top-info{justify-content:center;flex-wrap:wrap}
-.modules{grid-template-columns:1fr 1fr;gap:10px}
-.form-grid{grid-template-columns:1fr}
-.stat-grid{grid-template-columns:1fr 1fr}
-table{font-size:11px;display:block;overflow-x:auto}
-}
+.badge{display:inline-block;padding:5px 9px;border-radius:20px;font-size:12px}.badge.ok{background:#dff2e5;color:#267744}.badge.bad{background:#f8dddd;color:#a22d2d}
+.footer{position:fixed;bottom:0;right:0;left:0;height:68px;background:#08766c;display:flex;align-items:center;justify-content:center;z-index:100;overflow-x:auto}
+.footer-menu{display:flex;gap:7px;min-width:max-content}.footer button{height:48px;min-width:105px;border:0;border-radius:7px;background:#ffffff12;color:#fff;cursor:pointer}.footer button:hover{background:#ffffff25}
+@media(max-width:950px){.modules{grid-template-columns:repeat(2,1fr)}.form-grid{grid-template-columns:repeat(2,1fr)}.stat-grid{grid-template-columns:repeat(2,1fr)}.main{padding:20px 15px 95px}}
+@media(max-width:600px){.header{height:auto;flex-direction:column;gap:8px;padding:10px}.top-info{justify-content:center;flex-wrap:wrap}.modules{grid-template-columns:1fr 1fr;gap:10px}.form-grid{grid-template-columns:1fr}.stat-grid{grid-template-columns:1fr 1fr}table{font-size:11px;display:block;overflow-x:auto}}
 </style>
 </head>
 
@@ -180,7 +64,6 @@ table{font-size:11px;display:block;overflow-x:auto}
 <div class="logo-icon">ر</div>
 <div class="logo-text">الرهيب سوفت PRO</div>
 </div>
-
 <div class="top-info">
 <div>المؤسسة: <span id="companyTop">مؤسسة الرهيب</span></div>
 <div>الفرع: <span id="branchTop">الفرع الرئيسي</span></div>
@@ -190,9 +73,7 @@ table{font-size:11px;display:block;overflow-x:auto}
 
 <main class="main">
 
-<!-- الرئيسية -->
 <section id="home" class="page active">
-
 <div class="welcome">
 <h1>الرئيسية</h1>
 <p>مرحباً بك في نظام الرهيب سوفت PRO المحاسبي</p>
@@ -206,46 +87,18 @@ table{font-size:11px;display:block;overflow-x:auto}
 </div>
 
 <div class="modules">
-
-<div class="module sales" onclick="openPage('sales')">
-<div class="icon">🛍️</div><div class="module-title">المبيعات</div>
-</div>
-
-<div class="module purchase" onclick="openPage('purchases')">
-<div class="icon">🛒</div><div class="module-title">المشتريات</div>
-</div>
-
-<div class="module stock" onclick="openPage('stock')">
-<div class="icon">📦</div><div class="module-title">المخازن والمنتجات</div>
-</div>
-
-<div class="module people" onclick="openPage('people')">
-<div class="icon">👥</div><div class="module-title">العملاء والموردين</div>
-</div>
-
-<div class="module accounts" onclick="openPage('accounts')">
-<div class="icon">💰</div><div class="module-title">الحسابات والصندوق</div>
-</div>
-
-<div class="module reports" onclick="openPage('reports')">
-<div class="icon">📊</div><div class="module-title">التقارير</div>
-</div>
-
-<div class="module users" onclick="openPage('users')">
-<div class="icon">👤</div><div class="module-title">المستخدمون والصلاحيات</div>
-</div>
-
-<div class="module settings" onclick="openPage('settings')">
-<div class="icon">⚙️</div><div class="module-title">إعدادات النظام</div>
-</div>
-
+<div class="module sales" onclick="openPage('sales')"><div class="icon">🛍️</div><div class="module-title">المبيعات</div></div>
+<div class="module purchase" onclick="openPage('purchases')"><div class="icon">🛒</div><div class="module-title">المشتريات</div></div>
+<div class="module stock" onclick="openPage('stock')"><div class="icon">📦</div><div class="module-title">المخازن والمنتجات</div></div>
+<div class="module people" onclick="openPage('people')"><div class="icon">👥</div><div class="module-title">العملاء والموردين</div></div>
+<div class="module accounts" onclick="openPage('accounts')"><div class="icon">💰</div><div class="module-title">الحسابات والصندوق</div></div>
+<div class="module reports" onclick="openPage('reports')"><div class="icon">📊</div><div class="module-title">التقارير</div></div>
+<div class="module users" onclick="openPage('users')"><div class="icon">👤</div><div class="module-title">المستخدمون والصلاحيات</div></div>
+<div class="module settings" onclick="openPage('settings')"><div class="icon">⚙️</div><div class="module-title">إعدادات النظام</div></div>
 </div>
 </section>
 
-
-<!-- المبيعات -->
 <section id="sales" class="page">
-
 <button class="back" onclick="goHome()">← الرئيسية</button>
 <div class="page-title"><h2>المبيعات</h2></div>
 
@@ -258,40 +111,20 @@ table{font-size:11px;display:block;overflow-x:auto}
 
 <div id="saleNew" class="tab-content active">
 <div class="box">
-
 <h3>فاتورة مبيعات جديدة</h3>
 <div id="saleMsg" class="message"></div>
 
 <div class="form-grid">
-<div class="form-group">
-<label>العميل</label>
-<select id="saleCustomer"></select>
-</div>
-
-<div class="form-group">
-<label>المنتج</label>
-<select id="saleProduct" onchange="salePrice()"></select>
-</div>
-
-<div class="form-group">
-<label>الكمية</label>
-<input id="saleQty" type="number" value="1" min="1">
-</div>
-
-<div class="form-group">
-<label>السعر</label>
-<input id="salePrice" type="number" value="0" min="0">
-</div>
+<div class="form-group"><label>العميل</label><select id="saleCustomer"></select></div>
+<div class="form-group"><label>المنتج</label><select id="saleProduct" onchange="salePrice()"></select></div>
+<div class="form-group"><label>الكمية</label><input id="saleQty" type="number" value="1" min="1"></div>
+<div class="form-group"><label>السعر</label><input id="salePrice" type="number" value="0" min="0"></div>
 </div>
 
 <button class="btn green" onclick="addSaleItem()">إضافة الصنف</button>
 
-<table>
-<thead><tr>
-<th>المنتج</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th><th>حذف</th>
-</tr></thead>
-<tbody id="saleItems"></tbody>
-</table>
+<table><thead><tr><th>المنتج</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th><th>حذف</th></tr></thead>
+<tbody id="saleItems"></tbody></table>
 
 <div class="total">الإجمالي: <b id="saleTotal">0.00</b> ريال</div>
 
@@ -305,52 +138,36 @@ table{font-size:11px;display:block;overflow-x:auto}
 <div class="box">
 <h3>فواتير المبيعات</h3>
 <input class="search" id="saleSearch" placeholder="بحث..." oninput="renderSales()">
-<table>
-<thead><tr>
-<th>رقم</th><th>التاريخ</th><th>العميل</th><th>الإجمالي</th><th>الدفع</th><th>إجراء</th>
-</tr></thead>
-<tbody id="salesTable"></tbody>
-</table>
+<table><thead><tr><th>رقم</th><th>التاريخ</th><th>العميل</th><th>الإجمالي</th><th>الدفع</th><th>إجراء</th></tr></thead>
+<tbody id="salesTable"></tbody></table>
 </div>
 </div>
 
 <div id="saleReturn" class="tab-content">
 <div class="box">
 <h3>مرتجع المبيعات</h3>
-
 <div class="form-grid">
 <div class="form-group"><label>رقم الفاتورة</label><input id="srInvoice"></div>
 <div class="form-group"><label>المنتج</label><select id="srProduct"></select></div>
 <div class="form-group"><label>الكمية</label><input id="srQty" type="number" value="1"></div>
 <div class="form-group"><label>المبلغ</label><input id="srAmount" type="number" value="0"></div>
 </div>
-
 <button class="btn red" onclick="salesReturn()">حفظ المرتجع</button>
-
-<table>
-<thead><tr><th>التاريخ</th><th>الفاتورة</th><th>المنتج</th><th>الكمية</th><th>المبلغ</th></tr></thead>
-<tbody id="srTable"></tbody>
-</table>
+<table><thead><tr><th>التاريخ</th><th>الفاتورة</th><th>المنتج</th><th>الكمية</th><th>المبلغ</th></tr></thead><tbody id="srTable"></tbody></table>
 </div>
 </div>
 
 <div id="quotes" class="tab-content">
 <div class="box">
 <h3>عرض سعر جديد</h3>
-
 <div class="form-grid">
 <div class="form-group"><label>العميل</label><select id="quoteCustomer"></select></div>
 <div class="form-group"><label>المنتج</label><select id="quoteProduct" onchange="quotePrice()"></select></div>
 <div class="form-group"><label>الكمية</label><input id="quoteQty" type="number" value="1"></div>
 <div class="form-group"><label>السعر</label><input id="quotePrice" type="number" value="0"></div>
 </div>
-
 <button class="btn blue" onclick="saveQuote()">حفظ عرض السعر</button>
-
-<table>
-<thead><tr><th>رقم</th><th>التاريخ</th><th>العميل</th><th>المنتج</th><th>الإجمالي</th></tr></thead>
-<tbody id="quotesTable"></tbody>
-</table>
+<table><thead><tr><th>رقم</th><th>التاريخ</th><th>العميل</th><th>المنتج</th><th>الإجمالي</th></tr></thead><tbody id="quotesTable"></tbody></table>
 </div>
 </div>
 
@@ -362,13 +179,9 @@ table{font-size:11px;display:block;overflow-x:auto}
 <div class="stat">الصافي<strong id="dailyNet">0</strong></div>
 </div>
 </div>
-
 </section>
 
-
-<!-- المشتريات -->
 <section id="purchases" class="page">
-
 <button class="back" onclick="goHome()">← الرئيسية</button>
 <div class="page-title"><h2>المشتريات</h2></div>
 
@@ -378,74 +191,50 @@ table{font-size:11px;display:block;overflow-x:auto}
 </div>
 
 <div id="purchaseNew" class="tab-content active">
-
 <div class="box">
 <h3>فاتورة شراء جديدة</h3>
 <div id="purchaseMsg" class="message"></div>
-
 <div class="form-grid">
 <div class="form-group"><label>المورد</label><select id="purchaseSupplier"></select></div>
 <div class="form-group"><label>المنتج</label><select id="purchaseProduct" onchange="purchasePrice()"></select></div>
 <div class="form-group"><label>الكمية</label><input id="purchaseQty" type="number" value="1"></div>
 <div class="form-group"><label>سعر الشراء</label><input id="purchasePrice" type="number" value="0"></div>
 </div>
-
 <button class="btn green" onclick="addPurchaseItem()">إضافة الصنف</button>
-
-<table>
-<thead><tr><th>المنتج</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th><th>حذف</th></tr></thead>
-<tbody id="purchaseItems"></tbody>
-</table>
-
+<table><thead><tr><th>المنتج</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th><th>حذف</th></tr></thead><tbody id="purchaseItems"></tbody></table>
 <div class="total">الإجمالي: <b id="purchaseTotal">0.00</b> ريال</div>
-
 <button class="btn" onclick="savePurchase()">حفظ الفاتورة</button>
 <button class="btn gray" onclick="clearPurchase()">تفريغ</button>
 </div>
 
 <div class="box">
 <h3>فواتير المشتريات</h3>
-<table>
-<thead><tr><th>رقم</th><th>التاريخ</th><th>المورد</th><th>الإجمالي</th></tr></thead>
-<tbody id="purchasesTable"></tbody>
-</table>
+<table><thead><tr><th>رقم</th><th>التاريخ</th><th>المورد</th><th>الإجمالي</th></tr></thead><tbody id="purchasesTable"></tbody></table>
 </div>
-
 </div>
 
 <div id="purchaseReturn" class="tab-content">
 <div class="box">
 <h3>مرتجع المشتريات</h3>
-
 <div class="form-grid">
 <div class="form-group"><label>رقم الفاتورة</label><input id="prInvoice"></div>
 <div class="form-group"><label>المنتج</label><select id="prProduct"></select></div>
 <div class="form-group"><label>الكمية</label><input id="prQty" type="number" value="1"></div>
 <div class="form-group"><label>المبلغ</label><input id="prAmount" type="number" value="0"></div>
 </div>
-
 <button class="btn red" onclick="purchaseReturn()">حفظ المرتجع</button>
-
-<table>
-<thead><tr><th>التاريخ</th><th>الفاتورة</th><th>المنتج</th><th>الكمية</th><th>المبلغ</th></tr></thead>
-<tbody id="prTable"></tbody>
-</table>
+<table><thead><tr><th>التاريخ</th><th>الفاتورة</th><th>المنتج</th><th>الكمية</th><th>المبلغ</th></tr></thead><tbody id="prTable"></tbody></table>
 </div>
 </div>
-
 </section>
 
-
-<!-- المخازن -->
 <section id="stock" class="page">
-
 <button class="back" onclick="goHome()">← الرئيسية</button>
 <div class="page-title"><h2>المخازن والمنتجات</h2></div>
 
 <div class="box">
 <h3>إضافة منتج</h3>
 <div id="productMsg" class="message"></div>
-
 <div class="form-grid">
 <div class="form-group"><label>اسم المنتج</label><input id="productName"></div>
 <div class="form-group"><label>الباركود</label><input id="productBarcode"></div>
@@ -456,15 +245,12 @@ table{font-size:11px;display:block;overflow-x:auto}
 <div class="form-group"><label>المخزون الافتتاحي</label><input id="productStock" type="number" value="0"></div>
 <div class="form-group"><label>الحد الأدنى</label><input id="productMin" type="number" value="0"></div>
 </div>
-
 <button class="btn green" onclick="addProduct()">حفظ المنتج</button>
 </div>
 
 <div class="box">
 <h3>التصنيفات</h3>
-<div class="form-grid">
-<div class="form-group"><label>اسم التصنيف</label><input id="categoryName"></div>
-</div>
+<div class="form-grid"><div class="form-group"><label>اسم التصنيف</label><input id="categoryName"></div></div>
 <button class="btn blue" onclick="addCategory()">إضافة تصنيف</button>
 <div id="categoryList"></div>
 </div>
@@ -472,21 +258,12 @@ table{font-size:11px;display:block;overflow-x:auto}
 <div class="box">
 <h3>المنتجات</h3>
 <input class="search" id="productSearch" placeholder="بحث..." oninput="renderProducts()">
-
-<table>
-<thead><tr>
-<th>#</th><th>المنتج</th><th>الباركود</th><th>شراء</th><th>بيع</th><th>المخزون</th><th>الحد الأدنى</th><th>الحالة</th><th>حذف</th>
-</tr></thead>
-<tbody id="productsTable"></tbody>
-</table>
+<table><thead><tr><th>#</th><th>المنتج</th><th>الباركود</th><th>شراء</th><th>بيع</th><th>المخزون</th><th>الحد الأدنى</th><th>الحالة</th><th>حذف</th></tr></thead>
+<tbody id="productsTable"></tbody></table>
 </div>
-
 </section>
 
-
-<!-- العملاء والموردين -->
 <section id="people" class="page">
-
 <button class="back" onclick="goHome()">← الرئيسية</button>
 <div class="page-title"><h2>العملاء والموردين</h2></div>
 
@@ -498,11 +275,7 @@ table{font-size:11px;display:block;overflow-x:auto}
 <div class="form-group"><label>العنوان</label><input id="customerAddress"></div>
 </div>
 <button class="btn green" onclick="addCustomer()">حفظ العميل</button>
-
-<table>
-<thead><tr><th>#</th><th>الاسم</th><th>الهاتف</th><th>الرصيد</th><th>حذف</th></tr></thead>
-<tbody id="customersTable"></tbody>
-</table>
+<table><thead><tr><th>#</th><th>الاسم</th><th>الهاتف</th><th>الرصيد</th><th>حذف</th></tr></thead><tbody id="customersTable"></tbody></table>
 </div>
 
 <div class="box">
@@ -513,19 +286,11 @@ table{font-size:11px;display:block;overflow-x:auto}
 <div class="form-group"><label>العنوان</label><input id="supplierAddress"></div>
 </div>
 <button class="btn green" onclick="addSupplier()">حفظ المورد</button>
-
-<table>
-<thead><tr><th>#</th><th>الاسم</th><th>الهاتف</th><th>الرصيد</th><th>حذف</th></tr></thead>
-<tbody id="suppliersTable"></tbody>
-</table>
+<table><thead><tr><th>#</th><th>الاسم</th><th>الهاتف</th><th>الرصيد</th><th>حذف</th></tr></thead><tbody id="suppliersTable"></tbody></table>
 </div>
-
 </section>
 
-
-<!-- الحسابات -->
 <section id="accounts" class="page">
-
 <button class="back" onclick="goHome()">← الرئيسية</button>
 <div class="page-title"><h2>الحسابات والصندوق</h2></div>
 
@@ -538,37 +303,25 @@ table{font-size:11px;display:block;overflow-x:auto}
 
 <div class="box">
 <h3>المقبوضات</h3>
-<div class="form-grid">
-<div class="form-group"><label>البيان</label><input id="receiptDesc"></div>
-<div class="form-group"><label>المبلغ</label><input id="receiptAmount" type="number"></div>
-</div>
+<div class="form-grid"><div class="form-group"><label>البيان</label><input id="receiptDesc"></div><div class="form-group"><label>المبلغ</label><input id="receiptAmount" type="number"></div></div>
 <button class="btn green" onclick="addMoney('receipt')">حفظ المقبوض</button>
 </div>
 
 <div class="box">
 <h3>المدفوعات</h3>
-<div class="form-grid">
-<div class="form-group"><label>البيان</label><input id="paymentDesc"></div>
-<div class="form-group"><label>المبلغ</label><input id="paymentAmount" type="number"></div>
-</div>
+<div class="form-grid"><div class="form-group"><label>البيان</label><input id="paymentDesc"></div><div class="form-group"><label>المبلغ</label><input id="paymentAmount" type="number"></div></div>
 <button class="btn red" onclick="addMoney('payment')">حفظ المدفوع</button>
 </div>
 
 <div class="box">
 <h3>المصروفات</h3>
-<div class="form-grid">
-<div class="form-group"><label>البيان</label><input id="expenseDesc"></div>
-<div class="form-group"><label>المبلغ</label><input id="expenseAmount" type="number"></div>
-</div>
+<div class="form-grid"><div class="form-group"><label>البيان</label><input id="expenseDesc"></div><div class="form-group"><label>المبلغ</label><input id="expenseAmount" type="number"></div></div>
 <button class="btn orange" onclick="addMoney('expense')">حفظ المصروف</button>
 </div>
 
 <div class="box">
 <h3>الإيرادات</h3>
-<div class="form-grid">
-<div class="form-group"><label>البيان</label><input id="incomeDesc"></div>
-<div class="form-group"><label>المبلغ</label><input id="incomeAmount" type="number"></div>
-</div>
+<div class="form-grid"><div class="form-group"><label>البيان</label><input id="incomeDesc"></div><div class="form-group"><label>المبلغ</label><input id="incomeAmount" type="number"></div></div>
 <button class="btn green" onclick="addMoney('income')">حفظ الإيراد</button>
 </div>
 
@@ -580,19 +333,11 @@ table{font-size:11px;display:block;overflow-x:auto}
 <div class="form-group"><label>دائن</label><input id="journalCredit" type="number"></div>
 </div>
 <button class="btn blue" onclick="addJournal()">حفظ القيد</button>
-
-<table>
-<thead><tr><th>التاريخ</th><th>البيان</th><th>مدين</th><th>دائن</th></tr></thead>
-<tbody id="journalTable"></tbody>
-</table>
+<table><thead><tr><th>التاريخ</th><th>البيان</th><th>مدين</th><th>دائن</th></tr></thead><tbody id="journalTable"></tbody></table>
 </div>
-
 </section>
 
-
-<!-- التقارير -->
 <section id="reports" class="page">
-
 <button class="back" onclick="goHome()">← الرئيسية</button>
 <div class="page-title"><h2>التقارير</h2></div>
 
@@ -605,65 +350,39 @@ table{font-size:11px;display:block;overflow-x:auto}
 
 <div class="box">
 <h3>تقرير المبيعات</h3>
-<table>
-<thead><tr><th>الفاتورة</th><th>التاريخ</th><th>العميل</th><th>الإجمالي</th></tr></thead>
-<tbody id="reportSalesTable"></tbody>
-</table>
+<table><thead><tr><th>الفاتورة</th><th>التاريخ</th><th>العميل</th><th>الإجمالي</th></tr></thead><tbody id="reportSalesTable"></tbody></table>
 </div>
 
 <div class="box">
 <h3>تقرير المخزون</h3>
-<table>
-<thead><tr><th>المنتج</th><th>المخزون</th><th>قيمة الشراء</th><th>قيمة البيع</th></tr></thead>
-<tbody id="reportStockTable"></tbody>
-</table>
+<table><thead><tr><th>المنتج</th><th>المخزون</th><th>قيمة الشراء</th><th>قيمة البيع</th></tr></thead><tbody id="reportStockTable"></tbody></table>
 </div>
-
 </section>
 
-
-<!-- المستخدمون -->
 <section id="users" class="page">
-
 <button class="back" onclick="goHome()">← الرئيسية</button>
 <div class="page-title"><h2>المستخدمون والصلاحيات</h2></div>
 
 <div class="box">
 <h3>إضافة مستخدم</h3>
-
 <div class="form-grid">
 <div class="form-group"><label>الاسم</label><input id="userName"></div>
 <div class="form-group"><label>اسم الدخول</label><input id="userUsername"></div>
-<div class="form-group">
-<label>الصلاحية</label>
-<select id="userRole">
-<option value="admin">مدير</option>
-<option value="accountant">محاسب</option>
-<option value="cashier">كاشير</option>
-</select>
+<div class="form-group"><label>الصلاحية</label>
+<select id="userRole"><option value="admin">مدير</option><option value="accountant">محاسب</option><option value="cashier">كاشير</option></select>
 </div>
 </div>
-
 <button class="btn green" onclick="addUser()">حفظ المستخدم</button>
-
-<table>
-<thead><tr><th>#</th><th>الاسم</th><th>الدخول</th><th>الصلاحية</th></tr></thead>
-<tbody id="usersTable"></tbody>
-</table>
+<table><thead><tr><th>#</th><th>الاسم</th><th>الدخول</th><th>الصلاحية</th></tr></thead><tbody id="usersTable"></tbody></table>
 </div>
-
 </section>
 
-
-<!-- الإعدادات -->
 <section id="settings" class="page">
-
 <button class="back" onclick="goHome()">← الرئيسية</button>
 <div class="page-title"><h2>إعدادات النظام</h2></div>
 
 <div class="box">
 <h3>بيانات المؤسسة</h3>
-
 <div class="form-grid">
 <div class="form-group"><label>اسم المؤسسة</label><input id="company"></div>
 <div class="form-group"><label>الفرع</label><input id="branch"></div>
@@ -673,10 +392,8 @@ table{font-size:11px;display:block;overflow-x:auto}
 <div class="form-group"><label>العملة</label><input id="currency"></div>
 <div class="form-group"><label>نسبة الضريبة</label><input id="taxRate" type="number"></div>
 </div>
-
 <button class="btn green" onclick="saveSettings()">حفظ الإعدادات</button>
 </div>
-
 </section>
 
 </main>
@@ -693,28 +410,14 @@ table{font-size:11px;display:block;overflow-x:auto}
 </div>
 </footer>
 
-
 <script>
+const KEY='RAHEEB_SOFT_PRO_FULL_V2';
 
-const KEY='RAHEEB_SOFT_PRO_FULL_V1';
-
-let db={
-products:[],
-categories:[],
-customers:[],
-suppliers:[],
-sales:[],
-purchases:[],
-salesReturns:[],
-purchaseReturns:[],
-quotes:[],
-receipts:[],
-payments:[],
-expenses:[],
-income:[],
-journals:[],
-users:[],
-stockMovements:[],
+const DEFAULT_DB={
+products:[],categories:[],customers:[],suppliers:[],
+sales:[],purchases:[],salesReturns:[],purchaseReturns:[],
+quotes:[],receipts:[],payments:[],expenses:[],income:[],
+journals:[],users:[],stockMovements:[],
 settings:{
 companyName:'مؤسسة الرهيب',
 branch:'الفرع الرئيسي',
@@ -732,84 +435,56 @@ invoice:1,
 purchase:1,
 return:1,
 quote:1,
-user:1
+user:2
 }
 };
 
+let db=JSON.parse(JSON.stringify(DEFAULT_DB));
 let saleCart=[];
 let purchaseCart=[];
 
-
-/* ================= الحفظ ================= */
+/* ===== أدوات ===== */
 
 function saveDB(){
-
 try{
 localStorage.setItem(KEY,JSON.stringify(db));
 return true;
 }catch(e){
-alert('تعذر حفظ البيانات في الجهاز');
+console.error(e);
+alert('تعذر حفظ البيانات. تأكد أن المتصفح يسمح بالتخزين.');
 return false;
 }
-
 }
-
-
-/* ================= التحميل ================= */
-
-function loadDB(){
-
-try{
-
-const old=localStorage.getItem(KEY);
-
-if(old){
-db=JSON.parse(old);
-normalize();
-}else{
-normalize();
-saveDB();
-}
-
-renderAll();
-
-}catch(e){
-
-alert('حدث خطأ في تحميل البيانات');
-console.error(e);
-
-}
-
-}
-
-
-/* ================= تجهيز القاعدة ================= */
 
 function normalize(){
 
 const arrays=[
-'products','categories','customers','suppliers',
-'sales','purchases','salesReturns','purchaseReturns',
-'quotes','receipts','payments','expenses','income',
-'journals','users','stockMovements'
+'products','categories','customers','suppliers','sales','purchases',
+'salesReturns','purchaseReturns','quotes','receipts','payments',
+'expenses','income','journals','users','stockMovements'
 ];
 
-arrays.forEach(x=>{
-if(!Array.isArray(db[x]))db[x]=[];
+arrays.forEach(k=>{
+if(!Array.isArray(db[k])) db[k]=[];
 });
 
-if(!db.settings)db.settings={};
+if(!db.settings || typeof db.settings!=='object') db.settings={};
 
-if(!db.counters)db.counters={};
+db.settings=Object.assign(
+{},
+DEFAULT_DB.settings,
+db.settings
+);
 
-Object.assign({
-product:1,customer:2,supplier:1,
-invoice:1,purchase:1,return:1,
-quote:1,user:1
-},db.counters);
+/* الإصلاح المهم: دمج العدادات فعليًا داخل db.counters */
+db.counters=Object.assign(
+{},
+DEFAULT_DB.counters,
+db.counters||{}
+);
 
-if(!db.customers.length){
-db.customers.push({
+if(!db.customers.some(x=>Number(x.id)===1)){
+db.customers.unshift({
 id:1,
 name:'عميل نقدي',
 phone:'',
@@ -827,64 +502,57 @@ role:'admin'
 });
 }
 
-db.counters.customer=Math.max(
-db.counters.customer||2,
-...db.customers.map(x=>Number(x.id)+1),2
-);
+const maxId=(arr)=>{
+if(!arr.length)return 0;
+return Math.max(...arr.map(x=>Number(x.id)||0));
+};
 
+db.counters.product=Math.max(Number(db.counters.product)||1,maxId(db.products)+1,1);
+db.counters.customer=Math.max(Number(db.counters.customer)||2,maxId(db.customers)+1,2);
+db.counters.supplier=Math.max(Number(db.counters.supplier)||1,maxId(db.suppliers)+1,1);
+db.counters.user=Math.max(Number(db.counters.user)||1,maxId(db.users)+1,1);
+
+if(!Number(db.counters.invoice))db.counters.invoice=1;
+if(!Number(db.counters.purchase))db.counters.purchase=1;
+if(!Number(db.counters.return))db.counters.return=1;
+if(!Number(db.counters.quote))db.counters.quote=1;
 }
 
+function loadDB(){
+try{
 
-/* ================= التنقل ================= */
+/* دعم النسخة القديمة أيضًا */
+let raw=localStorage.getItem(KEY);
 
-function openPage(id){
+if(!raw){
+raw=localStorage.getItem('RAHEEB_SOFT_PRO_FULL_V1');
+}
 
-document.querySelectorAll('.page')
-.forEach(x=>x.classList.remove('active'));
+if(raw){
+db=JSON.parse(raw);
+}else{
+db=JSON.parse(JSON.stringify(DEFAULT_DB));
+}
 
-const p=document.getElementById(id);
-
-if(p)p.classList.add('active');
-
-window.scrollTo(0,0);
-
+normalize();
+saveDB();
 renderAll();
 
-}
-
-function goHome(){
-openPage('home');
-}
-
-
-/* ================= التبويبات ================= */
-
-function tab(id,btn){
-
-const page=btn.closest('.page');
-
-page.querySelectorAll('.tab-content')
-.forEach(x=>x.classList.remove('active'));
-
-page.querySelectorAll('.tab')
-.forEach(x=>x.classList.remove('active'));
-
-document.getElementById(id).classList.add('active');
-
-btn.classList.add('active');
-
+}catch(e){
+console.error(e);
+db=JSON.parse(JSON.stringify(DEFAULT_DB));
+normalize();
+saveDB();
 renderAll();
-
+alert('تم إصلاح قاعدة البيانات المحلية وتشغيل النظام.');
 }
-
-
-/* ================= أدوات ================= */
+}
 
 function money(n){
-return Number(n||0).toLocaleString(
-'ar-SA',
-{minimumFractionDigits:2,maximumFractionDigits:2}
-);
+return Number(n||0).toLocaleString('ar-SA',{
+minimumFractionDigits:2,
+maximumFractionDigits:2
+});
 }
 
 function dateNow(){
@@ -892,7 +560,8 @@ return new Date().toISOString();
 }
 
 function dateText(d){
-return new Date(d).toLocaleString('ar-SA');
+try{return new Date(d).toLocaleString('ar-SA');}
+catch(e){return d||'';}
 }
 
 function esc(x){
@@ -909,22 +578,43 @@ return arr.reduce((a,b)=>a+(Number(b[key])||0),0);
 }
 
 function msg(id,text,ok=true){
-
 const e=document.getElementById(id);
-
 if(!e)return;
-
 e.className='message show '+(ok?'ok':'err');
 e.textContent=text;
-
-setTimeout(()=>{
-e.className='message';
-},2500);
-
+setTimeout(()=>e.className='message',2500);
 }
 
+/* ===== التنقل ===== */
 
-/* ================= المنتجات ================= */
+function openPage(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+const page=document.getElementById(id);
+if(page)page.classList.add('active');
+window.scrollTo(0,0);
+renderAll();
+}
+
+function goHome(){
+openPage('home');
+}
+
+function tab(id,btn){
+const page=btn.closest('.page');
+
+page.querySelectorAll('.tab-content')
+.forEach(x=>x.classList.remove('active'));
+
+page.querySelectorAll('.tab')
+.forEach(x=>x.classList.remove('active'));
+
+const target=document.getElementById(id);
+if(target)target.classList.add('active');
+
+btn.classList.add('active');
+}
+
+/* ===== المنتجات ===== */
 
 function addProduct(){
 
@@ -935,10 +625,17 @@ msg('productMsg','اكتب اسم المنتج',false);
 return;
 }
 
+const barcode=document.getElementById('productBarcode').value.trim();
+
+if(barcode && db.products.some(p=>String(p.barcode||'')===barcode)){
+msg('productMsg','هذا الباركود موجود مسبقًا',false);
+return;
+}
+
 const p={
 id:db.counters.product++,
-name,
-barcode:document.getElementById('productBarcode').value.trim(),
+name:name,
+barcode:barcode,
 category:document.getElementById('productCategory').value,
 unit:document.getElementById('productUnit').value,
 purchasePrice:Number(document.getElementById('productPurchase').value)||0,
@@ -949,40 +646,52 @@ minStock:Number(document.getElementById('productMin').value)||0
 
 db.products.push(p);
 
+if(p.stock!==0){
 db.stockMovements.push({
+id:Date.now(),
 type:'opening',
 productId:p.id,
 quantity:p.stock,
 date:dateNow()
 });
+}
 
 saveDB();
 
-document.getElementById('productName').value='';
-document.getElementById('productBarcode').value='';
+[
+'productName','productBarcode',
+'productPurchase','productSale',
+'productStock','productMin'
+].forEach(id=>{
+document.getElementById(id).value='';
+});
+
 document.getElementById('productPurchase').value=0;
 document.getElementById('productSale').value=0;
 document.getElementById('productStock').value=0;
 document.getElementById('productMin').value=0;
 
 msg('productMsg','تم حفظ المنتج بنجاح');
-
 renderAll();
-
 }
-
 
 function deleteProduct(id){
 
-if(!confirm('هل تريد حذف المنتج؟'))return;
+const used=
+db.sales.some(s=>s.items?.some(i=>Number(i.productId)===Number(id)))||
+db.purchases.some(s=>s.items?.some(i=>Number(i.productId)===Number(id)));
 
-db.products=db.products.filter(x=>x.id!==id);
-
-saveDB();
-renderAll();
-
+if(used){
+alert('لا يمكن حذف منتج مستخدم في فواتير سابقة.');
+return;
 }
 
+if(!confirm('هل تريد حذف المنتج؟'))return;
+
+db.products=db.products.filter(x=>Number(x.id)!==Number(id));
+saveDB();
+renderAll();
+}
 
 function addCategory(){
 
@@ -994,20 +703,22 @@ alert('اكتب اسم التصنيف');
 return;
 }
 
+if(db.categories.some(c=>c.name===name)){
+alert('التصنيف موجود مسبقًا');
+return;
+}
+
 db.categories.push({
 id:Date.now(),
-name
+name:name
 });
 
 e.value='';
-
 saveDB();
 renderAll();
-
 }
 
-
-/* ================= العملاء ================= */
+/* ===== العملاء ===== */
 
 function addCustomer(){
 
@@ -1020,7 +731,7 @@ return;
 
 db.customers.push({
 id:db.counters.customer++,
-name,
+name:name,
 phone:document.getElementById('customerPhone').value.trim(),
 address:document.getElementById('customerAddress').value.trim(),
 balance:0
@@ -1032,28 +743,23 @@ saveDB();
 .forEach(id=>document.getElementById(id).value='');
 
 renderAll();
-
 }
-
 
 function deleteCustomer(id){
 
-if(id===1){
+if(Number(id)===1){
 alert('لا يمكن حذف العميل النقدي');
 return;
 }
 
 if(!confirm('حذف العميل؟'))return;
 
-db.customers=db.customers.filter(x=>x.id!==id);
-
+db.customers=db.customers.filter(x=>Number(x.id)!==Number(id));
 saveDB();
 renderAll();
-
 }
 
-
-/* ================= الموردون ================= */
+/* ===== الموردون ===== */
 
 function addSupplier(){
 
@@ -1066,7 +772,7 @@ return;
 
 db.suppliers.push({
 id:db.counters.supplier++,
-name,
+name:name,
 phone:document.getElementById('supplierPhone').value.trim(),
 address:document.getElementById('supplierAddress').value.trim(),
 balance:0
@@ -1078,35 +784,26 @@ saveDB();
 .forEach(id=>document.getElementById(id).value='');
 
 renderAll();
-
 }
-
 
 function deleteSupplier(id){
 
 if(!confirm('حذف المورد؟'))return;
 
-db.suppliers=db.suppliers.filter(x=>x.id!==id);
-
+db.suppliers=db.suppliers.filter(x=>Number(x.id)!==Number(id));
 saveDB();
 renderAll();
-
 }
 
-
-/* ================= المبيعات ================= */
+/* ===== المبيعات ===== */
 
 function salePrice(){
 
 const id=Number(document.getElementById('saleProduct').value);
+const p=db.products.find(x=>Number(x.id)===id);
 
-const p=db.products.find(x=>x.id===id);
-
-document.getElementById('salePrice').value=
-p?p.salePrice:0;
-
+document.getElementById('salePrice').value=p?p.salePrice:0;
 }
-
 
 function addSaleItem(){
 
@@ -1114,7 +811,7 @@ const id=Number(document.getElementById('saleProduct').value);
 const qty=Number(document.getElementById('saleQty').value)||0;
 const price=Number(document.getElementById('salePrice').value)||0;
 
-const p=db.products.find(x=>x.id===id);
+const p=db.products.find(x=>Number(x.id)===id);
 
 if(!p){
 msg('saleMsg','اختر المنتج',false);
@@ -1126,41 +823,41 @@ msg('saleMsg','الكمية غير صحيحة',false);
 return;
 }
 
-if(qty>p.stock){
-msg('saleMsg','المخزون غير كافٍ',false);
+const already=saleCart
+.filter(x=>Number(x.productId)===id)
+.reduce((a,x)=>a+x.qty,0);
+
+if(already+qty>Number(p.stock)){
+msg('saleMsg','المخزون غير كافٍ: '+p.name,false);
 return;
 }
 
 saleCart.push({
 productId:p.id,
 name:p.name,
-qty,
-price,
+qty:qty,
+price:price,
 total:qty*price
 });
 
 renderSaleCart();
-
 }
-
 
 function removeSale(i){
 saleCart.splice(i,1);
 renderSaleCart();
 }
 
-
 function renderSaleCart(){
 
 const t=document.getElementById('saleItems');
+if(!t)return;
 
 t.innerHTML='';
-
 let total=0;
 
 saleCart.forEach((x,i)=>{
-
-total+=x.total;
+total+=Number(x.total)||0;
 
 t.innerHTML+=`
 <tr>
@@ -1169,24 +866,16 @@ t.innerHTML+=`
 <td>${money(x.price)}</td>
 <td>${money(x.total)}</td>
 <td><button class="btn red" onclick="removeSale(${i})">حذف</button></td>
-</tr>
-`;
-
+</tr>`;
 });
 
 document.getElementById('saleTotal').textContent=money(total);
-
 }
-
 
 function clearSale(){
-
 saleCart=[];
-
 renderSaleCart();
-
 }
-
 
 function saveSale(printIt){
 
@@ -1197,30 +886,26 @@ return;
 
 for(const item of saleCart){
 
-const p=db.products.find(x=>x.id===item.productId);
+const p=db.products.find(x=>Number(x.id)===Number(item.productId));
 
-if(!p||p.stock<item.qty){
+if(!p || Number(p.stock)<Number(item.qty)){
 msg('saleMsg','المخزون غير كافٍ: '+item.name,false);
 return;
 }
-
 }
 
-const customerId=
-Number(document.getElementById('saleCustomer').value)||1;
-
+const customerId=Number(document.getElementById('saleCustomer').value)||1;
 const total=sum(saleCart,'total');
-
 const invoice=db.counters.invoice++;
 
 const sale={
 id:Date.now(),
 invoiceNumber:invoice,
 date:dateNow(),
-customerId,
+customerId:customerId,
 customerName:getCustomer(customerId),
 items:JSON.parse(JSON.stringify(saleCart)),
-total,
+total:total,
 paymentType:'نقدي'
 };
 
@@ -1228,42 +913,39 @@ db.sales.push(sale);
 
 saleCart.forEach(item=>{
 
-const p=db.products.find(x=>x.id===item.productId);
+const p=db.products.find(x=>Number(x.id)===Number(item.productId));
 
-p.stock-=item.qty;
+p.stock-=Number(item.qty);
 
 db.stockMovements.push({
+id:Date.now()+Math.random(),
 type:'sale',
-invoice,
+invoice:invoice,
 productId:p.id,
-quantity:-item.qty,
+quantity:-Number(item.qty),
 date:dateNow()
 });
-
 });
 
 if(customerId!==1){
 
-const c=db.customers.find(x=>x.id===customerId);
+const c=db.customers.find(x=>Number(x.id)===customerId);
 
 if(c)c.balance+=total;
-
 }
 
-saveDB();
-
+if(saveDB()){
 saleCart=[];
-
 msg('saleMsg','تم حفظ فاتورة رقم '+invoice);
-
 renderAll();
 
-if(printIt)printSale(sale);
-
+if(printIt){
+setTimeout(()=>printSale(sale),100);
+}
+}
 }
 
-
-/* ================= مرتجع المبيعات ================= */
+/* ===== مرتجع المبيعات ===== */
 
 function salesReturn(){
 
@@ -1272,28 +954,55 @@ const id=Number(document.getElementById('srProduct').value);
 const qty=Number(document.getElementById('srQty').value)||0;
 const amount=Number(document.getElementById('srAmount').value)||0;
 
-const p=db.products.find(x=>x.id===id);
+const p=db.products.find(x=>Number(x.id)===id);
+
+if(!invoice){
+alert('أدخل رقم الفاتورة');
+return;
+}
 
 if(!p||qty<=0){
 alert('أدخل البيانات بشكل صحيح');
 return;
 }
 
+/* التحقق من الفاتورة */
+const sale=db.sales.find(s=>String(s.invoiceNumber)===String(invoice));
+
+if(!sale){
+alert('رقم الفاتورة غير موجود');
+return;
+}
+
+const sold=sale.items
+.filter(i=>Number(i.productId)===id)
+.reduce((a,i)=>a+Number(i.qty),0);
+
+const returned=db.salesReturns
+.filter(r=>String(r.invoice)===String(invoice)&&Number(r.productId)===id)
+.reduce((a,r)=>a+Number(r.quantity),0);
+
+if(qty+returned>sold){
+alert('كمية المرتجع أكبر من الكمية المباعة في الفاتورة');
+return;
+}
+
 db.salesReturns.push({
 id:db.counters.return++,
-invoice,
+invoice:invoice,
 productId:id,
 productName:p.name,
 quantity:qty,
-amount,
+amount:amount,
 date:dateNow()
 });
 
 p.stock+=qty;
 
 db.stockMovements.push({
+id:Date.now(),
 type:'salesReturn',
-invoice,
+invoice:invoice,
 productId:id,
 quantity:qty,
 date:dateNow()
@@ -1302,33 +1011,31 @@ date:dateNow()
 saveDB();
 renderAll();
 
-alert('تم حفظ مرتجع المبيعات');
+document.getElementById('srInvoice').value='';
+document.getElementById('srQty').value=1;
+document.getElementById('srAmount').value=0;
 
+alert('تم حفظ مرتجع المبيعات');
 }
 
-
-/* ================= عروض الأسعار ================= */
+/* ===== عروض الأسعار ===== */
 
 function quotePrice(){
 
 const id=Number(document.getElementById('quoteProduct').value);
+const p=db.products.find(x=>Number(x.id)===id);
 
-const p=db.products.find(x=>x.id===id);
-
-document.getElementById('quotePrice').value=
-p?p.salePrice:0;
-
+document.getElementById('quotePrice').value=p?p.salePrice:0;
 }
-
 
 function saveQuote(){
 
-const customerId=Number(document.getElementById('quoteCustomer').value);
+const customerId=Number(document.getElementById('quoteCustomer').value)||1;
 const productId=Number(document.getElementById('quoteProduct').value);
 const qty=Number(document.getElementById('quoteQty').value)||0;
 const price=Number(document.getElementById('quotePrice').value)||0;
 
-const p=db.products.find(x=>x.id===productId);
+const p=db.products.find(x=>Number(x.id)===productId);
 
 if(!p||qty<=0){
 alert('أدخل بيانات العرض');
@@ -1341,13 +1048,13 @@ db.quotes.push({
 id:Date.now(),
 quoteNumber:number,
 date:dateNow(),
-customerId,
+customerId:customerId,
 customerName:getCustomer(customerId),
 items:[{
-productId,
+productId:productId,
 name:p.name,
-qty,
-price,
+qty:qty,
+price:price,
 total:qty*price
 }],
 total:qty*price
@@ -1357,23 +1064,17 @@ saveDB();
 renderAll();
 
 alert('تم حفظ عرض السعر رقم '+number);
-
 }
 
-
-/* ================= المشتريات ================= */
+/* ===== المشتريات ===== */
 
 function purchasePrice(){
 
 const id=Number(document.getElementById('purchaseProduct').value);
+const p=db.products.find(x=>Number(x.id)===id);
 
-const p=db.products.find(x=>x.id===id);
-
-document.getElementById('purchasePrice').value=
-p?p.purchasePrice:0;
-
+document.getElementById('purchasePrice').value=p?p.purchasePrice:0;
 }
-
 
 function addPurchaseItem(){
 
@@ -1381,7 +1082,7 @@ const id=Number(document.getElementById('purchaseProduct').value);
 const qty=Number(document.getElementById('purchaseQty').value)||0;
 const price=Number(document.getElementById('purchasePrice').value)||0;
 
-const p=db.products.find(x=>x.id===id);
+const p=db.products.find(x=>Number(x.id)===id);
 
 if(!p){
 msg('purchaseMsg','اختر المنتج',false);
@@ -1396,35 +1097,29 @@ return;
 purchaseCart.push({
 productId:id,
 name:p.name,
-qty,
-price,
+qty:qty,
+price:price,
 total:qty*price
 });
 
 renderPurchaseCart();
-
 }
-
 
 function removePurchase(i){
-
 purchaseCart.splice(i,1);
 renderPurchaseCart();
-
 }
-
 
 function renderPurchaseCart(){
 
 const t=document.getElementById('purchaseItems');
+if(!t)return;
 
 t.innerHTML='';
-
 let total=0;
 
 purchaseCart.forEach((x,i)=>{
-
-total+=x.total;
+total+=Number(x.total)||0;
 
 t.innerHTML+=`
 <tr>
@@ -1433,24 +1128,16 @@ t.innerHTML+=`
 <td>${money(x.price)}</td>
 <td>${money(x.total)}</td>
 <td><button class="btn red" onclick="removePurchase(${i})">حذف</button></td>
-</tr>
-`;
-
+</tr>`;
 });
 
 document.getElementById('purchaseTotal').textContent=money(total);
-
 }
-
 
 function clearPurchase(){
-
 purchaseCart=[];
-
 renderPurchaseCart();
-
 }
-
 
 function savePurchase(){
 
@@ -1459,21 +1146,18 @@ msg('purchaseMsg','أضف أصناف إلى الفاتورة',false);
 return;
 }
 
-const supplierId=
-Number(document.getElementById('purchaseSupplier').value)||0;
-
+const supplierId=Number(document.getElementById('purchaseSupplier').value)||0;
 const total=sum(purchaseCart,'total');
-
 const invoice=db.counters.purchase++;
 
 const purchase={
 id:Date.now(),
 invoiceNumber:invoice,
 date:dateNow(),
-supplierId,
+supplierId:supplierId,
 supplierName:getSupplier(supplierId),
 items:JSON.parse(JSON.stringify(purchaseCart)),
-total,
+total:total,
 paymentType:'نقدي'
 };
 
@@ -1481,43 +1165,38 @@ db.purchases.push(purchase);
 
 purchaseCart.forEach(item=>{
 
-const p=db.products.find(x=>x.id===item.productId);
+const p=db.products.find(x=>Number(x.id)===Number(item.productId));
 
 if(p){
-p.stock+=item.qty;
-p.purchasePrice=item.price;
+p.stock+=Number(item.qty);
+p.purchasePrice=Number(item.price);
 }
 
 db.stockMovements.push({
+id:Date.now()+Math.random(),
 type:'purchase',
-invoice,
+invoice:invoice,
 productId:item.productId,
-quantity:item.qty,
+quantity:Number(item.qty),
 date:dateNow()
 });
-
 });
 
 if(supplierId){
 
-const s=db.suppliers.find(x=>x.id===supplierId);
+const s=db.suppliers.find(x=>Number(x.id)===supplierId);
 
 if(s)s.balance+=total;
-
 }
 
 saveDB();
 
 purchaseCart=[];
-
 msg('purchaseMsg','تم حفظ فاتورة الشراء رقم '+invoice);
-
 renderAll();
-
 }
 
-
-/* ================= مرتجع المشتريات ================= */
+/* ===== مرتجع المشتريات ===== */
 
 function purchaseReturn(){
 
@@ -1526,7 +1205,12 @@ const id=Number(document.getElementById('prProduct').value);
 const qty=Number(document.getElementById('prQty').value)||0;
 const amount=Number(document.getElementById('prAmount').value)||0;
 
-const p=db.products.find(x=>x.id===id);
+const p=db.products.find(x=>Number(x.id)===id);
+
+if(!invoice){
+alert('أدخل رقم الفاتورة');
+return;
+}
 
 if(!p||qty<=0){
 alert('أدخل البيانات بشكل صحيح');
@@ -1538,21 +1222,42 @@ alert('المخزون غير كافٍ');
 return;
 }
 
+const purchase=db.purchases.find(x=>String(x.invoiceNumber)===String(invoice));
+
+if(!purchase){
+alert('رقم فاتورة الشراء غير موجود');
+return;
+}
+
+const bought=purchase.items
+.filter(i=>Number(i.productId)===id)
+.reduce((a,i)=>a+Number(i.qty),0);
+
+const returned=db.purchaseReturns
+.filter(r=>String(r.invoice)===String(invoice)&&Number(r.productId)===id)
+.reduce((a,r)=>a+Number(r.quantity),0);
+
+if(qty+returned>bought){
+alert('كمية المرتجع أكبر من الكمية الموجودة في الفاتورة');
+return;
+}
+
 db.purchaseReturns.push({
 id:db.counters.return++,
-invoice,
+invoice:invoice,
 productId:id,
 productName:p.name,
 quantity:qty,
-amount,
+amount:amount,
 date:dateNow()
 });
 
 p.stock-=qty;
 
 db.stockMovements.push({
+id:Date.now(),
 type:'purchaseReturn',
-invoice,
+invoice:invoice,
 productId:id,
 quantity:-qty,
 date:dateNow()
@@ -1562,11 +1267,9 @@ saveDB();
 renderAll();
 
 alert('تم حفظ مرتجع المشتريات');
-
 }
 
-
-/* ================= الحسابات ================= */
+/* ===== الحسابات ===== */
 
 function addMoney(type){
 
@@ -1590,7 +1293,7 @@ return;
 db[arr].push({
 id:Date.now(),
 description:desc,
-amount,
+amount:amount,
 date:dateNow()
 });
 
@@ -1599,9 +1302,7 @@ document.getElementById(a).value='';
 
 saveDB();
 renderAll();
-
 }
-
 
 function addJournal(){
 
@@ -1615,15 +1316,15 @@ return;
 }
 
 if(debit<=0||credit<=0||debit!==credit){
-alert('القيد غير متوازن');
+alert('القيد غير متوازن: يجب أن يتساوى المدين مع الدائن');
 return;
 }
 
 db.journals.push({
 id:Date.now(),
-description,
-debit,
-credit,
+description:description,
+debit:debit,
+credit:credit,
 date:dateNow()
 });
 
@@ -1634,11 +1335,9 @@ document.getElementById('journalDebit').value='';
 document.getElementById('journalCredit').value='';
 
 renderAll();
-
 }
 
-
-/* ================= المستخدمون ================= */
+/* ===== المستخدمون ===== */
 
 function addUser(){
 
@@ -1651,11 +1350,16 @@ alert('أدخل البيانات');
 return;
 }
 
+if(db.users.some(u=>u.username===username)){
+alert('اسم الدخول موجود مسبقًا');
+return;
+}
+
 db.users.push({
 id:db.counters.user++,
-name,
-username,
-role
+name:name,
+username:username,
+role:role
 });
 
 saveDB();
@@ -1664,11 +1368,9 @@ document.getElementById('userName').value='';
 document.getElementById('userUsername').value='';
 
 renderAll();
-
 }
 
-
-/* ================= الإعدادات ================= */
+/* ===== الإعدادات ===== */
 
 function saveSettings(){
 
@@ -1683,79 +1385,42 @@ taxRate:Number(document.getElementById('taxRate').value)||0
 };
 
 saveDB();
-
 renderAll();
 
 alert('تم حفظ الإعدادات');
-
 }
 
-
-/* ================= الأسماء ================= */
+/* ===== الأسماء ===== */
 
 function getCustomer(id){
-
 const c=db.customers.find(x=>Number(x.id)===Number(id));
-
 return c?c.name:'عميل نقدي';
-
 }
 
 function getSupplier(id){
-
 const s=db.suppliers.find(x=>Number(x.id)===Number(id));
-
 return s?s.name:'';
-
 }
 
+/* ===== القوائم ===== */
 
-/* ================= القوائم ================= */
-
-function options(id,list,first){
+function options(id,list,first=''){
 
 const e=document.getElementById(id);
-
 if(!e)return;
 
-e.innerHTML=first||'';
+e.innerHTML=first;
 
 list.forEach(x=>{
-
-e.innerHTML+=`
-<option value="${x.id}">
-${esc(x.name)}
-</option>
-`;
-
+e.innerHTML+=`<option value="${x.id}">${esc(x.name)}</option>`;
 });
-
 }
-
-
-/* ================= العرض ================= */
 
 function renderSelects(){
 
-options(
-'saleCustomer',
-db.customers,
-''
-);
-
-options(
-'quoteCustomer',
-db.customers,
-''
-);
-
-options(
-'purchaseSupplier',
-db.suppliers,
-'<option value="">اختر المورد</option>'
-);
-
-const products=db.products;
+options('saleCustomer',db.customers,'');
+options('quoteCustomer',db.customers,'');
+options('purchaseSupplier',db.suppliers,'<option value="">اختر المورد</option>');
 
 [
 'saleProduct',
@@ -1766,21 +1431,16 @@ const products=db.products;
 ].forEach(id=>{
 
 const e=document.getElementById(id);
-
 if(!e)return;
 
 e.innerHTML='<option value="">اختر المنتج</option>';
 
-products.forEach(p=>{
-
+db.products.forEach(p=>{
 e.innerHTML+=`
 <option value="${p.id}">
 ${esc(p.name)} - المخزون ${p.stock}
-</option>
-`;
-
+</option>`;
 });
-
 });
 
 const cat=document.getElementById('productCategory');
@@ -1792,39 +1452,32 @@ cat.innerHTML='<option value="">بدون تصنيف</option>';
 db.categories.forEach(c=>{
 cat.innerHTML+=`<option value="${c.id}">${esc(c.name)}</option>`;
 });
-
+}
 }
 
-}
-
+/* ===== العرض ===== */
 
 function renderProducts(){
 
 const t=document.getElementById('productsTable');
-
 if(!t)return;
 
-const search=
-document.getElementById('productSearch').value.trim().toLowerCase();
+const search=(document.getElementById('productSearch')?.value||'').trim().toLowerCase();
 
 let list=db.products;
 
 if(search){
-
 list=list.filter(p=>
-p.name.toLowerCase().includes(search)||
+String(p.name||'').toLowerCase().includes(search)||
 String(p.barcode||'').toLowerCase().includes(search)
 );
-
 }
 
 t.innerHTML='';
 
 if(!list.length){
-
 t.innerHTML='<tr><td colspan="9" class="empty">لا توجد منتجات</td></tr>';
 return;
-
 }
 
 list.forEach((p,i)=>{
@@ -1840,147 +1493,115 @@ t.innerHTML+=`
 <td>${money(p.salePrice)}</td>
 <td>${p.stock}</td>
 <td>${p.minStock}</td>
-<td>${low?
-'<span class="badge bad">منخفض</span>':
-'<span class="badge ok">متوفر</span>'}</td>
+<td>${low?'<span class="badge bad">منخفض</span>':'<span class="badge ok">متوفر</span>'}</td>
 <td><button class="btn red" onclick="deleteProduct(${p.id})">حذف</button></td>
-</tr>
-`;
-
+</tr>`;
 });
-
 }
-
 
 function renderCustomers(){
 
 const t=document.getElementById('customersTable');
+if(!t)return;
 
 t.innerHTML='';
 
 db.customers.forEach((c,i)=>{
-
 t.innerHTML+=`
 <tr>
 <td>${i+1}</td>
 <td>${esc(c.name)}</td>
 <td>${esc(c.phone)}</td>
 <td>${money(c.balance)}</td>
-<td>
-<button class="btn red" onclick="deleteCustomer(${c.id})">حذف</button>
-</td>
-</tr>
-`;
-
+<td><button class="btn red" onclick="deleteCustomer(${c.id})">حذف</button></td>
+</tr>`;
 });
-
 }
-
 
 function renderSuppliers(){
 
 const t=document.getElementById('suppliersTable');
+if(!t)return;
 
 t.innerHTML='';
 
 db.suppliers.forEach((s,i)=>{
-
 t.innerHTML+=`
 <tr>
 <td>${i+1}</td>
 <td>${esc(s.name)}</td>
 <td>${esc(s.phone)}</td>
 <td>${money(s.balance)}</td>
-<td>
-<button class="btn red" onclick="deleteSupplier(${s.id})">حذف</button>
-</td>
-</tr>
-`;
-
+<td><button class="btn red" onclick="deleteSupplier(${s.id})">حذف</button></td>
+</tr>`;
 });
-
 }
-
 
 function renderSales(){
 
 const t=document.getElementById('salesTable');
-
 if(!t)return;
 
-const search=
-document.getElementById('saleSearch').value.trim().toLowerCase();
+const search=(document.getElementById('saleSearch')?.value||'').trim().toLowerCase();
 
 let list=[...db.sales].reverse();
 
 if(search){
-
 list=list.filter(s=>
 String(s.invoiceNumber).includes(search)||
-String(s.customerName).toLowerCase().includes(search)
+String(s.customerName||'').toLowerCase().includes(search)
 );
-
 }
 
 t.innerHTML='';
 
 if(!list.length){
-
 t.innerHTML='<tr><td colspan="6" class="empty">لا توجد فواتير</td></tr>';
 return;
-
 }
 
 list.forEach(s=>{
-
 t.innerHTML+=`
 <tr>
 <td>${s.invoiceNumber}</td>
 <td>${dateText(s.date)}</td>
 <td>${esc(s.customerName)}</td>
 <td>${money(s.total)}</td>
-<td>${s.paymentType}</td>
-<td>
-<button class="btn blue" onclick="printSaleById(${s.id})">طباعة</button>
-</td>
-</tr>
-`;
-
+<td>${esc(s.paymentType)}</td>
+<td><button class="btn blue" onclick="printSaleById(${s.id})">طباعة</button></td>
+</tr>`;
 });
-
 }
-
 
 function renderPurchases(){
 
 const t=document.getElementById('purchasesTable');
+if(!t)return;
 
 t.innerHTML='';
 
 [...db.purchases].reverse().forEach(p=>{
-
 t.innerHTML+=`
 <tr>
 <td>${p.invoiceNumber}</td>
 <td>${dateText(p.date)}</td>
 <td>${esc(p.supplierName)}</td>
 <td>${money(p.total)}</td>
-</tr>
-`;
-
+</tr>`;
 });
 
+if(!db.purchases.length){
+t.innerHTML='<tr><td colspan="4" class="empty">لا توجد فواتير مشتريات</td></tr>';
 }
-
+}
 
 function renderReturns(){
 
 const a=document.getElementById('srTable');
-
+if(a){
 a.innerHTML='';
 
-db.salesReturns.forEach(r=>{
-
+[...db.salesReturns].reverse().forEach(r=>{
 a.innerHTML+=`
 <tr>
 <td>${dateText(r.date)}</td>
@@ -1988,17 +1609,19 @@ a.innerHTML+=`
 <td>${esc(r.productName)}</td>
 <td>${r.quantity}</td>
 <td>${money(r.amount)}</td>
-</tr>
-`;
-
+</tr>`;
 });
+
+if(!db.salesReturns.length)
+a.innerHTML='<tr><td colspan="5" class="empty">لا توجد مرتجعات</td></tr>';
+}
 
 const b=document.getElementById('prTable');
 
+if(b){
 b.innerHTML='';
 
-db.purchaseReturns.forEach(r=>{
-
+[...db.purchaseReturns].reverse().forEach(r=>{
 b.innerHTML+=`
 <tr>
 <td>${dateText(r.date)}</td>
@@ -2006,23 +1629,24 @@ b.innerHTML+=`
 <td>${esc(r.productName)}</td>
 <td>${r.quantity}</td>
 <td>${money(r.amount)}</td>
-</tr>
-`;
-
+</tr>`;
 });
 
+if(!db.purchaseReturns.length)
+b.innerHTML='<tr><td colspan="5" class="empty">لا توجد مرتجعات</td></tr>';
 }
-
+}
 
 function renderQuotes(){
 
 const t=document.getElementById('quotesTable');
+if(!t)return;
 
 t.innerHTML='';
 
-db.quotes.forEach(q=>{
+[...db.quotes].reverse().forEach(q=>{
 
-const i=q.items[0];
+const i=q.items?.[0];
 
 t.innerHTML+=`
 <tr>
@@ -2031,39 +1655,38 @@ t.innerHTML+=`
 <td>${esc(q.customerName)}</td>
 <td>${esc(i?.name||'')}</td>
 <td>${money(q.total)}</td>
-</tr>
-`;
-
+</tr>`;
 });
 
+if(!db.quotes.length)
+t.innerHTML='<tr><td colspan="5" class="empty">لا توجد عروض أسعار</td></tr>';
 }
-
 
 function renderJournals(){
 
 const t=document.getElementById('journalTable');
+if(!t)return;
 
 t.innerHTML='';
 
-db.journals.forEach(j=>{
-
+[...db.journals].reverse().forEach(j=>{
 t.innerHTML+=`
 <tr>
 <td>${dateText(j.date)}</td>
 <td>${esc(j.description)}</td>
 <td>${money(j.debit)}</td>
 <td>${money(j.credit)}</td>
-</tr>
-`;
-
+</tr>`;
 });
 
+if(!db.journals.length)
+t.innerHTML='<tr><td colspan="4" class="empty">لا توجد قيود</td></tr>';
 }
-
 
 function renderUsers(){
 
 const t=document.getElementById('usersTable');
+if(!t)return;
 
 t.innerHTML='';
 
@@ -2080,35 +1703,27 @@ t.innerHTML+=`
 <td>${i+1}</td>
 <td>${esc(u.name)}</td>
 <td>${esc(u.username)}</td>
-<td>${role}</td>
-</tr>
-`;
-
+<td>${esc(role)}</td>
+</tr>`;
 });
-
 }
-
 
 function renderCategories(){
 
 const e=document.getElementById('categoryList');
+if(!e)return;
 
 e.innerHTML='';
 
 db.categories.forEach(c=>{
-
 e.innerHTML+=`
 <span class="badge ok" style="margin:4px">
 ${esc(c.name)}
-</span>
-`;
-
+</span>`;
 });
-
 }
 
-
-/* ================= التقارير ================= */
+/* ===== التقارير ===== */
 
 function renderReports(){
 
@@ -2117,112 +1732,133 @@ const purchases=sum(db.purchases,'total');
 const expenses=sum(db.expenses,'amount');
 const returns=sum(db.salesReturns,'amount');
 
-document.getElementById('reportSales').textContent=money(sales);
-document.getElementById('reportPurchases').textContent=money(purchases);
-document.getElementById('reportExpenses').textContent=money(expenses);
-document.getElementById('reportNet').textContent=money(sales-returns);
+const rs=document.getElementById('reportSales');
+const rp=document.getElementById('reportPurchases');
+const re=document.getElementById('reportExpenses');
+const rn=document.getElementById('reportNet');
+
+if(rs)rs.textContent=money(sales);
+if(rp)rp.textContent=money(purchases);
+if(re)re.textContent=money(expenses);
+if(rn)rn.textContent=money(sales-returns);
 
 const t=document.getElementById('reportSalesTable');
+
+if(t){
 
 t.innerHTML='';
 
 [...db.sales].reverse().forEach(s=>{
-
 t.innerHTML+=`
 <tr>
 <td>${s.invoiceNumber}</td>
 <td>${dateText(s.date)}</td>
 <td>${esc(s.customerName)}</td>
 <td>${money(s.total)}</td>
-</tr>
-`;
-
+</tr>`;
 });
 
+if(!db.sales.length)
+t.innerHTML='<tr><td colspan="4" class="empty">لا توجد مبيعات</td></tr>';
+}
+
 const st=document.getElementById('reportStockTable');
+
+if(st){
 
 st.innerHTML='';
 
 db.products.forEach(p=>{
-
 st.innerHTML+=`
 <tr>
 <td>${esc(p.name)}</td>
 <td>${p.stock}</td>
 <td>${money(p.stock*p.purchasePrice)}</td>
 <td>${money(p.stock*p.salePrice)}</td>
-</tr>
-`;
-
+</tr>`;
 });
 
+if(!db.products.length)
+st.innerHTML='<tr><td colspan="4" class="empty">لا توجد منتجات</td></tr>';
+}
 }
 
-
-/* ================= الإحصائيات ================= */
+/* ===== الإحصائيات ===== */
 
 function renderStats(){
 
-document.getElementById('homeProducts').textContent=db.products.length;
-document.getElementById('homeCustomers').textContent=db.customers.length;
-document.getElementById('homeSales').textContent=db.sales.length;
-document.getElementById('homePurchases').textContent=db.purchases.length;
+const hp=document.getElementById('homeProducts');
+const hc=document.getElementById('homeCustomers');
+const hs=document.getElementById('homeSales');
+const hpu=document.getElementById('homePurchases');
 
-document.getElementById('receiptsTotal').textContent=
-money(sum(db.receipts,'amount'));
+if(hp)hp.textContent=db.products.length;
+if(hc)hc.textContent=db.customers.length;
+if(hs)hs.textContent=db.sales.length;
+if(hpu)hpu.textContent=db.purchases.length;
 
-document.getElementById('paymentsTotal').textContent=
-money(sum(db.payments,'amount'));
+const r=document.getElementById('receiptsTotal');
+const p=document.getElementById('paymentsTotal');
+const e=document.getElementById('expensesTotal');
+const i=document.getElementById('incomeTotal');
 
-document.getElementById('expensesTotal').textContent=
-money(sum(db.expenses,'amount'));
-
-document.getElementById('incomeTotal').textContent=
-money(sum(db.income,'amount'));
+if(r)r.textContent=money(sum(db.receipts,'amount'));
+if(p)p.textContent=money(sum(db.payments,'amount'));
+if(e)e.textContent=money(sum(db.expenses,'amount'));
+if(i)i.textContent=money(sum(db.income,'amount'));
 
 const today=new Date().toISOString().slice(0,10);
 
-const sales=db.sales.filter(x=>x.date.slice(0,10)===today);
-const returns=db.salesReturns.filter(x=>x.date.slice(0,10)===today);
+const sales=db.sales.filter(x=>String(x.date).slice(0,10)===today);
+const returns=db.salesReturns.filter(x=>String(x.date).slice(0,10)===today);
 
 const total=sum(sales,'total');
 const ret=sum(returns,'amount');
 
-document.getElementById('dailyCount').textContent=sales.length;
-document.getElementById('dailyTotal').textContent=money(total);
-document.getElementById('dailyReturn').textContent=money(ret);
-document.getElementById('dailyNet').textContent=money(total-ret);
+const dc=document.getElementById('dailyCount');
+const dt=document.getElementById('dailyTotal');
+const dr=document.getElementById('dailyReturn');
+const dn=document.getElementById('dailyNet');
 
+if(dc)dc.textContent=sales.length;
+if(dt)dt.textContent=money(total);
+if(dr)dr.textContent=money(ret);
+if(dn)dn.textContent=money(total-ret);
 }
 
-
-/* ================= الإعدادات ================= */
+/* ===== الإعدادات ===== */
 
 function renderSettings(){
 
 const s=db.settings;
 
-document.getElementById('company').value=s.companyName||'';
-document.getElementById('branch').value=s.branch||'';
-document.getElementById('phone').value=s.phone||'';
-document.getElementById('address').value=s.address||'';
-document.getElementById('taxNumber').value=s.taxNumber||'';
-document.getElementById('currency').value=s.currency||'ريال سعودي';
-document.getElementById('taxRate').value=s.taxRate??15;
+const ids={
+company:s.companyName||'',
+branch:s.branch||'',
+phone:s.phone||'',
+address:s.address||'',
+taxNumber:s.taxNumber||'',
+currency:s.currency||'ريال سعودي',
+taxRate:s.taxRate??15
+};
 
-document.getElementById('companyTop').textContent=
-s.companyName||'مؤسسة الرهيب';
+Object.keys(ids).forEach(id=>{
+const e=document.getElementById(id);
+if(e)e.value=ids[id];
+});
 
-document.getElementById('branchTop').textContent=
-s.branch||'الفرع الرئيسي';
+const ct=document.getElementById('companyTop');
+const bt=document.getElementById('branchTop');
 
+if(ct)ct.textContent=s.companyName||'مؤسسة الرهيب';
+if(bt)bt.textContent=s.branch||'الفرع الرئيسي';
 }
 
-
-/* ================= العرض الكامل ================= */
+/* ===== الكل ===== */
 
 function renderAll(){
 
+try{
 renderSelects();
 renderProducts();
 renderCustomers();
@@ -2239,36 +1875,32 @@ renderStats();
 renderSettings();
 renderSaleCart();
 renderPurchaseCart();
-
+}catch(e){
+console.error('renderAll:',e);
+}
 }
 
-
-/* ================= الطباعة ================= */
+/* ===== الطباعة ===== */
 
 function printSaleById(id){
 
-const sale=db.sales.find(x=>x.id===id);
+const sale=db.sales.find(x=>Number(x.id)===Number(id));
 
 if(sale)printSale(sale);
-
 }
-
 
 function printSale(sale){
 
 let rows='';
 
-sale.items.forEach(i=>{
-
+(sale.items||[]).forEach(i=>{
 rows+=`
 <tr>
 <td>${esc(i.name)}</td>
 <td>${i.qty}</td>
 <td>${money(i.price)}</td>
 <td>${money(i.total)}</td>
-</tr>
-`;
-
+</tr>`;
 });
 
 const html=`
@@ -2286,57 +1918,39 @@ th,td{border:1px solid #333;padding:8px;text-align:center}
 </style>
 </head>
 <body>
-
 <h2>${esc(db.settings.companyName)}</h2>
 <h3>فاتورة مبيعات</h3>
-
 <p>رقم الفاتورة: ${sale.invoiceNumber}</p>
 <p>التاريخ: ${dateText(sale.date)}</p>
 <p>العميل: ${esc(sale.customerName)}</p>
-
 <table>
-<thead>
-<tr>
-<th>الصنف</th>
-<th>الكمية</th>
-<th>السعر</th>
-<th>الإجمالي</th>
-</tr>
-</thead>
+<thead><tr><th>الصنف</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th></tr></thead>
 <tbody>${rows}</tbody>
 </table>
-
 <div class="total">
 الإجمالي: ${money(sale.total)} ${esc(db.settings.currency)}
 </div>
-
 <script>
 window.onload=function(){window.print();}
 <\/script>
-
 </body>
-</html>
-`;
+</html>`;
 
 const w=window.open('','_blank','width=800,height=700');
 
 if(!w){
-alert('اسمح بفتح نافذة الطباعة');
+alert('اسمح للمتصفح بفتح نافذة الطباعة');
 return;
 }
 
 w.document.write(html);
 w.document.close();
-
 }
 
+/* ===== تشغيل ===== */
 
-/* ================= التشغيل ================= */
-
-window.addEventListener('DOMContentLoaded',()=>{
-
+window.addEventListener('DOMContentLoaded',function(){
 loadDB();
-
 });
 
 </script>
